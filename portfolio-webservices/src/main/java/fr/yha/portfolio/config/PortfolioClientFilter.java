@@ -22,7 +22,7 @@ public class PortfolioClientFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-        logger.info("CustomFilter is invoked");
+        logger.info("Requête passée par le filter");
         chain.doFilter(request, response);
     }
 
