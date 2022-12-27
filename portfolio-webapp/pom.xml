@@ -46,12 +46,18 @@
     <finalName>portfolio-webapp</finalName>
     <plugins>
       <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+            <configuration>
+              <mainClass>fr.yha.portfolio.PortfolioWebservicesApplication</mainClass>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-maven-plugin -->
       <plugin>
@@ -59,7 +65,7 @@
         <artifactId>jetty-maven-plugin</artifactId>
         <version>9.4.49.v20220914</version>
 
-        <!--<configuration>
+        <configuration>
           <webApp>
             <contextPath>/portfolio-client</contextPath>
             <webInfIncludeJarPattern>.*/portfolio-[^/]*\.jar$</webInfIncludeJarPattern>
@@ -70,7 +76,7 @@
           </httpConnector>
           <stopPort>9001</stopPort>
           <stopKey>stop</stopKey>
-        </configuration>-->
+        </configuration>
       </plugin>
     </plugins>
   </build>
