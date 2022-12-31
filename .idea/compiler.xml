@@ -7,8 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="portfolio (1) (fr.yha)" />
-        <module name="portfolio-webapp" />
         <module name="portfolio-ws" />
+        <module name="portfolio-client" />
+        <module name="portfolio-webapp" />
       </profile>
     </annotationProcessing>
   </component>
