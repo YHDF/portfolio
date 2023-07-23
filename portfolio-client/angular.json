@@ -31,7 +31,17 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "**/*.gltf",
+                "input": "src/assets",
+                "output": "/assets/"
+              },
+              {
+                "glob": "**/*.glb",
+                "input": "src/assets",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "src/styles.scss"
