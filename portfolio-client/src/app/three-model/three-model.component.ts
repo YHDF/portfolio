@@ -30,7 +30,7 @@ export class ThreeModelComponent {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.toneMapping = THREE.NoToneMapping;
-    renderer.toneMappingExposure = .8;
+    //renderer.toneMappingExposure = 1.5; Not available for "NoToneMapping"
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Set shadow map type to PCFSoftShadowMap
 
@@ -51,7 +51,7 @@ export class ThreeModelComponent {
 
     // Load the GLTF model
     const loader = new GLTFLoader();
-    loader.load('./assets/3d-models/room.gltf', (gltf) => {
+    loader.load('./assets/3d-models/scene.gltf', (gltf) => {
       //console.log(gltf)
       const model = gltf.scene;
       scene.add(model);
@@ -73,6 +73,7 @@ export class ThreeModelComponent {
           }
           if(object.name === "PointLight"){
             object.distance = 15;
+            object.intensity = 2;
           }
 
           /*object.castShadow = true;
