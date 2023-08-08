@@ -1,0 +1,19 @@
+{
+  "renderer": {
+    "toneMapping": "NoToneMapping",
+    "toneMappingExposure": 1.5,
+    "shadowMap" : {
+      "enabled" : true,
+      "type": "THREE.PCFSoftShadowMap"
+    }
+  },
+  "scene" : {
+    "environment" : null
+  },
+  "camera": {
+    "position": {
+      "readOnly": true,
+      "value": [1, 6, 3]
+    }
+  }
+}

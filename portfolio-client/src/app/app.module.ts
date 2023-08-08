@@ -5,8 +5,7 @@ import {RouterModule, Routes } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {DashboardModule} from "./dashboard/dashboard.module";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-
+import {LightConfigService} from "./shared/light-config.service";
 
 const appRoutes: Routes = [
   {
@@ -26,7 +25,7 @@ const appRoutes: Routes = [
     DashboardModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [],
+  providers: [LightConfigService],
   bootstrap: [AppComponent],
   exports: [AppComponent]
 })
