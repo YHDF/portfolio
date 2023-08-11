@@ -1,7 +1,5 @@
 import {Component, ElementRef} from '@angular/core';
 import * as THREE from 'three';
-import {GLTFLoader} from 'three/examples/jsm/loaders/GLTFLoader';
-import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 import {gsap} from 'gsap';
 import {MotionPathPlugin} from 'gsap/MotionPathPlugin';
 import {ThreeModelBuilderService} from "./three-model-builder.service";
@@ -9,6 +7,9 @@ import {ThreeModel} from "./three-model";
 //json configurtion
 import * as threeModelConfig from '../../assets/json/three-config.json';
 import * as lightConfig from '../../assets/json/lights.json';
+import * as materialConfig from '../../assets/json/materials.json'
+import * as interactiveMeshesConfig from '../../assets/json/interactive-mesh.json'
+
 import {ThreeModelAnimationService} from "./three-model-animation.service";
 
 
@@ -27,8 +28,7 @@ export class ThreeModelComponent {
 
   ngAfterViewInit(): void {
     const canvas = this.el.nativeElement.querySelector('#room');
-
-    const threeModel: ThreeModel = this.threeModelBuilderService.createThreeModel(canvas, threeModelConfig, lightConfig)
+    const threeModel: ThreeModel = this.threeModelBuilderService.createThreeModel(canvas, threeModelConfig, lightConfig, materialConfig, interactiveMeshesConfig)
     threeModel.getRenderer().setSize(window.innerWidth, window.innerHeight);
     threeModel.getRenderer().setPixelRatio(window.devicePixelRatio);
     threeModel.getRenderer().toneMapping = THREE.NoToneMapping;
@@ -38,176 +38,12 @@ export class ThreeModelComponent {
 
     const threeAnimation = new ThreeModelAnimationService(threeModel.getScene(), threeModel.getCamera(), threeModel.getRenderer());
 
-    //threeAnimation.animate();
+    threeAnimation.onMouseClick(threeModel.getCamera(), threeModel.getScene(), this.threeModelBuilderService.getInteractiveGeometries(), materialConfig);
 
-
-    /*
-       To remove if betetr solution is found
-     */
-
-    const canvasWidth = 512;
-    const canvasHeight = 512;
-    const rectX = canvasWidth * 0.2; // 20% of the canvas width
-    const rectY = canvasHeight * 0.2; // 20% of the canvas height
-    const rectWidth = canvasWidth * 0.2; // 20% of the canvas width
-    const rectHeight = canvasHeight * 0.1; // 10% of the canvas height
-    let labelMesh: any; // Declare this variable at the top of your component
-    /*
-       To remove if betetr solution is found
-     */
-
-
-    function makeLabelCanvas(size: any, name: any) {
-      let menuCanvas = document.createElement('canvas');
-      menuCanvas.width = 512;
-      menuCanvas.height = 512;
-
-      let ctx: any = menuCanvas.getContext('2d');
-
-      // Draw background
-      ctx.fillStyle = '#40a3ff';
-      ctx.fillRect(0, 0, menuCanvas.width, menuCanvas.height);
-
-
-      // draw background
-      ctx.fillStyle = "#FD0";
-      ctx.fillRect(menuCanvas.width / 2 - 50, menuCanvas.height / 2 - 50, 50, 50);
-      ctx.fillStyle = "#6C0";
-      ctx.fillRect(menuCanvas.width / 2, menuCanvas.height / 2 - 50, 50, 50);
-      ctx.fillStyle = "#09F";
-      ctx.fillRect(menuCanvas.width / 2 - 50, menuCanvas.height / 2, 50, 50);
-      ctx.fillStyle = "#F30";
-      ctx.fillRect(menuCanvas.width / 2, menuCanvas.height / 2, 50, 50);
-
-      // set transparency value
-      ctx.globalAlpha = 1;
-
-
-      // Define the taskbar size and position
-      const taskbarHeight = 40;
-      const taskbarY = menuCanvas.height - taskbarHeight;
-
-      // Draw the taskbar background
-      ctx.fillStyle = '#FFF'; // Color of the taskbar
-      ctx.fillRect(0, taskbarY, menuCanvas.width, taskbarHeight);
-
-
-      // Draw some example icons on the taskbar
-      const iconSize = 30;
-      const iconSpacing = 10;
-      for (let i = 0; i < 5; i++) {
-        const iconX = iconSpacing + (iconSize + iconSpacing) * i;
-        const iconY = taskbarY + (taskbarHeight - iconSize) / 2;
-
-        // Draw icon rectangle (replace this with an actual icon image if needed)
-        ctx.fillStyle = '#444';
-        ctx.fillRect(iconX, iconY, iconSize, iconSize);
-
-        // Optional: Add a label for the icon
-        /*ctx.fillStyle = 'white';
-        ctx.font = '12px Arial';
-        ctx.fillText(`Icon${i}`, iconX, iconY + iconSize + 12);*/
-      }
-
-
-      //ading an icon on the desktop
-      ctx.fillStyle = '#0e1a29';
-      //ctx.fillRect(0, 0, menuCanvas.width, menuCanvas.height);
-
-      // Define the rectangle's position and size
-      ctx.fillStyle = 'red';
-      ctx.fillRect(rectX, rectY, rectWidth, rectHeight);
-
-
-      return ctx.canvas;
-    }
-    function handleRectangleClick() {
-      console.log('Rectangle clicked!');
-    }
-
-
-
-
-
-    const cnvs = makeLabelCanvas(3, "text");
-    let menuTexture = new THREE.CanvasTexture(cnvs);
-    menuTexture.flipY = false;
-    menuTexture.needsUpdate = true;
-    menuTexture.minFilter = THREE.LinearFilter;
-    menuTexture.wrapS = THREE.ClampToEdgeWrapping;
-    menuTexture.wrapT = THREE.ClampToEdgeWrapping;
-    const labelMaterial = new THREE.MeshBasicMaterial({
-      map: menuTexture,
-      //side: THREE.DoubleSide,
-      transparent: false,
-    });
-    //const labelGeometry = new THREE.PlaneGeometry(1, 1);
-    //const label = new THREE.Mesh(labelGeometry, labelMaterial);
-
-
-    const loader = new GLTFLoader();
-
-    // Load the GLTF model for the room
-    loader.load('./assets/3d-models/room.gltf', (gltf) => {
-      const objects = gltf.scene;
-      threeModel.getScene().add(objects);
-
-      objects.traverse((object: any) => {
-        if (!["DirectionalLight", "PointLight", "SpotLight"].includes(object.type)) {
-          object.castShadow = true;
-          object.receiveShadow = true;
-          if (object.name === 'Cube002_1' && object.isMesh) {
-            object.material = labelMaterial;
-            labelMesh = object; // Store the mesh
-            // Perform the necessary actions here
-            // such as opening the menu or changing the texture
-          }
-        }
-      });
-    }, undefined, function (error) {
-      console.error(error);
-    });
-
-
-
-    const raycaster = new THREE.Raycaster();
-    const mouse = new THREE.Vector2();
-
-    function onMouseClick(event: any) {
-      // calculate mouse position in normalized device coordinates
-      // (-1 to +1) for both components
-      mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-      mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-      // update the picking ray with the camera and mouse position
-      raycaster.setFromCamera(mouse, threeModel.getCamera());
-
-      // calculate objects intersecting the picking ray
-      const intersects = raycaster.intersectObjects(threeModel.getScene().children, true);
-
-      for (let i = 0; i < intersects.length; i++) {
-        const intersection: any = intersects[i].object;
-        if (intersection === labelMesh && intersection.isMesh) {
-          // Translate 3D coordinates to 2D
-          const uv = intersects[i].uv;
-          console.log(uv);
-          const x = uv!.x * 512; // Canvas width
-          const y = uv!.y * 512; // Canvas height
-
-          // Check if the click was inside the rectangle
-          console.log(x, y, rectY, rectHeight);
-          console.log(x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight);
-          if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
-            handleRectangleClick();
-          }
-        }
-      }
-    }
-
-    window.addEventListener('click', onMouseClick, false);
 
     threeAnimation.animate();
     threeAnimation.onResize();
+    //threeAnimation.onMouseMove()
     threeAnimation.animateCamera();
 
   }

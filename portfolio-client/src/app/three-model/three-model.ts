@@ -1,11 +1,18 @@
 import * as THREE from 'three';
+import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
+export type InteractiveGeometry = {
+  mesh : string,
+  children : string[]
+}
 export class ThreeModel {
   private static instance: ThreeModel;
 
-  public constructor(private renderer: THREE.WebGLRenderer, private camera: THREE.Camera, private scene: THREE.Scene, private lights: THREE.Light[]) {}
+  public constructor(private renderer: THREE.WebGLRenderer, private camera: THREE.Camera, private scene: THREE.Scene, private lights: THREE.Light[],
+                     private geometry: GLTFLoader, private materials : THREE.Material[]) {}
 
-  public static getInstance(renderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene, lights: THREE.Light[]): ThreeModel {
+  public static getInstance(renderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene, lights: THREE.Light[],
+                            geometry: GLTFLoader, material : THREE.Material[]): ThreeModel {
     if (!ThreeModel.instance) {
       // Construct the ThreeModel using the Builder pattern
       const builder = new ThreeModelBuilder();
@@ -14,6 +21,8 @@ export class ThreeModel {
         .setCamera(camera)
         .setScene(scene)
         .setLights(lights)
+        .setGeometry(geometry)
+        .setMaterials(material)
         .build();
     }
     return ThreeModel.instance;
@@ -34,6 +43,14 @@ export class ThreeModel {
     return this.lights;
   }
 
+  public getGeometry(): GLTFLoader {
+    return this.geometry;
+  }
+
+  public getMaterials(): THREE.Material[] {
+    return this.materials;
+  }
+
   // Other methods related to ThreeModel
 }
 
@@ -42,7 +59,8 @@ export class ThreeModelBuilder {
   private camera?: THREE.Camera;
   private scene?: THREE.Scene;
   private lights?: THREE.Light[] | any;
-
+  private geometry?: GLTFLoader | any;
+  private materials?: THREE.Material[] | any;
   setRenderer(renderer: THREE.WebGLRenderer): ThreeModelBuilder {
     this.renderer = renderer;
     return this;
@@ -58,15 +76,25 @@ export class ThreeModelBuilder {
     return this;
   }
 
+  setGeometry(geometry: GLTFLoader): ThreeModelBuilder {
+    this.geometry = geometry;
+    return this;
+  }
+
   setLights(lights: THREE.Light[]): ThreeModelBuilder {
     this.lights = lights;
     return this;
   }
 
+  setMaterials(materials: THREE.Material[]): ThreeModelBuilder {
+    this.materials = materials;
+    return this;
+  }
+
   build(): ThreeModel {
-    if (!this.renderer || !this.camera || !this.scene || !this.lights) {
+    if (!this.renderer || !this.camera || !this.scene || !this.lights || !this.geometry || !this.materials) {
       throw new Error('ThreeModel is not fully configured');
     }
-    return new ThreeModel(this.renderer, this.camera, this.scene, this.lights);
+    return new ThreeModel(this.renderer, this.camera, this.scene, this.lights, this.geometry, this.materials);
   }
 }

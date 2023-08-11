@@ -1,4 +1,5 @@
 export class ThreeModelConfigService {
+
   static applyProperties(target: any, source: any): void {
 
     Object.keys(source).forEach((key) => {

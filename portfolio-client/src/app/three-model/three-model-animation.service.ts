@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import {InteractiveGeometry} from "./three-model";
+import {MaterialConfigService} from "../shared/material-config.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,6 @@ export class ThreeModelAnimationService {
     this.camera = camera;
     this.renderer = renderer;
 
-    console.log(camera.position)
 
     // Set up orbit controls
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -22,15 +23,7 @@ export class ThreeModelAnimationService {
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
     this.controls.rotateSpeed = 0.5;
-    this.controls.addEventListener('change', () => this.renderer.render(this.scene, this.camera));
-  }
-
-  animate() {
-    // Animation loop logic goes here
-    requestAnimationFrame(() => this.animate());
-    // Update the 3D model or any other objects here
-    this.controls.update();
-    this.renderer.render(this.scene, this.camera);
+    this.controls.addEventListener('change', (event) => this.renderer.render(this.scene, this.camera));
   }
 
   onResize(){
@@ -43,14 +36,80 @@ export class ThreeModelAnimationService {
   }
 
   onMouseMove(){
-    window.addEventListener('mousemove', this.updateCameraPosition, false);
+    window.addEventListener('mousemove', (event) => this.updateCameraPosition(event), false);
   }
+
+  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materials : any){
+    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materials.materials)]), false);
+  }
+
+  findInteractiveIcons(meshes : InteractiveGeometry[] , materials: any[]) : any[] {
+    const interactiveIconsData : any[] = [];
+    materials.map((value, index) => {
+      meshes.map((value1, index1) => {
+        if(value.parentObject === value1.mesh){
+          value1.children?.map((value2, index2) => {
+            interactiveIconsData.push(value.items.find((element :any)  => element?.identifier === value2))
+          })
+        }
+      })
+    });
+    return interactiveIconsData;
+  }
+   calculateIntersects (event: any, camera : THREE.Camera, scene : THREE.Scene, icons: any[]) {
+     const raycaster = new THREE.Raycaster();
+     const mouse = new THREE.Vector2();
+    // calculate mouse position in normalized device coordinates
+    // (-1 to +1) for both components
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+    // update the picking ray with the camera and mouse position
+    raycaster.setFromCamera(mouse, camera);
+
+    // calculate objects intersecting the picking ray
+    const intersects = raycaster.intersectObjects(scene.children, true);
+
+    for (let i = 0; i < intersects.length; i++) {
+      const intersection: any = intersects[i].object;
+      for(let j = 0; j < icons.length; j++){
+        // Translate 3D coordinates to 2D
+        const uv = intersects[i].uv;
+        const x = uv!.x * 512; // Canvas width
+        const y = uv!.y * 512; // Canvas height
+        const materialConfigService = new MaterialConfigService();
+        const parentWidth = 512;
+        const parentHeight = 512;
+        const rectX = materialConfigService.evalValue(icons[j].position.x, {parentWidth})
+        const rectY = materialConfigService.evalValue(icons[j].position.y, {parentHeight})
+        const rectWidth = materialConfigService.evalValue(icons[j].dimensions.width, {parentWidth})
+        const rectHeight = materialConfigService.evalValue(icons[j].dimensions.height, {parentHeight})
+        // Check if the click was inside the rectangle
+        if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
+          console.log('Rectangle clicked!');
+        }
+      }
+    }
+  }
+
+
+
+
+  animate() {
+    // Animation loop logic goes here
+    requestAnimationFrame(() => this.animate());
+    // Update the 3D model or any other objects here
+    this.controls.update();
+    this.renderer.render(this.scene, this.camera);
+  }
+
+
   updateCameraPosition(event: any) {
     const target = new THREE.Vector3(-11, 2, -4);
 
     const mouseMoveTarget = new THREE.Vector3(-5, 4, -2)
     const radius = 5; // Radius of the circle
-    const angleFactor = 0.1; // Factor to reduce the range of angles, making movement slower
+    const angleFactor = 0.2; // Factor to reduce the range of angles, making movement slower
     const zMin = -4; // Minimum bound on the z-axis
     const zMax = 0;  // Maximum bound on the z-axis
     // Normalize the mouse position from -1 to 1

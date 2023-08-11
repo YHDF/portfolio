@@ -1,0 +1,181 @@
+{
+  "materials": [
+    {
+      "materialName" : "mainScreenMaterial",
+      "materialType" : "canvas",
+      "parentObject" : "Cube004_1",
+      "canvas" : {
+        "width" : 512,
+        "height" : 512
+      },
+      "items": [
+        {
+          "identifier" : "bg_002_1",
+          "label" : "background",
+          "color" : "#40a3ff",
+          "position" : {
+            "x": 0,
+            "y" : 0
+          },
+          "dimensions" : {
+            "width" : "parentWidth",
+            "height" : "parentHeight"
+          }
+        },
+        {
+          "identifier" : "logo-1_002_1",
+          "label" : "logo-1",
+          "color" : "#FD0",
+          "position" : {
+            "x": "parentWidth / 2 - 50",
+            "y" : "parentHeight / 2 - 50"
+          },
+          "dimensions" : {
+            "width" : 50,
+            "height" : 50
+          }
+        },
+        {
+          "identifier" : "logo-2_002_1",
+          "label" : "logo-2",
+          "color" : "#6C0",
+          "position" : {
+            "x": "parentWidth / 2",
+            "y" : "parentHeight / 2 - 50"
+          },
+          "dimensions" : {
+            "width" : 50,
+            "height" : 50
+          }
+        },
+        {
+          "identifier" : "logo-3_002_1",
+          "label" : "logo-3",
+          "color" : "#09F",
+          "position" : {
+            "x": "parentWidth / 2 - 50",
+            "y" : "parentHeight / 2"
+          },
+          "dimensions" : {
+            "width" : 50,
+            "height" : 50
+          }
+        },
+        {
+          "identifier" : "logo-4_002_1",
+          "label" : "logo-4",
+          "color" : "#F30",
+          "position" : {
+            "x": "parentWidth / 2",
+            "y" : "parentHeight / 2"
+          },
+          "dimensions" : {
+            "width" : 50,
+            "height" : 50
+          }
+        },
+        {
+          "identifier" : "taskbar_002_1",
+          "label" : "taskbar",
+          "color" : "#FFF",
+          "position" : {
+            "x": 0,
+            "y" : "parentHeight - 40"
+          },
+          "dimensions" : {
+            "width" : "parentWidth",
+            "height" : 40
+          }
+        },
+        {
+          "identifier" : "taskbar-icon_002_1",
+          "label" : "taskbar-icon",
+          "color" : "#444",
+          "spacing" : 10,
+          "count" : 5,
+          "position" : {
+            "x": "10 + (30 + 10) * index",
+            "y" : "parentHeight - 40 + (40 - 30) / 2"
+          },
+          "dimensions" : {
+            "width" : 30,
+            "height" : 30
+          }
+        },
+        {
+          "identifier" : "resume-icon_002_1",
+          "label" : "resume-icon",
+          "color" : "#037",
+          "spacing" : 10,
+          "count" : 5,
+          "position" : {
+            "x": 30,
+            "y" : 30
+          },
+          "dimensions" : {
+            "width" : 30,
+            "height" : 30
+          }
+        },
+        {
+          "identifier": "window_11_style",
+          "label": "Windows 11 Style Window",
+          "position": {
+            "x": "parentWidth * 0.05",
+            "y": "parentHeight * 0.08"
+          },
+          "dimensions": {
+            "width": "parentWidth * 0.90",
+            "height": "parentHeight * 0.80"
+          },
+          "titleBarHeight": "30",
+          "color": "#F0F0F0",
+          "titleBarColor": "#ADADAD"
+        },
+        {
+          "identifier": "minimize_button_002_1",
+          "label": "minimize_button",
+          "shape": "circle",
+          "color": "#FFC700",
+          "position": {
+            "x": "parentWidth - parentWidth * 0.2",
+            "y": "parentHeight * 0.09"
+          },
+          "dimensions": {
+            "width": 20,
+            "height": 20
+          }
+        },
+        {
+          "identifier": "maximize_button_002_1",
+          "label": "maximize_button",
+          "shape": "circle",
+          "color": "#00B140",
+          "position": {
+            "x": "parentWidth - parentWidth * 0.15",
+            "y": "parentHeight * 0.09"
+          },
+          "dimensions": {
+            "width": 20,
+            "height": 20
+          }
+        },
+        {
+          "identifier": "close_button_002_1",
+          "label": "close_button",
+          "shape": "circle",
+          "color": "#FC3D39",
+          "position": {
+            "x": "parentWidth - parentWidth * 0.1",
+            "y": "parentHeight * 0.09"
+          },
+          "dimensions": {
+            "width": 20,
+            "height": 20
+          }
+        }
+
+      ]
+    }
+  ]
+}
