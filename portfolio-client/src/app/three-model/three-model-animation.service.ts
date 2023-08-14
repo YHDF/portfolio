@@ -39,8 +39,8 @@ export class ThreeModelAnimationService {
     window.addEventListener('mousemove', (event) => this.updateCameraPosition(event), false);
   }
 
-  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materials : any){
-    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materials.materials)]), false);
+  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materials : any, __callback : (parentObject : string, onInit? : boolean, ) => THREE.Material[] ){
+    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materials.materials), __callback] ), false);
   }
 
   findInteractiveIcons(meshes : InteractiveGeometry[] , materials: any[]) : any[] {
@@ -49,14 +49,14 @@ export class ThreeModelAnimationService {
       meshes.map((value1, index1) => {
         if(value.parentObject === value1.mesh){
           value1.children?.map((value2, index2) => {
-            interactiveIconsData.push(value.items.find((element :any)  => element?.identifier === value2))
+            interactiveIconsData.push({parentMesh : value.parentObject, childrenConfig : value.items.find((element :any)  => element?.identifier === value2)})
           })
         }
       })
     });
     return interactiveIconsData;
   }
-   calculateIntersects (event: any, camera : THREE.Camera, scene : THREE.Scene, icons: any[]) {
+   calculateIntersects (event: any, camera : THREE.Camera, scene : THREE.Scene, icons: any[], __callback : (parentObject : string, onInit? : boolean) => THREE.Material[] ) {
      const raycaster = new THREE.Raycaster();
      const mouse = new THREE.Vector2();
     // calculate mouse position in normalized device coordinates
@@ -73,20 +73,30 @@ export class ThreeModelAnimationService {
     for (let i = 0; i < intersects.length; i++) {
       const intersection: any = intersects[i].object;
       for(let j = 0; j < icons.length; j++){
-        // Translate 3D coordinates to 2D
-        const uv = intersects[i].uv;
-        const x = uv!.x * 512; // Canvas width
-        const y = uv!.y * 512; // Canvas height
-        const materialConfigService = new MaterialConfigService();
-        const parentWidth = 512;
-        const parentHeight = 512;
-        const rectX = materialConfigService.evalValue(icons[j].position.x, {parentWidth})
-        const rectY = materialConfigService.evalValue(icons[j].position.y, {parentHeight})
-        const rectWidth = materialConfigService.evalValue(icons[j].dimensions.width, {parentWidth})
-        const rectHeight = materialConfigService.evalValue(icons[j].dimensions.height, {parentHeight})
-        // Check if the click was inside the rectangle
-        if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
-          console.log('Rectangle clicked!');
+        if (intersection.name === icons[j].parentMesh && intersection.isMesh) {
+          // Translate 3D coordinates to 2D
+          const uv = intersects[i].uv;
+          const x = uv!.x * 512; // Canvas width
+          const y = uv!.y * 512; // Canvas height
+          const materialConfigService = new MaterialConfigService();
+          const parentWidth = 512;
+          const parentHeight = 512;
+          const rectX = materialConfigService.evalValue(icons[j].childrenConfig.position.x, {parentWidth})
+          const rectY = materialConfigService.evalValue(icons[j].childrenConfig.position.y, {parentHeight})
+          const rectWidth = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.width, {parentWidth})
+          const rectHeight = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.height, {parentHeight})
+          // Check if the click was inside the rectangle
+          if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
+            console.log('Rectangle clicked!');
+            const redrawnMaterials : THREE.Material[] = [];
+            redrawnMaterials.push(...__callback.apply(this, [intersection.name]));
+            redrawnMaterials.push(...__callback.apply(this, [intersection.name]));
+            console.log(redrawnMaterials)
+            intersection.material = redrawnMaterials[1];
+            redrawnMaterials.map((value, index) => {
+
+            })
+          }
         }
       }
     }

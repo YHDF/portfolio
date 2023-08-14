@@ -4,6 +4,10 @@
     {
       "mesh" : "Cube002_1",
       "interactiveChildren" : ["resume-icon_002_1"]
+    },
+    {
+      "mesh" : "Cube004_1",
+      "interactiveChildren" : ["resume-icon_002_1"]
     }
   ]
 }

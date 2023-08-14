@@ -1,5 +1,6 @@
 type CanvasConfig = {
   materialName: string;
+  parentObject: string;
   canvas: HTMLCanvasElement;
 };
 
@@ -7,13 +8,13 @@ export class MaterialConfigService {
   constructor() {
   }
 
-  public createMaterialsFromConfig(config: any): HTMLCanvasElement[] {
+  public createMaterialsFromConfig(config: any, drawOnInit? : boolean): CanvasConfig[] {
     return config.materials.map((material: any) => {
-      return this.makeLabelCanvas(material).canvas;
+      return this.makeLabelCanvas(material, drawOnInit);
     });
   }
 
-  private makeLabelCanvas(materialConfig: any): CanvasConfig {
+  private makeLabelCanvas(materialConfig: any, drawOnInit? : boolean): CanvasConfig {
     const menuCanvas = document.createElement('canvas');
     menuCanvas.width = materialConfig.canvas.width;
     menuCanvas.height = materialConfig.canvas.height;
@@ -23,16 +24,18 @@ export class MaterialConfigService {
     const parentHeight = materialConfig.canvas.height;
 
     materialConfig.items.forEach((item: any) => {
-      if (item.count) {
-        for (let index = 0; index < item.count; index++) {
-          this.drawItem(ctx, item, parentWidth, parentHeight, index);
+      if(drawOnInit === undefined || !Object.hasOwn(item, 'drawOnInit') || item.drawOnInit === drawOnInit){
+        if (item.count) {
+          for (let index = 0; index < item.count; index++) {
+            this.drawItem(ctx, item, parentWidth, parentHeight, index);
+          }
+        } else {
+          this.drawItem(ctx, item, parentWidth, parentHeight);
         }
-      } else {
-        this.drawItem(ctx, item, parentWidth, parentHeight);
       }
     });
 
-    return {materialName: materialConfig.materialName, canvas: ctx.canvas};
+    return {materialName: materialConfig.materialName, parentObject : materialConfig.parentObject, canvas: ctx.canvas};
   }
 
   private drawItem(ctx: CanvasRenderingContext2D, item: any, parentWidth: number, parentHeight: number, index?: number) {
