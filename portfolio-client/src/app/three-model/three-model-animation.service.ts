@@ -2,22 +2,24 @@ import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import {InteractiveGeometry} from "./three-model";
-import {MaterialConfigService} from "../shared/material-config.service";
+import {AnimationConfig, InteractiveGeometry} from "./three-model";
+import {MaterialConfigService} from "../shared/services/material-config.service";
+import {AnimationConfigService} from "../shared/services/animation-config.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThreeModelAnimationService {
-  private controls: OrbitControls;
-
-  constructor(private readonly scene: THREE.Scene, private readonly camera: THREE.Camera, private readonly renderer: THREE.WebGLRenderer) {
+  private controls?: OrbitControls;
+  constructor(private readonly scene: THREE.Scene, private readonly camera: THREE.Camera, private readonly renderer: THREE.WebGLRenderer, private readonly animationConfigService: AnimationConfigService) {
     this.scene = scene;
     this.camera = camera;
     this.renderer = renderer;
-
-
     // Set up orbit controls
+    this.initControls();
+  }
+
+  initControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     this.controls.target.set(-11, 2, -4);
     this.controls.enableDamping = true;
@@ -39,8 +41,8 @@ export class ThreeModelAnimationService {
     window.addEventListener('mousemove', (event) => this.updateCameraPosition(event), false);
   }
 
-  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materials : any, __callback : (parentObject : string, onInit? : boolean, ) => THREE.Material[] ){
-    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materials.materials), __callback] ), false);
+  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materials : any, __callback : (parentObject : string, onInit? : boolean, ) => THREE.Material[], __toggleCallback : () => void ){
+    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materials.materials), __callback, __toggleCallback]), false);
   }
 
   findInteractiveIcons(meshes : InteractiveGeometry[] , materials: any[]) : any[] {
@@ -56,7 +58,7 @@ export class ThreeModelAnimationService {
     });
     return interactiveIconsData;
   }
-   calculateIntersects (event: any, camera : THREE.Camera, scene : THREE.Scene, icons: any[], __callback : (parentObject : string, onInit? : boolean) => THREE.Material[] ) {
+   calculateIntersects (event: any, camera : THREE.Camera, scene : THREE.Scene, icons: any[], __callback : (parentObject : string, onInit? : boolean) => THREE.Material[], __toggleCallback : () => void) {
      const raycaster = new THREE.Raycaster();
      const mouse = new THREE.Vector2();
     // calculate mouse position in normalized device coordinates
@@ -87,29 +89,19 @@ export class ThreeModelAnimationService {
           const rectHeight = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.height, {parentHeight})
           // Check if the click was inside the rectangle
           if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
-            console.log('Rectangle clicked!');
-            const redrawnMaterials : THREE.Material[] = [];
-            redrawnMaterials.push(...__callback.apply(this, [intersection.name]));
-            redrawnMaterials.push(...__callback.apply(this, [intersection.name]));
-            console.log(redrawnMaterials)
-            intersection.material = redrawnMaterials[1];
-            redrawnMaterials.map((value, index) => {
-
-            })
+            intersection.material = __callback.apply(this, [intersection.name])[0];
+            this.animateCamera(2, __toggleCallback);
           }
         }
       }
     }
   }
 
-
-
-
   animate() {
     // Animation loop logic goes here
     requestAnimationFrame(() => this.animate());
     // Update the 3D model or any other objects here
-    this.controls.update();
+    this.controls!.update();
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -141,41 +133,14 @@ export class ThreeModelAnimationService {
 
     // Keep the camera focused on the target
     this.camera.lookAt(target);
+
   }
 
+  animateCamera(animationId: number, __toggleCallback? : () => void) {
+    this.animationConfigService.animateCamera(gsap, this.camera, animationId, this.updateControls.bind(this), __toggleCallback);
+  }
 
-
-  animateCamera(duration: number = 2) {
-    // GSAP animation for moving the camera
-    let path = [
-      new THREE.Vector3(1, 6, 3),
-
-
-      new THREE.Vector3(-3, 4, 1),
-      new THREE.Vector3(-4, 4, 2),
-
-
-      new THREE.Vector3(-5, 4, -2),
-    ];
-
-    const curve = new THREE.CubicBezierCurve3(...path);
-    const points = curve.getPoints(50);
-
-    const target = new THREE.Vector3(-11, 2, -4);
-    let tl = gsap.timeline({repeat: 0, delay: 1});
-    for (let i = 0; i < points.length; i++) {
-      let pt = points[i];
-      tl.to(this.camera.position, {
-        duration: .05,
-        x: pt.x,
-        y: pt.y,
-        z: pt.z,
-        ease: "power1.inOut",
-        onUpdate: () => {
-          //controls.target = target;
-          this.camera.lookAt(target);
-        }
-      });
-    }
+  updateControls(target : THREE.Vector3) {
+    this.controls!.target = target;
   }
 }

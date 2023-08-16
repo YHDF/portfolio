@@ -1,11 +1,12 @@
 import {Injectable} from '@angular/core';
 import * as THREE from 'three';
-import {ThreeModelConfigService} from "../shared/three-model-config.service";
+import {ThreeModelConfigService} from "../shared/services/three-model-config.service";
 import {InteractiveGeometry, ThreeModel} from "./three-model";
-import {LightConfigService} from "../shared/light-config.service";
+import {LightConfigService} from "../shared/services/light-config.service";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
-import {MaterialConfigService} from "../shared/material-config.service";
+import {MaterialConfigService} from "../shared/services/material-config.service";
 
+import {DRACOLoader} from 'three/examples/jsm/loaders/DRACOLoader';
 
 @Injectable({
   providedIn: 'root',
@@ -39,10 +40,21 @@ export class ThreeModelBuilderService {
 
   createGeometry(scene: THREE.Scene, materials: THREE.Material[], materialConfig: any, interactiveMapConfig: any[]): GLTFLoader {
     //    MaterialConfigService.getMaterialParentObjects(materialConfig);
+
+    // Instantiate a loader
+    const dracoLoader = new DRACOLoader();
+
+    // Specify path to a folder containing WASM/JS decoding libraries.
+    dracoLoader.setDecoderPath('./assets/draco/');
+
+    // Optional: Pre-fetch Draco WASM/JS module.
+    dracoLoader.preload();
+
     const loader = new GLTFLoader();
+    loader.setDRACOLoader(dracoLoader);
 
     // Load the GLTF model for the room
-    loader.load('./assets/3d-models/room.gltf', (gltf) => {
+    loader.load('./assets/3d-models/Room.glb', (gltf) => {
       const objects = gltf.scene;
       scene.add(objects);
       objects.traverse((object: any) => {
@@ -70,7 +82,7 @@ export class ThreeModelBuilderService {
   }
 
 
-  createMaterials(materialConfig: any, drawOnInit? : boolean, parentObject? : string): THREE.Material[] {
+  createMaterials(materialConfig: any, drawOnInit?: boolean, parentObject?: string): THREE.Material[] {
     const materials: THREE.Material[] = [];
     const canvasConfig = new MaterialConfigService().createMaterialsFromConfig(materialConfig, drawOnInit);
     canvasConfig.filter((value) => !parentObject || value.parentObject === parentObject).map((value, index) => {

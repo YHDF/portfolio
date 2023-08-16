@@ -1,6 +1,22 @@
 import * as THREE from 'three';
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 
+export interface Animation {
+  animationId: number;
+  duration: number;
+  path: number[][];
+  target: number[];
+  repeat: number;
+  numPoints: number;
+  ease: string;
+  delay: number;
+}
+
+export interface AnimationConfig {
+  animations: Animation[];
+}
+
+
 export type InteractiveGeometry = {
   mesh : string,
   children : string[]

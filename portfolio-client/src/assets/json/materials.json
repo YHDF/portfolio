@@ -137,7 +137,7 @@
             "height": "parentHeight * 0.80"
           },
           "titleBarHeight": "30",
-          "color": "#F0F0F0",
+          "color": "#6583A1",
           "titleBarColor": "#ADADAD",
           "drawOnInit" : false
         },

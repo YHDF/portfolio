@@ -4,8 +4,8 @@ import {RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import {LightConfigService} from "./shared/services/light-config.service";
 import {DashboardModule} from "./dashboard/dashboard.module";
-import {LightConfigService} from "./shared/light-config.service";
 
 const appRoutes: Routes = [
   {
@@ -17,7 +17,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +25,6 @@ const appRoutes: Routes = [
     DashboardModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [LightConfigService],
   bootstrap: [AppComponent],
   exports: [AppComponent]
 })

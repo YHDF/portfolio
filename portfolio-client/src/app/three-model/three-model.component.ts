@@ -1,16 +1,19 @@
-import {Component, ElementRef} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject} from '@angular/core';
 import * as THREE from 'three';
 import {gsap} from 'gsap';
 import {MotionPathPlugin} from 'gsap/MotionPathPlugin';
 import {ThreeModelBuilderService} from "./three-model-builder.service";
-import {ThreeModel} from "./three-model";
+import {AnimationConfig, ThreeModel} from "./three-model";
 import {ThreeModelAnimationService} from "./three-model-animation.service";
 
 //json configurtion
 import * as threeModelConfig from '../../assets/json/three-config.json';
 import * as lightConfig from '../../assets/json/lights.json';
-import * as materialConfig from '../../assets/json/materials.json'
-import * as interactiveMapConfig from '../../assets/json/interactive-map.json'
+import * as materialConfig from '../../assets/json/materials.json';
+import * as interactiveMapConfig from '../../assets/json/interactive-map.json';
+import {ANIMATION_CONFIG_TOKEN} from "./animation-config.token";
+import {AnimationConfigService} from "../shared/services/animation-config.service";
+
 
 gsap.registerPlugin(MotionPathPlugin);
 
@@ -19,8 +22,12 @@ gsap.registerPlugin(MotionPathPlugin);
   templateUrl: './three-model.component.html',
   styleUrls: ['./three-model.component.scss']
 })
-export class ThreeModelComponent {
-  constructor(private el: ElementRef,
+export class ThreeModelComponent implements AfterViewInit {
+
+  showMe = false;
+
+  constructor(private animationConfigService: AnimationConfigService,
+              private el: ElementRef,
               private threeModelBuilderService: ThreeModelBuilderService) {}
 
   ngAfterViewInit(): void {
@@ -33,20 +40,28 @@ export class ThreeModelComponent {
       threeModel.getScene().add(value);
     });
 
-    const threeAnimation = new ThreeModelAnimationService(threeModel.getScene(), threeModel.getCamera(), threeModel.getRenderer());
+    const threeAnimation = new ThreeModelAnimationService(threeModel.getScene(), threeModel.getCamera(), threeModel.getRenderer(), this.animationConfigService);
 
-    threeAnimation.onMouseClick(threeModel.getCamera(), threeModel.getScene(), this.threeModelBuilderService.getInteractiveGeometries(), materialConfig, this.redraw);
+    threeAnimation.onMouseClick(threeModel.getCamera(), threeModel.getScene(), this.threeModelBuilderService.getInteractiveGeometries(), materialConfig, this.redraw, this.toggleMe.bind(this));
 
 
     threeAnimation.animate();
     threeAnimation.onResize();
     //threeAnimation.onMouseMove()
-    threeAnimation.animateCamera();
+    threeAnimation.animateCamera(1);
 
+
+  }
+
+
+  toggleMe(): void {
+    this.showMe = !this.showMe;
   }
 
   redraw(parentObject : string, onInit? : boolean): THREE.Material[] {
     this.threeModelBuilderService = new ThreeModelBuilderService();
     return this.threeModelBuilderService.createMaterials(materialConfig, onInit, parentObject);
   }
+
+
 }
