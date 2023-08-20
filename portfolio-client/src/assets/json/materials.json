@@ -5,8 +5,8 @@
       "materialType" : "canvas",
       "parentObject" : "Cube002_1",
       "canvas" : {
-        "width" : 512,
-        "height" : 512
+        "width" : 1366,
+        "height" : 768
       },
       "items": [
         {
@@ -136,8 +136,8 @@
             "width": "parentWidth * 0.90",
             "height": "parentHeight * 0.80"
           },
-          "titleBarHeight": "30",
-          "color": "#6583A1",
+          "titleBarHeight": "50",
+          "color": "#1F2930",
           "titleBarColor": "#ADADAD",
           "drawOnInit" : false
         },
@@ -147,12 +147,12 @@
           "shape": "circle",
           "color": "#FFC700",
           "position": {
-            "x": "parentWidth - parentWidth * 0.2",
+            "x": "parentWidth - parentWidth * 0.09",
             "y": "parentHeight * 0.09"
           },
           "dimensions": {
-            "width": 20,
-            "height": 20
+            "width": 30,
+            "height": 30
           },
           "drawOnInit" : false
         },
@@ -162,12 +162,12 @@
           "shape": "circle",
           "color": "#00B140",
           "position": {
-            "x": "parentWidth - parentWidth * 0.15",
+            "x": "parentWidth - parentWidth * 0.12",
             "y": "parentHeight * 0.09"
           },
           "dimensions": {
-            "width": 20,
-            "height": 20
+            "width": 30,
+            "height": 30
           },
           "drawOnInit" : false
         },
@@ -177,12 +177,12 @@
           "shape": "circle",
           "color": "#FC3D39",
           "position": {
-            "x": "parentWidth - parentWidth * 0.1",
+            "x": "parentWidth - parentWidth * 0.15",
             "y": "parentHeight * 0.09"
           },
           "dimensions": {
-            "width": 20,
-            "height": 20
+            "width": 30,
+            "height": 30
           },
           "drawOnInit" : false
         }
@@ -192,10 +192,10 @@
     {
       "materialName" : "mainScreenMaterial",
       "materialType" : "canvas",
-      "parentObject" : "Cube004_1",
+      "parentObject" : "Cube006_1",
       "canvas" : {
-        "width" : 512,
-        "height" : 512
+        "width" : 1366,
+        "height" : 768
       },
       "items": [
         {
@@ -325,8 +325,8 @@
             "width": "parentWidth * 0.90",
             "height": "parentHeight * 0.80"
           },
-          "titleBarHeight": "30",
-          "color": "#F0F0F0",
+          "titleBarHeight": "50",
+          "color": "#43576B",
           "titleBarColor": "#ADADAD",
           "drawOnInit" : false
         },
@@ -336,12 +336,12 @@
           "shape": "circle",
           "color": "#FFC700",
           "position": {
-            "x": "parentWidth - parentWidth * 0.2",
+            "x": "parentWidth - parentWidth * 0.09",
             "y": "parentHeight * 0.09"
           },
           "dimensions": {
-            "width": 20,
-            "height": 20
+            "width": 30,
+            "height": 30
           },
           "drawOnInit" : false
         },
@@ -351,12 +351,12 @@
           "shape": "circle",
           "color": "#00B140",
           "position": {
-            "x": "parentWidth - parentWidth * 0.15",
+            "x": "parentWidth - parentWidth * 0.12",
             "y": "parentHeight * 0.09"
           },
           "dimensions": {
-            "width": 20,
-            "height": 20
+            "width": 30,
+            "height": 30
           },
           "drawOnInit" : false
         },
@@ -366,12 +366,12 @@
           "shape": "circle",
           "color": "#FC3D39",
           "position": {
-            "x": "parentWidth - parentWidth * 0.1",
+            "x": "parentWidth - parentWidth * 0.15",
             "y": "parentHeight * 0.09"
           },
           "dimensions": {
-            "width": 20,
-            "height": 20
+            "width": 30,
+            "height": 30
           },
           "drawOnInit" : false
         }

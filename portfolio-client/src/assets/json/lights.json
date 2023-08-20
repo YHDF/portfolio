@@ -4,12 +4,12 @@
       "name" : "PointLight",
       "type" : "PointLight",
       "HexColorCode" : "99C1F1",
-      "intensity" : 0.1,
-      "distance" : 2,
+      "intensity" : 0.3,
+      "distance" : 5,
       "position" : {
         "x" : "-9.522",
         "y" : "3.273",
-        "z" : "1.863"
+        "z" : "0"
       }
     },
     {
@@ -25,67 +25,31 @@
       }
     },
     {
-      "name" : "PointLight_4",
-      "type" : "PointLight",
-      "HexColorCode" : "2EC27E",
-      "intensity" : 2,
-      "distance" : 2.5,
-      "position" : {
-        "x" : "-11.089",
-        "y" : "3.926",
-        "z" : "-2.215"
-      }
-    },
-    {
       "name" : "PointLight_6",
       "type" : "PointLight",
-      "HexColorCode" : "1C71D8",
-      "intensity" : 3,
-      "distance" : 2.5,
+      "HexColorCode" : "FFFFFF",
+      "intensity" : 0.2,
+      "distance" : 4,
       "position" : {
-        "x" : "-11.089",
-        "y" : "3.926",
-        "z" : "-4.194"
+        "x" : "-9.5",
+        "y" : "3",
+        "z" : "-3.9"
       }
     },
     {
       "name" : "PointLight_8",
       "type" : "PointLight",
-      "HexColorCode" : "F5C211",
-      "intensity" : 2,
-      "distance" : 2.5,
+      "HexColorCode" : "FFFFFF",
+      "intensity" : 0.05,
+      "distance" : 15,
       "position" : {
-        "x" : "-11.089",
-        "y" : "3.926",
-        "z" : "-6.039"
+        "x" : "-9",
+        "y" : "1",
+        "z" : "-3.5"
       }
     },
     {
       "name" : "PointLight_10",
-      "type" : "PointLight",
-      "HexColorCode" : "FFBE6F",
-      "intensity" : 0.5,
-      "distance" : 4,
-      "position" : {
-        "x" : "-9.360",
-        "y" : "1.002",
-        "z" : "-6.351"
-      }
-    },
-    {
-      "name" : "PointLight_12",
-      "type" : "PointLight",
-      "HexColorCode" : "A6808C",
-      "intensity" : 1,
-      "distance" : 4,
-      "position" : {
-        "x" : "-9.360",
-        "y" : "1.002",
-        "z" : "-1.756"
-      }
-    },
-    {
-      "name" : "PointLight_14",
       "type" : "PointLight",
       "HexColorCode" : "99C1F1",
       "intensity" : 0.05,
@@ -110,7 +74,7 @@
       }
     },
     {
-      "name" : "PointLight_16",
+      "name" : "PointLight_12",
       "type" : "PointLight",
       "HexColorCode" : "99C1F1",
       "intensity" : 0.3,
@@ -122,10 +86,10 @@
       }
     },
     {
-      "name" : "PointLight_18",
+      "name" : "PointLight_14",
       "type" : "PointLight",
       "HexColorCode" : "99C1F1",
-      "intensity" : 0.3,
+      "intensity" : 0.1,
       "distance" : 10,
       "position" : {
         "x" : "-9.544",

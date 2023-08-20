@@ -63,6 +63,7 @@ export class ThreeModelBuilderService {
           object.receiveShadow = true;
           for (let i = 0; i < materialConfig.materials.length; i++) {
             if (object.name === materialConfig.materials[i].parentObject && object.isMesh) {
+              console.log(object.material)
               object.material = materials[i];
               const geometry: InteractiveGeometry = {
                 mesh: object.name,

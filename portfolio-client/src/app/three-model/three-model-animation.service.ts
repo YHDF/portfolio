@@ -78,11 +78,11 @@ export class ThreeModelAnimationService {
         if (intersection.name === icons[j].parentMesh && intersection.isMesh) {
           // Translate 3D coordinates to 2D
           const uv = intersects[i].uv;
-          const x = uv!.x * 512; // Canvas width
-          const y = uv!.y * 512; // Canvas height
+          const x = uv!.x * 1366; // Canvas width
+          const y = uv!.y * 768; // Canvas height
           const materialConfigService = new MaterialConfigService();
-          const parentWidth = 512;
-          const parentHeight = 512;
+          const parentWidth = 1366;
+          const parentHeight = 768;
           const rectX = materialConfigService.evalValue(icons[j].childrenConfig.position.x, {parentWidth})
           const rectY = materialConfigService.evalValue(icons[j].childrenConfig.position.y, {parentHeight})
           const rectWidth = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.width, {parentWidth})
