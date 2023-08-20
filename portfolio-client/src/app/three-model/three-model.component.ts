@@ -24,7 +24,7 @@ gsap.registerPlugin(MotionPathPlugin);
 })
 export class ThreeModelComponent implements AfterViewInit {
 
-  showMe = true;
+  showMe = false;
 
   constructor(private animationConfigService: AnimationConfigService,
               private el: ElementRef,
