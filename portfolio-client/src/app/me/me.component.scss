@@ -1,53 +1,102 @@
-
+// imports & declaration
 @font-face {
   font-family: 'Anton';
   src: url("../../assets/fonts/Anton-Regular.ttf");
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+
+//styles
 .upper-ctn{
   position: absolute;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #29313B;
+  background: #212529;
   font-family:  'Anton';
   animation-name: bg-color-change;
   animation-duration: 1s;
-}
-.header {
-  height: 15%;
+  overflow: scroll;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  /*
+    Introduced in IE 10.
+    See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+  */
+  -ms-user-select: none;
+  user-select: none;
+  /*
+  */
+  overflow: hidden;
 }
 
-.header > section{
-  display: inline-block;
+.upper-ctn *{
+  /*opacity: 0;
+  animation-name: content-opacity-change;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;*/
+}
+
+.header {
+  all: revert;
+}
+
+.header {
+  margin-top: 1vh;
+  display: flex; /* sets up a flex container */
+  justify-content: space-between; /* places children on opposite sides */
+}
+
+.header section:hover {
+  cursor: pointer;
 }
 
 .about{
   margin-right: auto;
   margin-left: 3%;
-  width: 12%;
   height: 100%;
 }
 
 .contact{
-  margin-left: 70%;
+  width: fit-content;
   margin-right: 3%;
-  width: 12%;
-  height: 100%;
 }
 
 .header section {
-  border-bottom: 0.01em solid #FEFAE0;
+  border-bottom: 0.01em solid rgb(255, 200, 124);
   border-bottom-width: 0.0009em;
 }
 
-.header section h1 {
+.header section.about h1, .header section.contact h1, main section.main h1.name{
   text-align: center;
   font-weight: bolder;
   font-size: 2.5em;
-  color : #FEFAE0;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  white-space: nowrap;
 }
+
+main section.main p.title{
+  font-size: 1.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+}
+
+main section.main p.description{
+  margin-top: 5vh;
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: lighter;
+}
+
 section.main{
   text-align: center;
   font-weight: bolder;
@@ -55,7 +104,75 @@ section.main{
   color : #FEFAE0;
 }
 
+section.main .info-btn-ctn{
+  margin-top: 15vh;
+  display: flex; /* uses the Flexible Box Layout */
+  flex-direction: column; /* stacks the children vertically */
+  align-items: center; /* centers the children horizontally */
+}
+
+section.main .info-btn-ctn button{
+  border: 3px solid rgb(255, 200, 124);
+  margin-right: 1vw;
+  margin-top: 3vh;
+  background: none;
+  height: fit-content;
+  padding: .5vh 1vw; /* Resetting the padding */
+  display: inline-flex; /* Flex layout to align the text properly */
+  align-items: center; /* Centering the span vertically */
+}
+
+section.main .info-btn-ctn button span{
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.slideL-ref{
+  animation-name: slideL;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+
+.slideR-ref{
+  animation-name: slideR;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+//transitions
+section.main .info-btn-ctn button:hover{
+  background: rgba(255, 255, 255, .3);
+}
+
+
+//animations
 @keyframes bg-color-change {
   from {background: #3B4D59;}
   to {background: #29313B;}
+}
+
+@keyframes content-opacity-change {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes slideL {
+  from {transform: translateX(0);}
+  to {transform: translateX(-100vw);}
+}
+
+@keyframes slideR {
+  from {transform: translateX(0);}
+  to {transform: translateX(100vw);}
 }

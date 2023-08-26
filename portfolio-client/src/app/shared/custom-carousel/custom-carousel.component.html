@@ -1,0 +1,18 @@
+<c-carousel  class="carousel-dimensions">
+  <c-carousel-indicators></c-carousel-indicators>
+  <c-carousel-inner>
+    <c-carousel-item *ngFor="let slide of slides">
+      <div class="slide-bg">
+        <div class="project-title">
+          <h1>Portfolio</h1>
+          <p>lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum </p>
+        </div>
+        <div class="project-main-technology">
+          <h1>JS</h1>
+        </div>
+      </div>
+    </c-carousel-item>
+  </c-carousel-inner>
+  <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+  <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+</c-carousel>

@@ -1,5 +1,5 @@
 import {Inject, Injectable} from '@angular/core';
-import * as THREE from 'three';
+import { THREE } from '../../three-model/three-wrapper';
 import {AnimationConfig} from "../../three-model/three-model";
 import {ANIMATION_CONFIG_TOKEN} from "../../three-model/animation-config.token";
 

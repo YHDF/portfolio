@@ -1,4 +1,4 @@
-import * as THREE from 'three';
+import { THREE } from '../../three-model/three-wrapper';
 import {  ThreeModelConfigService} from "./three-model-config.service";
 
 export class LightConfigService {

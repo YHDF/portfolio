@@ -9,9 +9,30 @@
         <h1>WRITE ME</h1>
       </section>
     </div>
-    <section class="main">
-      <h1>YOUNESS H.</h1>
+    <section *ngIf="!showProjects && !showWork else elseBlock" class="main">
+      <h1 #slideR class="name">YOUNESS H.</h1>
+      <p #slideR class="title">Software developer</p>
+      <p #slideR class="description">Crafting beautiful and intuitive user interfaces is my passion.</p>
+      <div class="info-btn-ctn">
+        <button #slideL (click)="clearScreenAnimation()"><span>Projects</span></button>
+        <button #slideL><span>Work</span></button>
+        <button #slideL><span>Quit</span></button>
+          <!--
+          <div class="link-ctn">
+          <a class="title" href="#">Github</a>
+          <a class="title" href="#">Linkedin</a>
+          <a class="title" href="#">Gmail</a>
+          </div>-->
+        </div>
+
     </section>
+
+    <ng-template #elseBlock>
+      <app-custom-carousel></app-custom-carousel>
+    </ng-template>
+
+
+
 
   </main>
 </div>

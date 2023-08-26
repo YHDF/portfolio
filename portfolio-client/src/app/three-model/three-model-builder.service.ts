@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import * as THREE from 'three';
+import { THREE } from './three-wrapper';
 import {ThreeModelConfigService} from "../shared/services/three-model-config.service";
 import {InteractiveGeometry, ThreeModel} from "./three-model";
 import {LightConfigService} from "../shared/services/light-config.service";

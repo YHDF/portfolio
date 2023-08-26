@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as THREE from 'three';
+import { THREE } from './three-wrapper';
 import { gsap } from 'gsap';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import {AnimationConfig, InteractiveGeometry} from "./three-model";
