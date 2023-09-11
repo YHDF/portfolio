@@ -1,4 +1,4 @@
-package fr.yha.portfolio.config;
+package fr.yha.portfolio.config.filter;
 
 
 import org.slf4j.Logger;

@@ -1,0 +1,18 @@
+<ehcache xmlns:xsi="file:///home/ynshdf/webdev/portfolio/portfolio-webapp/src/main/resources/ehcache.xsd" xsi:noNamespaceSchemaLocation="ehcache.xsd" updateCheck="true" monitoring="autodetect"
+         dynamicConfig="true">
+
+    <diskStore path="java.io.tmpdir"/>
+
+    <transactionManagerLookup class="net.sf.ehcache.transaction.manager.DefaultTransactionManagerLookup" properties="jndiName=java:/TransactionManager" propertySeparator=";"/>
+
+    <cacheManagerEventListenerFactory class="" properties=""/>
+
+    <defaultCache maxEntriesLocalHeap="0" eternal="false" timeToIdleSeconds="1200" timeToLiveSeconds="1200">
+
+    </defaultCache>
+    <cache name="github-repositories" maxEntriesLocalHeap="10000" maxEntriesLocalDisk="1000" eternal="false" diskSpoolBufferSizeMB="20" timeToIdleSeconds="300" timeToLiveSeconds="600" memoryStoreEvictionPolicy="LFU" transactionalMode="off">
+        <persistence strategy="localTempSwap"/>
+    </cache>
+
+
+</ehcache>

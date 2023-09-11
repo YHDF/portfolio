@@ -1,4 +1,4 @@
-package fr.yha.portfolio.controller;
+package fr.yha.portfolio.webservices.controller;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

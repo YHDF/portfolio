@@ -23,23 +23,18 @@
   <name>portfolio-webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+
+    <!--Uncomment to enable tomcat deployement-->
+    <!--<dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>-->
+
     <dependency>
       <groupId>fr.yha</groupId>
       <artifactId>portfolio-ws</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
-
   </dependencies>
 
   <build>
@@ -48,14 +43,18 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>2.5.7</version>
+        <configuration>
+          <mainClass>fr.yha.portfolio.PortfolioWebservicesApplication</mainClass>
+          <layout>ZIP</layout>
+          <includeSystemScope>true</includeSystemScope>
+        </configuration>
         <executions>
           <execution>
             <goals>
+              <!--switch the goal to 'run' to tomcat deployement-->
               <goal>repackage</goal>
             </goals>
-            <configuration>
-              <mainClass>fr.yha.portfolio.PortfolioWebservicesApplication</mainClass>
-            </configuration>
           </execution>
         </executions>
       </plugin>
