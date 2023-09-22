@@ -9,6 +9,7 @@
       <list>
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/portfolio-client/pom.xml" />
+        <option value="$PROJECT_DIR$/portfolio-batch/pom.xml" />
       </list>
     </option>
   </component>

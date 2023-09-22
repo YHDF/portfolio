@@ -1,0 +1,34 @@
+<section *ngIf="repositories?.length != 0 else elseBlock">
+  <c-carousel  class="carousel-dimensions">
+    <c-carousel-indicators></c-carousel-indicators>
+    <c-carousel-inner>
+      <c-carousel-item *ngFor="let repo of repositories">
+        <div class="slide-bg">
+          <div class="project-title">
+            <h1>{{repo.name}}</h1>
+            <p>{{repo.description}}</p>
+          </div>
+          <div class="project-metadata">
+            <div class="repository-metadata">
+              <p>Main technology : {{repo.language}}</p>
+              <p>Created : {{repo.created_at | date:'dd/MM/yyyy'}}</p>
+              <p>Licences : {{repo.license}}</p>
+            </div>
+            <div class="user-metadata">
+              <img src="{{repo.owner.avatar_url}}">
+              <p>Owner username  : {{repo.owner.login}}</p>
+              <a href="{{repo.owner.html_url}}" target="_blank">Visit profile</a>
+            </div>
+          </div>
+          <button (click)="navigateTo(repo.html_url)" cButton class="visit-btn" color="light" type="button">Visit repository</button>
+        </div>
+      </c-carousel-item>
+    </c-carousel-inner>
+    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+  </c-carousel>
+</section>
+<ng-template #elseBlock>
+  <c-spinner color="light" variant="grow"></c-spinner>
+</ng-template>
+

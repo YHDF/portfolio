@@ -10,12 +10,14 @@
         <module name="portfolio-ws" />
         <module name="portfolio-client" />
         <module name="portfolio-webapp" />
+        <module name="portfolio-batch" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="portfolio (1) (fr.yha)" options="" />
+      <module name="portfolio-batch" options="" />
     </option>
   </component>
 </project>

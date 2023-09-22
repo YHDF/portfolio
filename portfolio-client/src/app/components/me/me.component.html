@@ -14,24 +14,27 @@
       <p #slideR class="title">Software developer</p>
       <p #slideR class="description">Crafting beautiful and intuitive user interfaces is my passion.</p>
       <div class="info-btn-ctn">
-        <button #slideL (click)="clearScreenAnimation()"><span>Projects</span></button>
-        <button #slideL><span>Work</span></button>
+        <button #slideL (click)="clearScreenAnimationAndShowProjects()"><span>Projects</span></button>
+        <button #slideL (click)="clearScreenAnimationAndShowWork()"><span>Work</span></button>
         <button #slideL><span>Quit</span></button>
-          <!--
-          <div class="link-ctn">
-          <a class="title" href="#">Github</a>
-          <a class="title" href="#">Linkedin</a>
-          <a class="title" href="#">Gmail</a>
-          </div>-->
-        </div>
+        <!--
+        <div class="link-ctn">
+        <a class="title" href="#">Github</a>
+        <a class="title" href="#">Linkedin</a>
+        <a class="title" href="#">Gmail</a>
+        </div>-->
+      </div>
 
     </section>
 
     <ng-template #elseBlock>
-      <app-custom-carousel></app-custom-carousel>
+      <section *ngIf="showProjects else elseBlock">
+        <app-project [repositories]="repositories"></app-project>
+      </section>
+      <ng-template #elseBlock>
+        <app-work></app-work>
+      </ng-template>
     </ng-template>
-
-
 
 
   </main>

@@ -1,4 +1,4 @@
-package fr.yha.portfolio.config.clients.headers;
+package fr.yha.portfolio.config.client.headers;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;

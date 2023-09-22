@@ -1,4 +1,4 @@
-package fr.yha.portfolio.config.clients;
+package fr.yha.portfolio.config.client;
 
 
 import feign.Client;
@@ -8,9 +8,9 @@ import feign.Logger;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
 import feign.slf4j.Slf4jLogger;
-import fr.yha.portfolio.config.clients.headers.AcceptInterceptor;
-import fr.yha.portfolio.config.clients.headers.BearerTokenInterceptor;
-import fr.yha.portfolio.config.clients.headers.VersionInterceptor;
+import fr.yha.portfolio.config.client.headers.AcceptInterceptor;
+import fr.yha.portfolio.config.client.headers.BearerTokenInterceptor;
+import fr.yha.portfolio.config.client.headers.VersionInterceptor;
 import fr.yha.portfolio.webservices.clients.GithubApiClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

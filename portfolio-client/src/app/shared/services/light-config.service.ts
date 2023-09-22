@@ -1,5 +1,5 @@
-import { THREE } from '../../three-model/three-wrapper';
-import {  ThreeModelConfigService} from "./three-model-config.service";
+import {THREE} from '../../components/three-model/three-wrapper';
+import {ThreeModelConfigService} from "./three-model-config.service";
 
 export class LightConfigService {
   static createLightsFromConfig(config: any): THREE.Light[] {

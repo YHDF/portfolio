@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -58,8 +59,11 @@ public class RepositoryDTO implements Serializable {
     private String labels_url;
     private String releases_url;
     private String deployments_url;
-    private Date created_at;
-    private Date updated_at;
+
+    //@JsonDeserialize(using = MixedTimestampDeserializer.class)
+    private LocalDate created_at;
+    //@JsonDeserialize(using = MixedTimestampDeserializer.class)
+    private LocalDate updated_at;
     private Date pushed_at;
     private String git_url;
     private String ssh_url;
@@ -163,19 +167,19 @@ public class RepositoryDTO implements Serializable {
         this.url = url;
     }
 
-    public Date getCreated_at() {
+    public LocalDate getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(LocalDate created_at) {
         this.created_at = created_at;
     }
 
-    public Date getUpdated_at() {
+    public LocalDate getUpdated_at() {
         return updated_at;
     }
 
-    public void setUpdated_at(Date updated_at) {
+    public void setUpdated_at(LocalDate updated_at) {
         this.updated_at = updated_at;
     }
 
@@ -193,5 +197,13 @@ public class RepositoryDTO implements Serializable {
 
     public void setLicense(Object license) {
         this.license = license;
+    }
+
+    public String getHtml_url() {
+        return html_url;
+    }
+
+    public void setHtml_url(String html_url) {
+        this.html_url = html_url;
     }
 }

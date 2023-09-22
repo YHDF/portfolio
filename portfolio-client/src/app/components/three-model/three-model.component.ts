@@ -1,18 +1,17 @@
-import {AfterViewInit, Component, ElementRef, Inject} from '@angular/core';
-import { THREE } from './three-wrapper';
+import {AfterViewInit, Component, ElementRef} from '@angular/core';
+import {THREE} from './three-wrapper';
 import {gsap} from 'gsap';
 import {MotionPathPlugin} from 'gsap/MotionPathPlugin';
 import {ThreeModelBuilderService} from "./three-model-builder.service";
-import {AnimationConfig, ThreeModel} from "./three-model";
+import {ThreeModel} from "./three-model";
 import {ThreeModelAnimationService} from "./three-model-animation.service";
 
 //json configurtion
-import * as threeModelConfig from '../../assets/json/three-config.json';
-import * as lightConfig from '../../assets/json/lights.json';
-import * as materialConfig from '../../assets/json/materials.json';
-import * as interactiveMapConfig from '../../assets/json/interactive-map.json';
-import {ANIMATION_CONFIG_TOKEN} from "./animation-config.token";
-import {AnimationConfigService} from "../shared/services/animation-config.service";
+import * as threeModelConfig from '../../../assets/json/three-config.json';
+import * as lightConfig from '../../../assets/json/lights.json';
+import * as materialConfig from '../../../assets/json/materials.json';
+import * as interactiveMapConfig from '../../../assets/json/interactive-map.json';
+import {AnimationConfigService} from "../../shared/services/animation-config.service";
 
 
 gsap.registerPlugin(MotionPathPlugin);

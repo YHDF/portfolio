@@ -1,6 +1,6 @@
 package fr.yha.portfolio;
 
-import fr.yha.portfolio.config.clients.FeignClientConfig;
+import fr.yha.portfolio.config.client.FeignClientConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

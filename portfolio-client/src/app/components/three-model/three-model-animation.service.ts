@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { THREE } from './three-wrapper';
-import { gsap } from 'gsap';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import {AnimationConfig, InteractiveGeometry} from "./three-model";
-import {MaterialConfigService} from "../shared/services/material-config.service";
-import {AnimationConfigService} from "../shared/services/animation-config.service";
+import {Injectable} from '@angular/core';
+import {THREE} from './three-wrapper';
+import {gsap} from 'gsap';
+import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
+import {InteractiveGeometry} from "./three-model";
+import {MaterialConfigService} from "../../shared/services/material-config.service";
+import {AnimationConfigService} from "../../shared/services/animation-config.service";
 
 @Injectable({
   providedIn: 'root'

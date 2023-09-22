@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import { THREE } from './three-wrapper';
-import {ThreeModelConfigService} from "../shared/services/three-model-config.service";
+import {THREE} from './three-wrapper';
+import {ThreeModelConfigService} from "../../shared/services/three-model-config.service";
 import {InteractiveGeometry, ThreeModel} from "./three-model";
-import {LightConfigService} from "../shared/services/light-config.service";
+import {LightConfigService} from "../../shared/services/light-config.service";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
-import {MaterialConfigService} from "../shared/services/material-config.service";
+import {MaterialConfigService} from "../../shared/services/material-config.service";
 
 import {DRACOLoader} from 'three/examples/jsm/loaders/DRACOLoader';
 

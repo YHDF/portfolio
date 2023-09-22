@@ -1,7 +1,7 @@
 // imports & declaration
 @font-face {
   font-family: 'Anton';
-  src: url("../../assets/fonts/Anton-Regular.ttf");
+  src: url("../../../assets/fonts/Anton-Regular.ttf");
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
@@ -176,3 +176,4 @@ section.main .info-btn-ctn button:hover{
   from {transform: translateX(0);}
   to {transform: translateX(100vw);}
 }
+

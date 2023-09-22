@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ThreeModelComponent } from './three-model.component';
+import {ThreeModelComponent} from './three-model.component';
 
 describe('ThreeModelComponent', () => {
   let component: ThreeModelComponent;

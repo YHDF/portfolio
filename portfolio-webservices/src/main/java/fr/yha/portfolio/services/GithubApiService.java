@@ -30,7 +30,7 @@ public class GithubApiService {
     //@Cacheable("github-repositories")
     public List<RepositoryDTO> getRepos() throws JsonProcessingException {
         /*TODO externalize the login variable*/
-        String jsonString = this.githubApiClient.getRepositories("");
+        String jsonString = this.githubApiClient.getRepositories("YHDF");
         List<RepositoryDTO> repositories = Arrays.asList(objectMapper.readValue(jsonString, RepositoryDTO[].class));
         repositories = repositories.stream().filter(repositoryDTO -> {
             boolean condition = false;

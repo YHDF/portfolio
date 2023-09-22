@@ -1,4 +1,4 @@
-package fr.yha.portfolio.config.clients.headers;
+package fr.yha.portfolio.config.client.headers;
 
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -8,17 +8,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @PropertySource("classpath:vault.properties")
-public class BearerTokenInterceptor implements RequestInterceptor {
+public class AcceptInterceptor implements RequestInterceptor {
+    private String accept;
 
-    private String token;
-
-    public BearerTokenInterceptor(@Value("${github.api.token}") String token) {
-        this.token = token;
+    public AcceptInterceptor(@Value("${github.api.accept}") String accept) {
+        this.accept = accept;
     }
 
     @Override
     public void apply(RequestTemplate template) {
-        template.headers().remove("Authorization");
-        template.header("Authorization", "Bearer " + token);
+        template.headers().remove("Accept");
+        template.header("Accept", accept);
     }
 }

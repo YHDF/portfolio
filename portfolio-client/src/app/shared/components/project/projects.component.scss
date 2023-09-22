@@ -1,0 +1,101 @@
+.carousel-dimensions{
+  margin: 10vh 10vw;
+  border: 1px solid white !important;
+  animation-name: slideUp;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
+}
+
+.slide-bg {
+  background: linear-gradient(112.1deg, rgb(33, 37, 41) 11.4%, rgb(52, 59, 66) 70.2%);
+  display: flex;
+  flex-direction: column;
+  height: 80vh;
+}
+
+.slide-bg > div{
+  margin-top : 10%;
+  margin-left: 10%;
+  margin-right: 10%;
+  color: white;
+}
+
+
+.slide-bg > div:nth-child(2){
+  margin-top : 3%;
+}
+
+.project-title h1 {
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 5rem;
+  font-weight: bolder;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  white-space: nowrap;
+  //transform: scaleX(1) scaleY(1) scaleZ(1) rotateX(30deg) rotateY(-30deg) rotateZ(0deg) translateX(0px) translateY(0px) translateZ(0px) skewX(0deg) skewY(0deg);
+}
+
+.project-title p{
+  margin: 1vh 6vw;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.1em;
+}
+
+.project-metadata {
+  display: flex;
+}
+
+.repository-metadata, .user-metadata {
+  flex: 1;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  height: fit-content;
+}
+
+.repository-metadata {
+  border-right: 1px solid white;
+}
+
+.user-metadata > *{
+  margin-top: 1vh;
+}
+
+.user-metadata img{
+  width: 75px;
+  height: 75px;
+}
+
+
+.user-metadata a{
+  color: white;
+}
+
+button.visit-btn {
+  margin: auto;
+  width: fit-content;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(0);}
+}
+
+@-webkit-keyframes slideUp {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(0) ;}
+}
+
+@-moz-keyframes slideUp {
+  from {transform: translateY(100vh);}
+  to {transform: translateY(0);}
+}

@@ -1,4 +1,4 @@
-import { ThreeModel } from './three-model';
+import {ThreeModel} from './three-model';
 
 describe('ThreeModel', () => {
   it('should create an instance', () => {
