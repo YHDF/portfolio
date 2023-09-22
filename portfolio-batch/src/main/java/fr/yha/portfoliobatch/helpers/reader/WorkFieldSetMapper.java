@@ -1,6 +1,6 @@
 package fr.yha.portfoliobatch.helpers.reader;
 
-import fr.yha.portfoliobatch.entity.Work;
+import fr.yha.portfoliocore.entity.Work;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.stereotype.Component;

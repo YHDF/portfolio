@@ -1,7 +1,7 @@
 package fr.yha.portfoliobatch.helpers.writer;
 
-import fr.yha.portfoliobatch.entity.Work;
-import fr.yha.portfoliobatch.repositories.WorkRepository;
+import fr.yha.portfoliocore.entity.Work;
+import fr.yha.portfoliocore.repositories.WorkRepository;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

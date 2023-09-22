@@ -1,6 +1,6 @@
 package fr.yha.portfoliobatch.helpers.processor;
 
-import fr.yha.portfoliobatch.entity.Work;
+import fr.yha.portfoliocore.entity.Work;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 

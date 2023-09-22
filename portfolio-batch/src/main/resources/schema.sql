@@ -1,0 +1,2 @@
+USE portfolio;
+DROP TABLE IF EXISTS Work;

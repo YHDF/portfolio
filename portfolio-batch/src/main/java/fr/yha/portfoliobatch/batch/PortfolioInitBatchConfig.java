@@ -1,7 +1,7 @@
 package fr.yha.portfoliobatch.batch;
 
 
-import fr.yha.portfoliobatch.entity.Work;
+import fr.yha.portfoliocore.entity.Work;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -28,14 +28,14 @@ public class PortfolioInitBatchConfig {
     }
 
     @Bean
-    public Job portfolioInitData(@Named("populateTableStep") Step populateTableStep) {
+    public Job portfolioInitData(@Named("initWorkEntityStep") Step initWorkEntityStep) {
         return jobBuilderFactory.get("portfolioInitData")
-                .start(populateTableStep)
+                .start(initWorkEntityStep)
                 .build();
     }
 
     @Bean
-    public Step populateTableStep(ItemReader<Work> workCsvFileReader, ItemWriter<Work> workItemWriter, ItemProcessor<Work, Work> workItemProcessor) {
+    public Step initWorkEntityStep(ItemReader<Work> workCsvFileReader, ItemWriter<Work> workItemWriter, ItemProcessor<Work, Work> workItemProcessor) {
         return stepBuilderFactory.get("populateTableStep")
                 .<Work, Work>chunk(1)
                 .reader(workCsvFileReader)

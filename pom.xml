@@ -13,6 +13,7 @@
     <module>portfolio-batch</module>
     <module>portfolio-webservices</module>
     <module>portfolio-webapp</module>
+    <module>portfolio-core</module>
   </modules>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

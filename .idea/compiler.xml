@@ -11,6 +11,7 @@
         <module name="portfolio-client" />
         <module name="portfolio-webapp" />
         <module name="portfolio-batch" />
+        <module name="portfolio-core" />
       </profile>
     </annotationProcessing>
   </component>
