@@ -1,0 +1,202 @@
+
+//work scss
+$slider-bg-color: rgba(0, 0, 0, .3);
+$slider-progress-color: rgba(255, 255, 0, .3);
+
+.work-ctn {
+  height: 80vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+  width: 100vw;
+  display: flex;
+}
+
+.timeline-slider-ctn {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  position: relative; // Making this the relative parent
+}
+
+.timeline-slider {
+  width: 1vw;
+  height: 80%;
+  background: rgba(0, 0, 0, .3);
+  border-radius: 20px;
+  position: fixed;
+  transform: translateX(-50%) !important; // To offset by half of its width for perfect centering
+}
+
+.progress {
+  width: 1vw;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  border-radius: 20px;
+  height: 0; // Initial height is set to 0
+  position: absolute;
+  top: 0;
+}
+
+.timeline-section-unclicked {
+  width: 100%;
+  height: 50%;
+  position: relative;
+  cursor: pointer; // to indicate it's clickable
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(161, 161, 161, 1);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+}
+
+.timeline-section-clicked {
+  width: 100%;
+  height: 50%;
+  position: relative;
+  cursor: auto; // to indicate it's clickable
+
+  &::before {
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+  }
+}
+
+.timeline-data-ctn {
+  flex: 6;
+  height: 100%;
+  overflow: scroll;
+  color: white;
+}
+
+.timeline-data-ctn > div{
+  margin-top: auto;
+  display: flex;
+  height: 80vh;
+}
+
+.experience{
+  visibility: visible;
+  opacity: 1;
+}
+
+.timeline-data-date{
+  flex: 1;
+  position: relative;
+  top: 40%;
+  height: fit-content;
+}
+
+.timeline-data-date h1{
+  font-size: 2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+.timeline-data-context{
+  position: relative;
+  top: 30%;
+  flex: 6;
+  height: fit-content;
+}
+
+
+.timeline-data-context > h1, .timeline-data-context > h2{
+  font-size: 3rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  text-align: center;
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+  white-space: nowrap;
+}
+
+.timeline-data-context > ul li{
+  list-style-type: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bolder;
+  text-align: center;
+}
+
+//animations
+@mixin fadeUp($transformAmmount: 80vh, $opacity) {
+  $name: unique-id();
+
+  $transform: $transformAmmount;
+  animation: #{$name} 1s ease-in 0s forwards;
+  pointer-events: all;
+  @keyframes #{$name} {
+    0% {
+      opacity: $opacity;
+      transform: translateY(0);
+    }
+    100% {
+      opacity: 1- $opacity;
+      transform: translateY(-$transform);
+    }
+  }
+}
+
+@mixin fadeDown($transformAmmount: 80vh, $opacity) {
+  $name: unique-id();
+
+  $transform: $transformAmmount;
+  animation: #{$name} 1s ease-in 0s forwards;
+  pointer-events: all;
+  @keyframes #{$name} {
+    0% {
+      opacity: $opacity;
+      transform: translateY(-$transform);
+    }
+    100% {
+      opacity: 1- $opacity;
+      transform: translateY(0);
+    }
+  }
+}
+
+.timeline-data-ctn .animate-fadeInUp{
+  @include fadeUp(80vh, 0)
+}
+
+.timeline-data-ctn .animate-fadeOutUp{
+  @include fadeUp(80vh, 1)
+}
+
+.timeline-data-ctn .animate-fadeInDown{
+  @include fadeDown(80vh, 0)
+}
+
+.timeline-data-ctn .animate-fadeOutDown{
+  @include fadeDown(80vh, 1)
+}
+
