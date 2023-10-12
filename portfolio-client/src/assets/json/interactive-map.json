@@ -3,7 +3,7 @@
   "interactiveMap" : [
     {
       "mesh" : "Cube002_1",
-      "interactiveChildren" : ["resume-icon_002_1"]
+      "interactiveChildren" : ["resume-icon_002_1", "taskbar_002_1_icon_001", "taskbar_002_1_icon_002"]
     },
     {
       "mesh" : "Cube006_1",

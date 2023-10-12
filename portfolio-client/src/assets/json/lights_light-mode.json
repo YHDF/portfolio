@@ -1,0 +1,138 @@
+{
+  "lights" : [
+    {
+      "name": "PointLight",
+      "type": "PointLight",
+      "HexColorCode": "FFFFFF",
+      "intensity": 0.2,
+      "distance": 2,
+      "position": {
+        "x": "-8.879",
+        "y": "3.060",
+        "z": "-1.418"
+      }
+    },
+    {
+      "name": "PointLight_2",
+      "type": "PointLight",
+      "HexColorCode": "ffedc2",
+      "intensity": 0.5,
+      "distance": 0,
+      "position": {
+        "x": "-2.810",
+        "y": "8.531",
+        "z": "-0.166"
+      },
+      "castShadow" : true,
+      "shadow" : {
+        "mapSize" : {
+          "x" : 3072,
+          "y" : 3072
+        },
+        "bias" : -0.0001,
+        "camera" : {
+          "near" : 0.1,
+          "far" : 100,
+          "fov" : 90
+        }
+      }
+    },
+    {
+      "name": "PointLight_4",
+      "type": "PointLight",
+      "HexColorCode": "ffd0c7",
+      "intensity": 0.1,
+      "distance": 10,
+      "position": {
+        "x": "-1.067",
+        "y": "3.926",
+        "z": "0.032"
+      }
+    },
+    {
+      "name": "PointLight_6",
+      "type": "PointLight",
+      "HexColorCode": "ffd0c7",
+      "intensity": 1,
+
+      "distance": 20,
+      "position": {
+        "x": "-6.368",
+        "y": "3.946",
+        "z": "-4.210"
+      }
+    },
+    {
+      "name": "PointLight_8",
+      "type": "PointLight",
+      "HexColorCode": "FFFFFF",
+      "intensity": 0.1,
+      "distance": 2,
+      "position": {
+        "x": "-4.510",
+        "y": "3.557",
+        "z": "-6.038"
+      }
+    },
+    {
+      "name": "PointLight_10",
+      "type": "PointLight",
+      "HexColorCode": "FFFFFF",
+      "intensity": 0.2,
+      "distance": 2,
+      "position": {
+        "x": "-8.879",
+        "y": "3.060",
+        "z": "-6.350"
+      }
+    },
+    {
+      "name": "PointLight_12",
+      "type": "PointLight",
+      "HexColorCode": "FFFFFF",
+      "intensity": 0.2,
+      "distance": 0,
+      "position": {
+        "x": "-7.020",
+        "y": "3.075",
+        "z": "-0.695"
+      }
+    },
+    {
+      "name": "PointLight_14",
+      "type": "PointLight",
+      "HexColorCode": "ffd0c7",
+      "intensity": 0.2,
+      "distance": 0,
+      "position": {
+        "x": "-4.351",
+        "y": "7.582",
+        "z": "-0.253"
+      }
+    },
+    {
+      "name": "PointLight_16",
+      "type": "PointLight",
+      "HexColorCode": "FFFFFF",
+      "intensity": 0.2,
+      "distance": 5,
+      "position": {
+        "x": "-5.585",
+        "y": "4.242",
+        "z": "-6.772"
+      }
+    },
+    {
+      "name": "PointLight_18",
+      "type": "PointLight",
+      "HexColorCode": "FFFFFF",
+      "intensity": 0.2,
+      "distance": 5,
+      "position": {
+        "x": "-8.124",
+        "y": "2.479",
+        "z": "2.263"
+      }
+    }
+  ]
+}

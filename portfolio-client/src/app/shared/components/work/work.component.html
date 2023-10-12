@@ -3,52 +3,32 @@
     <div #timelineSlider class="timeline-slider">
       <div #timelineElement (click)="scrollToSection(0)" class="timeline-section-unclicked"></div>
       <div #timelineElement (click)="scrollToSection(1)" class="timeline-section-unclicked"></div>
+      <div #timelineElement (click)="scrollToSection(2)" class="timeline-section-unclicked"></div>
+
+      <div #timelineElement (click)="scrollToSection(3)" class="timeline-section-unclicked"></div>
+
       <div #progress [@fillUp]="dynamicHeight" class="progress"></div>
     </div>
 
   </div>
   <div #containerElement (scroll)="onContainerScroll($event)" class="timeline-data-ctn">
     <!-- Here will be the experiences/contents you want to show -->
-    <div #childElement class="experience">
-      <div class="timeline-data-date" >
-        <h1>2021 - 2023</h1>
-      </div>
-      <div class="timeline-data-context">
-        <h1>Assistant Responsible for Application Development</h1>
+    <ng-container *ngFor="let experience of workExperiences">
+      <div #childElement class="experience">
+        <div class="timeline-data-date" >
+          <h1>{{experience.period}}</h1>
+        </div>
+        <div class="timeline-data-context">
+          <h1>{{experience.title}}</h1>
 
-        <h2>Worldline, Health Project for the Armed Forces</h2>
+          <h2>{{experience.description}}</h2>
 
-        <ul>
-          <li>Played a pivotal role as a lead assistant on the Health Project for the Armed Forces.</li>
-          <li>Collaborated closely with a dedicated squad of 5 professionals, adopting Agile methodologies to streamline
-            development cycles.</li>
-          <li>Pioneered the build and run processes utilizing a robust technology stack, namely Java 11 with Spring Boot
-            2 for backend functionalities and Angular 9 for responsive frontend interfaces.</li>
-          <li>Implemented rigorous testing and quality assurance protocols, ensuring application reliability and
-            robustness.</li>
-        </ul>
+          <ul>
+            <li *ngFor="let task of experience.tasks">+ {{task}}</li>
+          </ul>
+        </div>
       </div>
-    </div>
-    <div #childElement class="experience">
-      <div class="timeline-data-date">
-        <h1>2022 - 2024</h1>
-      </div>
-      <div class="timeline-data-context">
-        <h1>Assistant Responsible for Application Development</h1>
-
-        <h2>Worldline, Health Project for the Armed Forces</h2>
-
-        <ul>
-          <li>Played a pivotal role as a lead assistant on the Health Project for the Armed Forces.</li>
-          <li>Collaborated closely with a dedicated squad of 5 professionals, adopting Agile methodologies to streamline
-            development cycles.</li>
-          <li>Pioneered the build and run processes utilizing a robust technology stack, namely Java 11 with Spring Boot
-            2 for backend functionalities and Angular 9 for responsive frontend interfaces.</li>
-          <li>Implemented rigorous testing and quality assurance protocols, ensuring application reliability and
-            robustness.</li>
-        </ul>
-      </div>
-    </div>
+    </ng-container>
 
   </div>
 </div>

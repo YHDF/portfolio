@@ -12,11 +12,14 @@ import fr.yha.portfolio.config.client.headers.AcceptInterceptor;
 import fr.yha.portfolio.config.client.headers.BearerTokenInterceptor;
 import fr.yha.portfolio.config.client.headers.VersionInterceptor;
 import fr.yha.portfolio.webservices.clients.GithubApiClient;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 
 
 public class FeignClientConfig {
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(FeignClientConfig.class);
+
     @Autowired
     private BearerTokenInterceptor bearerTokenInterceptor;
     @Autowired
@@ -52,21 +55,39 @@ public class FeignClientConfig {
 
     @Bean
     public GithubApiClient githubApiRestClient(Client client, Encoder encoder, Decoder decoder, Contract contract){
-        return this.createClient(GithubApiClient.class, client, encoder, decoder, contract);
+        LOGGER.info("Creating GithubApiClient Bean");
+        try {
+            GithubApiClient clientInstance = this.createClient(GithubApiClient.class, client, encoder, decoder, contract);
+            LOGGER.info("GithubApiClient Bean created successfully");
+            return clientInstance;
+        } catch (Exception e) {
+            LOGGER.error("Error creating GithubApiClient Bean: {}", e.getMessage(), e);
+            throw e;
+        }
     }
 
     public <U> U createClient(Class<U> targetInterface, Client client, Encoder encoder, Decoder decoder, Contract contract) {
-        return Feign.builder()
-                .client(client)
-                .encoder(encoder)
-                .decoder(decoder)
-                .contract(contract)
-                //.requestInterceptor(new BasicAuthRequestInterceptor("admin", "admin"))
-                .requestInterceptor(bearerTokenInterceptor)
-                .requestInterceptor(acceptInterceptor)
-                .requestInterceptor(versionInterceptor)
-                .logger(new Slf4jLogger(targetInterface))
-                .logLevel(Logger.Level.FULL)
-                .target(targetInterface, "https://api.github.com");
+        LOGGER.info("Initializing client for interface: {}", targetInterface.getName());
+        try {
+            U clientInstance = Feign.builder()
+                    .client(client)
+                    .encoder(encoder)
+                    .decoder(decoder)
+                    .contract(contract)
+                    //.requestInterceptor(new BasicAuthRequestInterceptor("admin", "admin"))
+                    .requestInterceptor(bearerTokenInterceptor)
+                    .requestInterceptor(acceptInterceptor)
+                    .requestInterceptor(versionInterceptor)
+                    .logger(new Slf4jLogger(targetInterface))
+                    .logLevel(Logger.Level.FULL)
+                    .target(targetInterface, "https://api.github.com");
+
+            LOGGER.info("Client for interface {} initialized successfully", targetInterface.getName());
+            return clientInstance;
+        } catch (Exception e) {
+            LOGGER.error("Error initializing client for interface {}: {}", targetInterface.getName(), e.getMessage(), e);
+            throw e;
+        }
     }
+
 }

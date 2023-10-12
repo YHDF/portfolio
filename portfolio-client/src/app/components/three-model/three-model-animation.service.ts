@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {THREE} from './three-wrapper';
 import {gsap} from 'gsap';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-import {InteractiveGeometry} from "./three-model";
+import {AnimationFunctionSupplier, InteractiveGeometry} from "./three-model";
 import {MaterialConfigService} from "../../shared/services/material-config.service";
 import {AnimationConfigService} from "../../shared/services/animation-config.service";
 
@@ -11,12 +11,14 @@ import {AnimationConfigService} from "../../shared/services/animation-config.ser
 })
 export class ThreeModelAnimationService {
   private controls?: OrbitControls;
+  private boundMouseMoveListener: any;
   constructor(private readonly scene: THREE.Scene, private readonly camera: THREE.Camera, private readonly renderer: THREE.WebGLRenderer, private readonly animationConfigService: AnimationConfigService) {
     this.scene = scene;
     this.camera = camera;
     this.renderer = renderer;
+    this.boundMouseMoveListener = (event : any) => this.updateCameraPosition(event);
     // Set up orbit controls
-    this.initControls();
+    //this.initControls();
   }
 
   initControls() {
@@ -37,12 +39,17 @@ export class ThreeModelAnimationService {
     });
   }
 
-  onMouseMove(){
-    window.addEventListener('mousemove', (event) => this.updateCameraPosition(event), false);
+  onMouseMove() {
+    window.addEventListener('mousemove', this.boundMouseMoveListener, false);
   }
 
-  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materials : any, __callback : (parentObject : string, onInit? : boolean, ) => THREE.Material[], __toggleCallback : () => void ){
-    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materials.materials), __callback, __toggleCallback]), false);
+  removeMouseMove() {
+    window.removeEventListener('mousemove', this.boundMouseMoveListener);
+  }
+
+
+  onMouseClick(camera : THREE.Camera, scene :THREE.Scene, meshes : InteractiveGeometry[], materialConfig : any, __callback : (parentObject : string, onInit? : boolean) => THREE.Material[], __toggleCallback : () => void ){
+    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materialConfig.materials), __callback, __toggleCallback]), false);
   }
 
   findInteractiveIcons(meshes : InteractiveGeometry[] , materials: any[]) : any[] {
@@ -89,8 +96,16 @@ export class ThreeModelAnimationService {
           const rectHeight = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.height, {parentHeight})
           // Check if the click was inside the rectangle
           if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
-            intersection.material = __callback.apply(this, [intersection.name])[0];
-            this.animateCamera(2, __toggleCallback);
+            const animationFunctions = AnimationFunctionSupplier.getInstance();
+            let executionValue = null;
+            if(icons[j].childrenConfig.properties.type === "_CUSTOM_ICON_"){
+               executionValue = animationFunctions.execSupplier(icons[j].childrenConfig.properties.name, this, [intersection.name, 2, false, __toggleCallback]);
+            }else {
+              executionValue = animationFunctions.execSupplier(icons[j].childrenConfig.properties.name, this, Object.values(icons[j].childrenConfig.properties.params));
+            }
+            if(executionValue){
+              intersection.material = executionValue
+            }
           }
         }
       }
@@ -101,7 +116,7 @@ export class ThreeModelAnimationService {
     // Animation loop logic goes here
     requestAnimationFrame(() => this.animate());
     // Update the 3D model or any other objects here
-    this.controls!.update();
+    //this.controls!.update();
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -111,7 +126,7 @@ export class ThreeModelAnimationService {
 
     const mouseMoveTarget = new THREE.Vector3(-5, 4, -2)
     const radius = 5; // Radius of the circle
-    const angleFactor = 0.2; // Factor to reduce the range of angles, making movement slower
+    const angleFactor = .05; // Factor to reduce the range of angles, making movement slower
     const zMin = -4; // Minimum bound on the z-axis
     const zMax = 0;  // Maximum bound on the z-axis
     // Normalize the mouse position from -1 to 1
@@ -136,11 +151,31 @@ export class ThreeModelAnimationService {
 
   }
 
-  animateCamera(animationId: number, __toggleCallback? : () => void) {
-    this.animationConfigService.animateCamera(gsap, this.camera, animationId, this.updateControls.bind(this), __toggleCallback);
+  animateCamera(animationId: number, enableMouseMove : boolean, __toggleCallback? : () => void) {
+    this.animationConfigService.animateCamera(gsap, this.camera, animationId, this.updateControls.bind(this), this.onMouseMove.bind(this), enableMouseMove, __toggleCallback?.bind(this));
   }
 
   updateControls(target : THREE.Vector3) {
-    this.controls!.target = target;
+    this.camera.lookAt(target)
+    //this.controls!.target = target;
+  }
+
+  populateAnimationSuppliers(__callback: (parentObject : string, onInit? : boolean) => THREE.Material[] ){
+    const animationFunctions = AnimationFunctionSupplier.getInstance();
+    const animationKeys : string[] = ["MeAnimation", "visitLinkedIn", "visitGithub"]
+    const animationSuppliers : ((...args : any) => any)[] = [
+      (intersectionName : string, animationId : number, enableMouseMove : boolean, __toggleCallback : () => void) => {
+        this.removeMouseMove();
+        this.animateCamera(animationId, enableMouseMove, __toggleCallback);
+        return __callback.apply(this, [intersectionName])[0];
+      },
+      (url, target) => {
+        window.open(url, target);
+      },
+      (url, target) => {
+        window.open(url, target);
+      }
+    ]
+    animationFunctions.populateTuple(animationKeys, animationSuppliers);
   }
 }

@@ -221,3 +221,52 @@ export class Owner {
 }
 
 
+export class Work {
+  constructor(period: string, title: string, description: string, tasks: string[]) {
+    this._period = period;
+    this._title = title;
+    this._description = description;
+    this._tasks = tasks;
+  }
+
+  private _period: string;
+
+  get period(): string {
+    return this._period;
+  }
+
+  set period(value: string) {
+    this._period = value;
+  }
+
+  private _title: string;
+
+  get title(): string {
+    return this._title;
+  }
+
+  set title(value: string) {
+    this._title = value;
+  }
+
+  private _description: string;
+
+  get description(): string {
+    return this._description;
+  }
+
+  set description(value: string) {
+    this._description = value;
+  }
+
+  private _tasks: string[];
+
+  get tasks(): string[] {
+    return this._tasks;
+  }
+
+  set tasks(value: string[]) {
+    this._tasks = value;
+  }
+}
+

@@ -1,7 +1,8 @@
 import {AfterViewInit, Component, ElementRef, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
 import {MeService} from "./me.service";
-import {Repository} from "./me";
+import {Repository, Work} from "./me";
 import {NavigationEnd, Router} from '@angular/router';
+import {lastValueFrom} from "rxjs";
 
 @Component({
   selector: 'app-me',
@@ -18,6 +19,7 @@ export class MeComponent implements AfterViewInit {
   public showProjects: boolean = false;
   public showWork: boolean = false;
   public repositories: Repository[] = [];
+  public experiences: Work[] = [];
 
 
   constructor(private meService: MeService, private router: Router) {
@@ -29,9 +31,15 @@ export class MeComponent implements AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.meService.fetchGithubRepositories().subscribe(
-      responseData => responseData.map(value => this.repositories.push(value))
-    );
+    const repositories$ = this.meService.fetchGithubRepositories();
+    const repositoriesPromise = lastValueFrom(repositories$);
+
+    const experiences$ = this.meService.fetchWorkExperiences();
+    const experiencesPromise = lastValueFrom(experiences$);
+    Promise.all([repositoriesPromise, experiencesPromise]).then((values) => {
+      this.repositories = values[0];
+      this.experiences = values[1];
+    });
   }
 
   clearScreenAnimationAndShowProjects() {

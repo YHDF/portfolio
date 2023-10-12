@@ -15,6 +15,12 @@ import {DRACOLoader} from 'three/examples/jsm/loaders/DRACOLoader';
 export class ThreeModelBuilderService {
 
   private interactiveGeometries: InteractiveGeometry[] = [];
+  private materialConfigService : MaterialConfigService;
+
+
+  constructor() {
+    this.materialConfigService = new MaterialConfigService();
+  }
 
   createScene(sceneConfig: any): THREE.Scene {
     const scene = new THREE.Scene();
@@ -38,7 +44,7 @@ export class ThreeModelBuilderService {
     return LightConfigService.createLightsFromConfig(lightConfig);
   }
 
-  createGeometry(scene: THREE.Scene, materials: THREE.Material[], materialConfig: any, interactiveMapConfig: any[]): GLTFLoader {
+  createGeometry(scene: THREE.Scene, materials: THREE.Material[], materialConfig: any, interactiveMapConfig: any[], islightMode : boolean): GLTFLoader {
     //    MaterialConfigService.getMaterialParentObjects(materialConfig);
 
     // Instantiate a loader
@@ -61,9 +67,16 @@ export class ThreeModelBuilderService {
         if (!["DirectionalLight", "PointLight", "SpotLight"].includes(object.type)) {
           object.castShadow = true;
           object.receiveShadow = true;
+
+          //Block to remove
+          if(object.material && islightMode){
+            this.materialConfigService.applyMaterialOptionsConfiguration(object, materialConfig)
+          }
+
+          //Block to remove
+
           for (let i = 0; i < materialConfig.materials.length; i++) {
             if (object.name === materialConfig.materials[i].parentObject && object.isMesh) {
-              console.log(object.material)
               object.material = materials[i];
               const geometry: InteractiveGeometry = {
                 mesh: object.name,
@@ -85,7 +98,7 @@ export class ThreeModelBuilderService {
 
   createMaterials(materialConfig: any, drawOnInit?: boolean, parentObject?: string): THREE.Material[] {
     const materials: THREE.Material[] = [];
-    const canvasConfig = new MaterialConfigService().createMaterialsFromConfig(materialConfig, drawOnInit);
+    const canvasConfig = this.materialConfigService.createMaterialsFromConfig(materialConfig, drawOnInit);
     canvasConfig.filter((value) => !parentObject || value.parentObject === parentObject).map((value, index) => {
       let menuTexture = new THREE.CanvasTexture(value.canvas);
       menuTexture.flipY = false;
@@ -106,13 +119,13 @@ export class ThreeModelBuilderService {
     return this.interactiveGeometries;
   }
 
-  createThreeModel(element: HTMLElement, threeModelConfig: any, lightConfig: any, materialConfig: any, interactiveMapConfig: any): ThreeModel {
+  createThreeModel(element: HTMLElement, threeModelConfig: any, lightConfig: any, materialConfig: any, interactiveMapConfig: any, islightMode : boolean): ThreeModel {
     const scene = this.createScene(threeModelConfig.scene);
     const camera = this.createCamera(threeModelConfig.camera);
     const renderer = this.createRenderer(element, threeModelConfig.renderer);
     const lights = this.createLights(lightConfig);
     const materials = this.createMaterials(materialConfig, true);
-    const geometry = this.createGeometry(scene, materials, materialConfig, interactiveMapConfig.interactiveMap);
+    const geometry = this.createGeometry(scene, materials, materialConfig, interactiveMapConfig.interactiveMap, islightMode);
 
     return ThreeModel.getInstance(renderer, camera, scene, lights, geometry, materials);
   }

@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ProjectsComponent} from './components/project/projects.component';
+import {ProjectComponent} from './components/project/project.component';
 import {ButtonDirective, CarouselModule, SpinnerComponent} from "@coreui/angular";
 import {RouterModule} from "@angular/router";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -10,11 +10,11 @@ import {WorkComponent} from './components/work/work.component';
 
 @NgModule({
   declarations: [
-    ProjectsComponent,
+    ProjectComponent,
     WorkComponent
   ],
   exports: [
-    ProjectsComponent,
+    ProjectComponent,
     WorkComponent
   ],
   imports: [

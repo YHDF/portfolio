@@ -12,7 +12,7 @@ export class AnimationConfigService {
   constructor(@Inject(ANIMATION_CONFIG_TOKEN) private readonly animationConfig: AnimationConfig) {
   }
 
-  animateCamera(gsap : any, camera: THREE.Camera, animationId : number, __callback : (target : THREE.Vector3) => void, __toggleCallback? : () => void) {
+  animateCamera(gsap : any, camera: THREE.Camera, animationId : number, __callback : (target : THREE.Vector3) => void, __mouseMoveCallback : () => void, enableMouseMove: boolean, __toggleCallback? : () => void) {
     // GSAP animation for moving the camera
     const config = this.animationConfig!.animations.filter((animation : any) => animation['animationId'] === animationId )[0];
     const path = config.path.map((coords: number[]) => new THREE.Vector3(...coords));
@@ -38,6 +38,12 @@ export class AnimationConfigService {
       }
     });
 
-    animationOnComplte.then(value => __toggleCallback?.apply(null));
+    animationOnComplte.then(value => {
+      __toggleCallback?.apply(null)
+        if(enableMouseMove)
+          __mouseMoveCallback?.apply(null, [])
+    });
   }
+
+
 }

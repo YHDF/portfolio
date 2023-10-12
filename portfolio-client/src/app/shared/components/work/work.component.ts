@@ -4,11 +4,13 @@ import {
   Component,
   ElementRef,
   HostListener,
+  Input,
   QueryList,
   ViewChild,
   ViewChildren
 } from '@angular/core';
 import {animate, state, style, transition, trigger} from "@angular/animations";
+import {Work} from "../../../components/me/me";
 
 @Component({
   selector: 'app-work',
@@ -16,8 +18,10 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
   styleUrls: ['./work.component.scss'],
   animations: [
     trigger('fillUp', [
-      state('0', style({height: '50%'})),
-      state('1', style({height: '100%'})),
+      state('0', style({height: '25%'})),
+      state('1', style({height: '50%'})),
+      state('2', style({height: '75%'})),
+      state('3', style({height: '100%'})),
       transition('* <=> *', [
         animate('.5s')
       ])
@@ -32,58 +36,43 @@ export class WorkComponent implements AfterViewInit{
   @ViewChild('containerElement') containerElement!: ElementRef;
   @ViewChildren('childElement') childElement!: QueryList<ElementRef>;
   @ViewChildren('timelineElement') timelineElement!: QueryList<ElementRef>;
-  public fadeAnimationClasses: String[] = ['animate-fadeOutUp', 'animate-fadeInUp', 'animate-fadeOutDown', 'animate-fadeInDown']
+  @Input() workExperiences: Work[] = [];
 
   constructor(private cdRef: ChangeDetectorRef) {
   }
 
   ngAfterViewInit(): void {
-    this.timelineElement.get(this.currentSection)!.nativeElement.classList.remove('timeline-section-unclicked')
-    this.timelineElement.get(this.currentSection)!.nativeElement.classList.add('timeline-section-clicked')
+    this.manageClassList(this.timelineElement.get(this.currentSection)!,["timeline-section-clicked"], ["timeline-section-unclicked"], 0, 0 );
     this.containerElement.nativeElement.scrollTop = 0;
     this.dynamicHeight = this.currentSection.toString();
     this.cdRef.detectChanges();
+    this.childElement.toArray().map((value, index) => {
+      if(index != this.currentSection){
+        this.manageClassList(value,["invisible-experience"], ["experience"], 0, 0 );
+      }
+    });
   }
   scrollToSection(sectionIndex: number) {
-
     if(this.currentSection != sectionIndex){
       this.timelineElement.toArray().filter((value, index) => index != sectionIndex).map(value => {
-        value.nativeElement.classList.remove('timeline-section-clicked')
-        value.nativeElement.classList.add('timeline-section-unclicked')
-      })
-      this.timelineElement.get(sectionIndex)!.nativeElement.classList.remove('timeline-section-unclicked')
-      this.timelineElement.get(sectionIndex)!.nativeElement.classList.add('timeline-section-clicked')
-      this.childElement.toArray().forEach(value => {
-        console.log(...this.fadeAnimationClasses)
-        value.nativeElement.classList.remove(...this.fadeAnimationClasses);
-        value.nativeElement.style.transition = "";
-        value.nativeElement.style.opacity = 1;
-      })
+        this.manageClassList(value,["timeline-section-unclicked"], ["timeline-section-clicked"], 0, 0 );
+      });
 
-      if(sectionIndex > this.currentSection){
-        if(sectionIndex===0){
-          this.childElement.get(sectionIndex+1)!.nativeElement.classList.add('animate-fadeOutUp');
-          this.childElement.get(sectionIndex)!.nativeElement.classList.add('animate-fadeInUp');
-        }else{
-          this.childElement.get(sectionIndex-1)!.nativeElement.classList.add('animate-fadeOutUp');
-          this.childElement.get(sectionIndex)!.nativeElement.classList.add('animate-fadeInUp');
-        }
-      }else{
-        if(sectionIndex===0){
-          this.childElement.get(sectionIndex+1)!.nativeElement.classList.add('animate-fadeOutDown');
-          this.childElement.get(sectionIndex)!.nativeElement.classList.add('animate-fadeInDown');
-        }else{
-          this.childElement.get(sectionIndex-1)!.nativeElement.classList.add('animate-fadeOutDown');
-          this.childElement.get(sectionIndex)!.nativeElement.classList.add('animate-fadeInDown');
-        }
-      }
+      this.manageClassList(this.timelineElement.get(sectionIndex)!,["timeline-section-clicked"], ["timeline-section-unclicked"], 0, 0 );
 
 
+      this.manageClassList(this.childElement.get(this.currentSection)!,["animate-invisible-experience", "invisible-experience"], ["animate-visible-experience", "experience"], 200, 200 );
+      this.manageClassList(this.childElement.get(sectionIndex)!, ["animate-visible-experience", "experience"], ["animate-invisible-experience", "invisible-experience"], 200, 200 );
 
       this.currentSection = sectionIndex;
       this.dynamicHeight = sectionIndex.toString();
       this.cdRef.detectChanges();
     }
+  }
+
+  manageClassList(eltRef : ElementRef, classesToAdd : String[], classesToRemove : String[], addTimeout : number, removeTimeout : number){
+    classesToAdd.map(value => setTimeout(() => eltRef.nativeElement.classList.add(value), addTimeout));
+    classesToRemove.map(value => setTimeout(() => eltRef.nativeElement.classList.remove(value), removeTimeout));
   }
 
   onContainerScroll(event: any) {
