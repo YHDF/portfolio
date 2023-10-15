@@ -3,6 +3,7 @@
     <logger name="org.springframework" level="ERROR"/>
     <logger name="com.zetcode" level="INFO"/>
     <logger name="net.sf.ehcache" level="INFO" />
+    <logger name="fr.yha.portfoliows.config.websocket.WebSocketConfig" level="debug"/>
 
     <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

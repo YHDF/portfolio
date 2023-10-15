@@ -24,7 +24,7 @@ gsap.registerPlugin(MotionPathPlugin);
 })
 export class ThreeModelComponent implements AfterViewInit {
 
-  showMe = false;
+  showMe = true;
 
   lightMode =  true;
 
