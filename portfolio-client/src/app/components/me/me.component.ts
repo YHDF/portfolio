@@ -1,8 +1,18 @@
-import {AfterViewInit, Component, ElementRef, QueryList, ViewChildren, ViewEncapsulation} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation
+} from '@angular/core';
 import {MeService} from "./me.service";
 import {Repository, Work} from "./me";
 import {NavigationEnd, Router} from '@angular/router';
-import {lastValueFrom} from "rxjs";
+import {lastValueFrom, Subscription} from "rxjs";
+import {ResumeSseService} from "../../shared/services/resume-sse.service";
 
 @Component({
   selector: 'app-me',
@@ -10,7 +20,7 @@ import {lastValueFrom} from "rxjs";
   styleUrls: ['./me.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class MeComponent implements AfterViewInit {
+export class MeComponent implements AfterViewInit, OnDestroy {
 
 
   @ViewChildren('slideL') leftElement!: QueryList<ElementRef>;
@@ -20,14 +30,21 @@ export class MeComponent implements AfterViewInit {
   public showWork: boolean = false;
   public repositories: Repository[] = [];
   public experiences: Work[] = [];
+  message: any = undefined;
+  private readonly messageSubscription: Subscription;
 
 
-  constructor(private meService: MeService, private router: Router) {
+  constructor(private cdr: ChangeDetectorRef, private readonly meService: MeService, private readonly  resumeSseService: ResumeSseService,  private router: Router) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
       }
     });
+    this.messageSubscription = this.resumeSseService.messages$.subscribe(
+      message => {
+        this.message = message;
+        this.cdr.detectChanges(); // force change detection
+      });
   }
 
   ngAfterViewInit() {
@@ -40,6 +57,11 @@ export class MeComponent implements AfterViewInit {
       this.repositories = values[0];
       this.experiences = values[1];
     });
+    this.listenToEvents();
+  }
+
+  listenToEvents() {
+    this.resumeSseService.subscribe("/resume/stream-see");
   }
 
   clearScreenAnimationAndShowProjects() {
@@ -75,6 +97,14 @@ export class MeComponent implements AfterViewInit {
       }, index * delayDuration);
     });
   }
+
+  ngOnDestroy(): void {
+    if (this.messageSubscription) {
+      this.messageSubscription.unsubscribe();
+    }
+    this.resumeSseService.unsubscribe();
+  }
+
 
 
 

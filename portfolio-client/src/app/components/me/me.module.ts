@@ -3,6 +3,7 @@ import {CommonModule} from '@angular/common';
 import {MeComponent} from "./me.component";
 import {SharedModule} from "../../shared/shared.module";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AlertComponent} from "@coreui/angular";
 
 @NgModule({
   declarations: [
@@ -11,10 +12,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   exports : [
     MeComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    BrowserAnimationsModule
-  ]
+    imports: [
+        CommonModule,
+        SharedModule,
+        BrowserAnimationsModule,
+        AlertComponent
+    ]
 })
 export class MeModule { }

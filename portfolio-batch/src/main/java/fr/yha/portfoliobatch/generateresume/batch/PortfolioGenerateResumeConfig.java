@@ -2,6 +2,8 @@ package fr.yha.portfoliobatch.generateresume.batch;
 
 
 import fr.yha.portfoliocore.entity.Resume;
+import fr.yha.portfoliocore.services.BatchJobEventListenerImpl;
+import org.springframework.batch.core.ItemReadListener;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -35,12 +37,15 @@ public class PortfolioGenerateResumeConfig {
     }
 
     @Bean
-    public Step generateResumeEntityStep(ItemReader<Resume> resumeXMLReader, ItemProcessor<Resume, String> resumeFTLProcessor, ItemWriter<String> resumePDFWriter) {
+    public Step generateResumeEntityStep(ItemReader<Resume> resumeXMLReader, ItemProcessor<Resume, String> resumeFTLProcessor, ItemWriter<String> resumePDFWriter, BatchJobEventListenerImpl<Resume, String> listener) {
         return stepBuilderFactory.get("generateResumeEntityStep")
                 .<Resume, String>chunk(1)
                 .reader(resumeXMLReader)
                 .processor(resumeFTLProcessor)
                 .writer(resumePDFWriter)
+                .listener((ItemReadListener<? super Resume>) listener)
+                .listener((ItemReadListener<? super Resume>) listener)
+                .listener((ItemReadListener<? super Resume>) listener)
                 .allowStartIfComplete(true)
                 .build();
     }
