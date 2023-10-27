@@ -14,10 +14,11 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #212529;
+  background: #ADADAD;
   font-family:  'Anton';
   animation-name: bg-color-change;
   animation-duration: 1s;
+  animation-fill-mode: forwards;
   overflow: scroll;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
@@ -51,10 +52,6 @@
   justify-content: space-between; /* places children on opposite sides */
 }
 
-.header section:hover {
-  cursor: pointer;
-}
-
 .about{
   margin-right: auto;
   margin-left: 3%;
@@ -69,6 +66,11 @@
 .header section {
   border-bottom: 0.01em solid rgb(255, 200, 124);
   border-bottom-width: 0.0009em;
+}
+
+.header section.about button, .header section.contact button{
+  background: none;
+  border: none;
 }
 
 .header section.about h1, .header section.contact h1, main section.main h1.name{
@@ -105,7 +107,7 @@ section.main{
 }
 
 section.main .info-btn-ctn{
-  margin-top: 15vh;
+  margin-top: 7vh;
   display: flex; /* uses the Flexible Box Layout */
   flex-direction: column; /* stacks the children vertically */
   align-items: center; /* centers the children horizontally */

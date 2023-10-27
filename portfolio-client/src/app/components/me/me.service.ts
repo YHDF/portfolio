@@ -12,12 +12,16 @@ export class MeService {
   constructor(private readonly meDataService : MeDataService ) {
   }
 
-  fetchGithubRepositories(params? : Map<string, string>): Observable<Repository[]> {
-    return this.meDataService.fetchRepositories(params)
+  fetchGithubRepositories(params? : Map<string, string>, options?: Object): Observable<Repository[]> {
+    return this.meDataService.fetchRepositories(params, options)
   }
 
-  fetchWorkExperiences(params? : Map<string, string>): Observable<Work[]> {
-    return this.meDataService.fetchWorkExperiences(params)
+  fetchWorkExperiences(params? : Map<string, string>, options?: Object): Observable<Work[]> {
+    return this.meDataService.fetchWorkExperiences(params, options)
+  }
+
+  downloadResume(params? : Map<string, string>, options?: Object): Observable<Blob> {
+    return this.meDataService.getBlob(params, options);
   }
 
 }

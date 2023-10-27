@@ -14,11 +14,15 @@ export class MeDataService extends AbstractHttpDataService{
     super(http);
   }
 
-  fetchRepositories(params? : Map<string, string>): Observable<Repository[]> {
-    return this.get(`/projects/repositories`, params);
+  fetchRepositories(params? : Map<string, string>, options?: Object): Observable<Repository[]> {
+    return this.get(`/projects/repositories`, params, options);
   }
 
-  fetchWorkExperiences(params? : Map<string, string>): Observable<Work[]> {
-    return this.get(`/work/experiences`, params);
+  fetchWorkExperiences(params? : Map<string, string>, options?: Object): Observable<Work[]> {
+    return this.get(`/work/experiences`, params, options);
+  }
+
+  getBlob(params? : Map<string, string>, options?: Object): Observable<Blob> {
+    return this.get(`/resume/download`, params, options);
   }
 }

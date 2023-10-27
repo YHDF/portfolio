@@ -7,6 +7,7 @@ export class LightConfigService {
 
     if (config.lights) {
       config.lights.forEach((lightConfig: any) => {
+        const name = lightConfig.name;
         const type = lightConfig.type;
         const color = new THREE.Color('#' + lightConfig.HexColorCode);
         const intensity = lightConfig.intensity;
@@ -15,6 +16,7 @@ export class LightConfigService {
 
         if (type === 'PointLight') {
           light = new THREE.PointLight(color, intensity, distance);
+          light.name = name
         }
         // You can handle other types of lights here...
 

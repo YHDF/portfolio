@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Resume>
+    <Person>
+        <Name>HOUDAIFA Youness</Name>
+        <Title>Développeur Java Spring Boot</Title>
+        <Experience>3 ans d'expérience</Experience>
+        <Image src="images/image2.jpg"/>
+        <Address>
+            <Street>120 rue Paul Doumer</Street>
+            <City>Loos</City>
+            <Country>France</Country>
+        </Address>
+        <Email>contact@amarena-consulting.com</Email>
+        <Phone>+33 6 59 51 40 11</Phone>
+        <Description>Développeur Java, spécialisé dans la conception de solutions N-Tier. Avec une expérience sur des
+            environnements diversifiés, dans le développement web. Je mets mon appétence technique en faveur de la
+            satisfaction des besoins métier.
+        </Description>
+    </Person>
+    <Skills>
+        <Skill type="Langages de programmation">Java 16, JavaScript, C, Python</Skill>
+        <Skill type="Technologies web">HTML, JS, CSS(SAAS), Webpack, Vite, ES, Kibana</Skill>
+        <Skill type="Bases de données">MongoDB, MySQL , SQL Server, FireBase, PocketBase, GraphQL, Redis, Prisma</Skill>
+        <Skill type="Outils et environnements">Linux, Github Action, Docker, Ansible, Jenkins, Postman</Skill>
+        <Skill type="Cloud">Kubernetes Lens, k9s</Skill>
+        <Skill type="Gestion des messages">MQTT, MQTT Explorer (Conduktor)</Skill>
+        <Skill type="Outils de collaboration">Jira, Slack, Mattermost, Teams, OneNote</Skill>
+        <Skill type="Frameworks et bibliothèques">ExpressJs, React/NextJs, Angular Svelte/Svelte Kit, SpringBoot 2,
+            JUnit, Flutter
+        </Skill>
+        <Skill type="Méthodologies de travail">Agile (Scrum), UML, Merise, Conception de bases de données
+            relationnelles
+        </Skill>
+        <Skill type="Pratiques de développement">Patrons de conception, refactoring, programmation modulaire, classes
+            réutilisables et évolutives
+        </Skill>
+        <Skill type="Tests">Tests unitaires, tests d'intégration, tests fonctionnels</Skill>
+        <Skill type="Profil GitHub">https://github.com/YHDF</Skill>
+    </Skills>
+    <Experience>
+        <Job>
+            <Duration>2 ans (2021 - 2023)</Duration>
+            <Position>Developpeur Java, Spring Boot</Position>
+            <Company>Worldline</Company>
+            <Description>
+                Développement de l’application Java Santé des Armées au sein d'une Agile Squad de 5 membres;
+                Mise en place des opérations Build et Run avec Spring Boot 2 (Java 11) et Angular 9;
+                Implémentation de tests unitaires et d’intégration avec JUnit 5, Mockito 5;
+                Intégration continue et déploiement avec Gitlab CI, Kubernetes sur un Cloud privé
+            </Description>
+        </Job>
+        <Job>
+            <Duration>6 mois (2021)</Duration>
+            <Position>Stagiaire en Développement Logiciel</Position>
+            <Company>Lutexia</Company>
+            <Description>
+                Conception d'une application full-stack pour la gestion du calendrier comptable et du portefeuille
+                client.
+                Déploiement de la Tech Stack Node.js (Express), React et Shell Scripting pour le déploiement
+            </Description>
+        </Job>
+        <Job>
+            <Duration>3 mois (2020)</Duration>
+            <Position>Stagiaire en Développement Web</Position>
+            <Company>Bolloré Transport et Logistique</Company>
+            <Description>
+                Collaboration pour créer une application web de Tracking de marchandise.
+                Utilisation d'Express, React et MongoDB pour des opérations fluides
+            </Description>
+        </Job>
+        <Job>
+            <Duration>2 mois (2019)</Duration>
+            <Position>Stagiaire en Développement Web</Position>
+            <Company>ENSA B., Maroc</Company>
+            <Description>
+                Élaboration d'une application web dédiée à la gestion des étudiants.
+                Mise en œuvre des technologies C#, ASP.net, et SQL Server
+            </Description>
+        </Job>
+        <!-- Other jobs here -->
+    </Experience>
+    <Education>
+        <Degree>
+            <Duration>2021-2023</Duration>
+            <Program>Master en ingénierie des applications et des logiciels</Program>
+            <Institution>EFFICOM - Lille</Institution>
+        </Degree>
+        <Degree>
+            <Duration>2020-2021</Duration>
+            <Program>Licence en informatique L3</Program>
+            <Institution>Université de Picardie Jules Vernes -Amiens.</Institution>
+        </Degree>
+        <Degree>
+            <Duration>2018-2020</Duration>
+            <Program>Diplôme Universitaire de Technologie en Génie informatique</Program>
+            <Institution>ENSA B. - Maroc</Institution>
+        </Degree>
+        <!-- Other degrees here -->
+    </Education>
+    <Miscellaneous>
+        <Item>Veille technologique: Sur les nouvelles librairies Java et JavaScript, ainsi que les autres évolutions
+            techniques et organisationnelles en IT.
+        </Item>
+    </Miscellaneous>
+</Resume>

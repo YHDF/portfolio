@@ -7,18 +7,18 @@ export abstract class AbstractHttpDataService {
 
   protected constructor(protected http: HttpClient) {}
 
-  protected get<T>(url: string, params? : Map<string, string>): Observable<T> {
+  protected get<T>(url: string, params? : Map<string, string>, options?: Object): Observable<T> {
     if(params){
       url += `?${this.buildParamsStringFromMap(params)}`;
     }
-    return this.http.get<T>(`${environment.portfolioWSURL}${url}`).pipe(catchError(this.handleError));
+    return this.http.get<T>(`${environment.portfolioWSURL}${url}`, options).pipe(catchError(this.handleError));
   }
 
-  protected post<T>(url: string, params? : Map<string, string>, body?: any): Observable<T> {
+  protected post<T>(url: string, params? : Map<string, string>, body?: any, options?: Object): Observable<T> {
     if(params){
       url += `?${this.buildParamsStringFromMap(params)}`;
     }
-    return this.http.post<T>(`${environment.portfolioWSURL}${url}`, body).pipe(catchError(this.handleError));
+    return this.http.post<T>(`${environment.portfolioWSURL}${url}`, body, options).pipe(catchError(this.handleError));
   }
 
   private handleError(error: any) {

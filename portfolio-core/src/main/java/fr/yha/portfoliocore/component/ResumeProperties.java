@@ -22,7 +22,7 @@ public class ResumeProperties {
     @Value("${resume.file.path}")
     private String resumeFilePath;
 
-    @Value("classpath:xml-data/resume.xml")
+    @Value("classpath:xml-data/resume_fr.xml")
     private Resource resource;
 
     public String getResumeFileName() {

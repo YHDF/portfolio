@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Resume>
+    <Person>
+        <Name>Youness HOUDAIFA</Name>
+        <Title>Java Spring Boot Developer</Title>
+        <Experience>3 years of experience</Experience>
+        <Image src="images/image2.jpg"/>
+        <Address>
+            <Street>120 Paul Doumer Street</Street>
+            <City>Loos</City>
+            <Country>France</Country>
+        </Address>
+        <Email>contact@amarena-consulting.com</Email>
+        <Phone>+33 6 59 51 40 11</Phone>
+        <Description>Java developer, specialized in N-Tier solution design. With experience in diverse environments,
+            including web development. I use my technical skills to meet business needs.
+        </Description>
+    </Person>
+    <Skills>
+        <Skill type="Programming Languages">Java 16, JavaScript, C, Python</Skill>
+        <Skill type="Web Technologies">HTML, JS, CSS (SASS), Webpack, Vite, ES, Kibana</Skill>
+        <Skill type="Databases">MongoDB, MySQL, SQL Server, FireBase, PocketBase, GraphQL, Redis, Prisma</Skill>
+        <Skill type="Tools and Environments">Linux, Github Action, Docker, Ansible, Jenkins, Postman</Skill>
+        <Skill type="Cloud">Kubernetes Lens, k9s</Skill>
+        <Skill type="Message Handling">MQTT, MQTT Explorer (Conduktor)</Skill>
+        <Skill type="Collaboration Tools">Jira, Slack, Mattermost, Teams, OneNote</Skill>
+        <Skill type="Frameworks and Libraries">ExpressJs, React/NextJs, Angular Svelte/Svelte Kit, SpringBoot 2,
+            JUnit, Flutter
+        </Skill>
+        <Skill type="Work Methodologies">Agile (Scrum), UML, Merise, Relational Database Design
+        </Skill>
+        <Skill type="Development Practices">Design patterns, refactoring, modular programming, reusable and scalable
+            classes
+        </Skill>
+        <Skill type="Testing">Unit tests, integration tests, functional tests</Skill>
+        <Skill type="GitHub Profile">https://github.com/YHDF</Skill>
+    </Skills>
+    <Experience>
+        <Job>
+            <Duration>2 years (2021 - 2023)</Duration>
+            <Position>Java Developer, Spring Boot</Position>
+            <Company>Worldline</Company>
+            <Description>
+                Development of the Army Health Java application within a 5-member Agile Squad;
+                Implementation of Build and Run operations with Spring Boot 2 (Java 11) and Angular 9;
+                Implementation of unit and integration tests with JUnit 5, Mockito 5;
+                Continuous integration and deployment with Gitlab CI, Kubernetes on a private cloud.
+            </Description>
+        </Job>
+        <Job>
+            <Duration>6 months (2021)</Duration>
+            <Position>Software Development Intern</Position>
+            <Company>Lutexia</Company>
+            <Description>
+                Design of a full-stack application for accounting calendar and client portfolio management.
+                Deployment using Node.js (Express), React, and Shell Scripting.
+            </Description>
+        </Job>
+        <Job>
+            <Duration>3 months (2020)</Duration>
+            <Position>Web Development Intern</Position>
+            <Company>Bolloré transport and logistics</Company>
+            <Description>
+                Collaboration to create a web application for cargo tracking.
+                Use of Express, React, and MongoDB for smooth operations.
+            </Description>
+        </Job>
+        <Job>
+            <Duration>2 months (2019)</Duration>
+            <Position>Web Development Intern</Position>
+            <Company>ENSA B., Morocco</Company>
+            <Description>
+                Development of a web application dedicated to student management.
+                Implementation using C#, ASP.net, and SQL Server technologies.
+            </Description>
+        </Job>
+        <!-- Other jobs here -->
+    </Experience>
+    <Education>
+        <Degree>
+            <Duration>2021-2023</Duration>
+            <Program>Master's in Application and Software Engineering</Program>
+            <Institution>EFFICOM - Lille</Institution>
+        </Degree>
+        <Degree>
+            <Duration>2020-2021</Duration>
+            <Program>Bachelor's in Computer Science L3</Program>
+            <Institution>University of Picardy Jules Verne - Amiens.</Institution>
+        </Degree>
+        <Degree>
+            <Duration>2018-2020</Duration>
+            <Program>University Diploma in Computer Engineering</Program>
+            <Institution>ENSA B. - Morocco</Institution>
+        </Degree>
+        <!-- Other degrees here -->
+    </Education>
+    <Miscellaneous>
+        <Item>Technological Watch: On new Java and JavaScript libraries, as well as other technical and organizational
+            developments in IT.
+        </Item>
+    </Miscellaneous>
+</Resume>

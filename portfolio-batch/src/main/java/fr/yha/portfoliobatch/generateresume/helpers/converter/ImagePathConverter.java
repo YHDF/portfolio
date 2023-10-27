@@ -54,7 +54,7 @@ public class ImagePathConverter {
             String fileName = imageFile.getName();
             String absolutePath = "file:///" + imageFile.getAbsolutePath();
             // Replace the relative path with absolute path
-            updatedCssContent = updatedCssContent.replace("../assets/" + fileName, absolutePath);
+            updatedCssContent = updatedCssContent.replace("../../assets/" + fileName, absolutePath);
         }
 
         LOGGER.info("Converted relative paths to absolute in CSS content.");

@@ -66,7 +66,6 @@ export class ThreeModel {
     return this.materials;
   }
 
-  // Other methods related to ThreeModel
 }
 
 export class ThreeModelBuilder {
@@ -162,7 +161,7 @@ export class AnimationFunctionSupplier {
     }
   }
 
-  public execSupplier(key: string, context: any, args: any[]): any {
+  public execSupplier(key: string, context: any, args: any[]): Promise<any> {
     const supplierFunction = this._data.get(key);
     if (!supplierFunction) {
       throw new Error(`No supplier found for key: ${key}`);
@@ -170,6 +169,32 @@ export class AnimationFunctionSupplier {
     if (typeof supplierFunction !== 'function') {
       throw new Error(`Supplier for key: ${key} is not a function`);
     }
-    return supplierFunction.apply(context, args);
+    return new Promise((resolve, reject) => {
+      resolve(supplierFunction.apply(context, args));
+    }) ;
   }
 }
+
+export class GLTFObjectGroup {
+  private static instance: GLTFObjectGroup | null = null;
+
+  private constructor() {}
+
+  private _objects?: THREE.Group;
+
+  get objects(): THREE.Group {
+    return this._objects!;
+  }
+
+  set objects(value: THREE.Group) {
+    this._objects = value;
+  }
+
+  public static getInstance(): GLTFObjectGroup {
+    if (GLTFObjectGroup.instance === null) {
+      GLTFObjectGroup.instance = new GLTFObjectGroup();
+    }
+    return GLTFObjectGroup.instance;
+  }
+}
+

@@ -13,6 +13,7 @@ import {Repository, Work} from "./me";
 import {NavigationEnd, Router} from '@angular/router';
 import {lastValueFrom, Subscription} from "rxjs";
 import {ResumeSseService} from "../../shared/services/resume-sse.service";
+import {HttpHeaders} from "@angular/common/http";
 
 @Component({
   selector: 'app-me',
@@ -28,6 +29,8 @@ export class MeComponent implements AfterViewInit, OnDestroy {
 
   public showProjects: boolean = false;
   public showWork: boolean = false;
+  public showContact: boolean = false;
+  public showAbout: boolean = false;
   public repositories: Repository[] = [];
   public experiences: Work[] = [];
   message: any = undefined;
@@ -80,6 +83,46 @@ export class MeComponent implements AfterViewInit, OnDestroy {
     }, 1000);
   }
 
+  clearScreenAnimationAndShowContact() {
+    this.slideR();
+    this.slideL();
+    setTimeout(() => {
+      this.showContact = true;
+    }, 1000);
+  }
+
+  clearScreenAnimationAndShowAbout() {
+    this.slideR();
+    this.slideL();
+    setTimeout(() => {
+      this.showAbout = true;
+    }, 1000);
+  }
+
+  downloadResume() {
+    const httpOptions : Object = {
+      headers: new HttpHeaders({
+        'Accept': 'application/pdf',
+      }),
+      responseType: 'blob' as 'json'
+    };
+    this.meService.downloadResume(new Map(),httpOptions).pipe().subscribe({
+      next : (data: Blob) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'CV-développeur-Java.pdf'; // Set the desired file name
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error : (error) => {
+        console.error('Error downloading resume:', error);
+      }
+    })
+  }
+
   slideR() {
     const delayDuration = 100; // e.g., 300ms delay
     this.rightElement.toArray().forEach((element, index) => {
@@ -104,9 +147,4 @@ export class MeComponent implements AfterViewInit, OnDestroy {
     }
     this.resumeSseService.unsubscribe();
   }
-
-
-
-
-
 }

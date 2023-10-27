@@ -2,9 +2,7 @@ package fr.yha.portfoliocore.services;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.batch.core.ItemProcessListener;
-import org.springframework.batch.core.ItemReadListener;
-import org.springframework.batch.core.ItemWriteListener;
+import org.springframework.batch.core.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Sinks;
@@ -12,7 +10,7 @@ import reactor.core.publisher.Sinks;
 import java.util.List;
 
 @Service
-public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, ItemProcessListener<T, S>, ItemWriteListener<T> {
+public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, ItemProcessListener<T, S>, ItemWriteListener<T>, JobExecutionListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BatchJobEventListenerImpl.class);
     private final Sinks.Many<String> sink;
@@ -33,7 +31,7 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     @Override
     public void beforeRead() {
-        String message = "Initiating read operation. Attempting to read XML data to gather the resume information.";
+        String message = "Initiating read operation. Attempting to read XML data to gather the resume information...";
         LOGGER.info(message);
         sink.tryEmitNext(message);
         this.pauseExecution();
@@ -41,7 +39,7 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     @Override
     public void afterRead(T item) {
-        String message = "Data read successfully. Processing the read item.";
+        String message = "Data read successfully. Processing the read item...";
         LOGGER.info(message);
         sink.tryEmitNext(message);
         this.pauseExecution();
@@ -56,7 +54,7 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     @Override
     public void beforeProcess(T item) {
-        String message = "Processing the resume information. Applying template and style.";
+        String message = "Processing the resume information. Applying template and style...";
         LOGGER.info(message);
         sink.tryEmitNext(message);
         this.pauseExecution();
@@ -64,7 +62,7 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     @Override
     public void afterProcess(T item, S result) {
-        String message = "Processing complete. Moving on to the writing phase.";
+        String message = "Processing complete. Moving on to the writing phase...";
         LOGGER.info(message);
         sink.tryEmitNext(message);
         this.pauseExecution();
@@ -80,7 +78,7 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     @Override
     public void beforeWrite(List<? extends T> items) {
-        String message = "Starting writing process. Translating the template into a PDF document.";
+        String message = "Starting writing process. Translating the template into a PDF document...";
         LOGGER.info(message);
         sink.tryEmitNext(message);
         this.pauseExecution();
@@ -88,7 +86,7 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     @Override
     public void afterWrite(List<? extends T> items) {
-        String message = "PDF document creation successful. Preparing for renaming and downloading.";
+        String message = "PDF document creation successful. Preparing for renaming and downloading...";
         LOGGER.info(message);
         sink.tryEmitNext(message);
         this.pauseExecution();
@@ -104,11 +102,21 @@ public class BatchJobEventListenerImpl<T, S> implements ItemReadListener<T>, Ite
 
     public void pauseExecution(){
         try {
-            Thread.sleep(1000L);
+            Thread.sleep(500L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
+    @Override
+    public void beforeJob(JobExecution jobExecution) {
 
+    }
+
+    @Override
+    public void afterJob(JobExecution jobExecution) {
+        String message = "NOP!";
+        LOGGER.info(message);
+        sink.tryEmitNext(message);
+    }
 }

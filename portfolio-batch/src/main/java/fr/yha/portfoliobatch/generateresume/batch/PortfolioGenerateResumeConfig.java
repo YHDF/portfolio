@@ -30,9 +30,10 @@ public class PortfolioGenerateResumeConfig {
     }
 
     @Bean
-    public Job portfolioGenerateResume(@Named("generateResumeEntityStep") Step generateResumeEntityStep) {
+    public Job portfolioGenerateResume(@Named("generateResumeEntityStep") Step generateResumeEntityStep, BatchJobEventListenerImpl listener) {
         return jobBuilderFactory.get("portfolioGenerateResume")
                 .start(generateResumeEntityStep)
+                .listener(listener)
                 .build();
     }
 

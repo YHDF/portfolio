@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {THREE} from './three-wrapper';
 import {ThreeModelConfigService} from "../../shared/services/three-model-config.service";
-import {InteractiveGeometry, ThreeModel} from "./three-model";
+import {GLTFObjectGroup, InteractiveGeometry, ThreeModel} from "./three-model";
 import {LightConfigService} from "../../shared/services/light-config.service";
 import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {MaterialConfigService} from "../../shared/services/material-config.service";
@@ -47,6 +47,8 @@ export class ThreeModelBuilderService {
   createGeometry(scene: THREE.Scene, materials: THREE.Material[], materialConfig: any, interactiveMapConfig: any[], islightMode : boolean): GLTFLoader {
     //    MaterialConfigService.getMaterialParentObjects(materialConfig);
 
+    const gltfObjectGroup = GLTFObjectGroup.getInstance();
+
     // Instantiate a loader
     const dracoLoader = new DRACOLoader();
 
@@ -62,6 +64,7 @@ export class ThreeModelBuilderService {
     // Load the GLTF model for the room
     loader.load('./assets/3d-models/Room.glb', (gltf) => {
       const objects = gltf.scene;
+      gltfObjectGroup.objects = objects;
       scene.add(objects);
       objects.traverse((object: any) => {
         if (!["DirectionalLight", "PointLight", "SpotLight"].includes(object.type)) {
@@ -69,10 +72,9 @@ export class ThreeModelBuilderService {
           object.receiveShadow = true;
 
           //Block to remove
-          if(object.material && islightMode){
-            this.materialConfigService.applyMaterialOptionsConfiguration(object, materialConfig)
+          if(object.material){
+            this.applyMaterialOptionsConfiguration(object, materialConfig, islightMode)
           }
-
           //Block to remove
 
           for (let i = 0; i < materialConfig.materials.length; i++) {
@@ -93,6 +95,20 @@ export class ThreeModelBuilderService {
       console.error(error);
     });
     return loader;
+  }
+
+  applyMaterialOptionsConfiguration(object : any, materialConfig: any, islightMode: boolean){
+    this.materialConfigService.applyMaterialOptionsConfiguration(object, materialConfig, islightMode)
+  }
+
+  removeLights(lightConfig: any, scene: THREE.Scene) {
+    const lightsToRemove = lightConfig.lights.map((value: any) => scene.getObjectByName(value.name)!);
+    scene.remove(...lightsToRemove);
+  }
+
+  addLights(lightConfig: any, scene: THREE.Scene) {
+    const lightsToAdd = this.createLights(lightConfig);
+    scene.add(...lightsToAdd);
   }
 
 
