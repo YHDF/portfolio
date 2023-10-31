@@ -33,7 +33,7 @@ public class ResumeDataReader {
      * @throws IOException if the job is already running
      * @throws JAXBException if the job is restarted
      */
-    public Resume readResumeXMLData(boolean isDataRead) throws JAXBException, IOException {
+    public Resume readResumeXMLData(boolean isDataRead, boolean isFrenchVersion) throws JAXBException, IOException {
         if (isDataRead) {
             LOGGER.warn("Data has already been read, returning null.");
             return null;
@@ -49,7 +49,7 @@ public class ResumeDataReader {
             throw e;
         }
 
-        try (InputStream is = this.resumeProperties.getResource().getInputStream()) {
+        try (InputStream is = this.resumeProperties.getResource(isFrenchVersion).getInputStream()) {
             Resume resume = (Resume) unmarshaller.unmarshal(is);
             LOGGER.info("Resume data successfully read from XML.");
             return resume;

@@ -7,6 +7,9 @@ import org.jsoup.helper.W3CDom;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemWriter;
 import org.springframework.stereotype.Component;
@@ -28,6 +31,27 @@ public class ResumePDFWriter implements ItemWriter<String> {
     private static final String EMPTY_STRING = "";
 
     private final ResumeProperties resumeProperties;
+
+    private boolean isFrenchVersion;
+
+    public boolean getFrenchVersion() {
+        return isFrenchVersion;
+    }
+
+    public void setFrenchVersion(boolean isFrenchVersion) {
+        this.isFrenchVersion = isFrenchVersion;
+    }
+
+    @BeforeStep
+    public void retrieveJobParameters(StepExecution stepExecution) {
+        JobParameters jobParameters = stepExecution.getJobParameters();
+        if(jobParameters.getString("isFrenchVersion") != null && !jobParameters.getString("isFrenchVersion").equals("")){
+            this.setFrenchVersion(Boolean.parseBoolean(jobParameters.getString("isFrenchVersion")));
+        }else{
+            this.setFrenchVersion(true);
+        }
+        LOGGER.info("Job Parameter 'isFrenchVersion': {}", this.isFrenchVersion);
+    }
 
     public ResumePDFWriter(ResumeProperties resumeProperties) {
         this.resumeProperties = resumeProperties;
@@ -54,7 +78,7 @@ public class ResumePDFWriter implements ItemWriter<String> {
         String updatedContent = convertRelativePathsToAbsolute(content, images);
         Document document = Jsoup.parse(updatedContent, "UTF-8");
         document.outputSettings().syntax(Document.OutputSettings.Syntax.xml);
-        String filePath = EMPTY_STRING.concat(this.resumeProperties.getResumeFilePath() + this.resumeProperties.getResumeFileName());
+        String filePath = EMPTY_STRING.concat(this.resumeProperties.getResumeFilePath() + this.resumeProperties.getResumeFileName(this.isFrenchVersion));
 
         try (OutputStream os = new FileOutputStream(filePath)) {
             LOGGER.info("Initializing PDF rendering builder for file: {}", filePath);

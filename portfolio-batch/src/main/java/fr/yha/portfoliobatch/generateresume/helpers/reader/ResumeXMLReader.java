@@ -22,6 +22,8 @@ public class ResumeXMLReader implements ItemReader<Resume> {
     private final ResumeDataReader resumeDataReader;
     private boolean isDataRead;
 
+    private boolean isFrenchVersion;
+
     public ResumeXMLReader(ResumeDataReader resumeDataReader) {
         this.resumeDataReader = resumeDataReader;
     }
@@ -34,18 +36,32 @@ public class ResumeXMLReader implements ItemReader<Resume> {
         this.isDataRead = isDataRead;
     }
 
+    public boolean getFrenchVersion() {
+        return isFrenchVersion;
+    }
+
+    public void setFrenchVersion(boolean isFrenchVersion) {
+        this.isFrenchVersion = isFrenchVersion;
+    }
+
     @BeforeStep
     public void retrieveJobParameters(StepExecution stepExecution) {
         JobParameters jobParameters = stepExecution.getJobParameters();
         this.setDataRead(Boolean.valueOf(jobParameters.getString("isDataRead")));
+        if(jobParameters.getString("isFrenchVersion") != null && !jobParameters.getString("isFrenchVersion").equals("")){
+            this.setFrenchVersion(Boolean.valueOf(jobParameters.getString("isFrenchVersion")));
+        }else{
+            this.setFrenchVersion(true);
+        }
         logger.info("Job Parameter 'isDataRead': {}", this.isDataRead);
+        logger.info("Job Parameter 'isFrenchVersion': {}", this.isFrenchVersion);
     }
 
     @Override
     public Resume read() throws JAXBException, IOException {
         try {
             logger.info("Attempting to read XML data. isDataRead: {}", this.isDataRead);
-            Resume resume = this.resumeDataReader.readResumeXMLData(this.isDataRead);
+            Resume resume = this.resumeDataReader.readResumeXMLData(this.isDataRead, this.isFrenchVersion);
             this.setDataRead(true);
             logger.info("Data read successfully, setting isDataRead to true");
             return resume;

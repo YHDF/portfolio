@@ -13,8 +13,11 @@ import org.springframework.stereotype.Component;
 })
 public class ResumeProperties {
 
-    @Value("${resume.file.name}")
-    private String resumeFileName;
+    @Value("${resume.file.name.fr}")
+    private String frenchResumeFileName;
+
+    @Value("${resume.file.name.en}")
+    private String englishResumeFileName;
 
     @Value("${resume.image.directory}")
     private String resumeImageDirectory;
@@ -23,10 +26,17 @@ public class ResumeProperties {
     private String resumeFilePath;
 
     @Value("classpath:xml-data/resume_fr.xml")
-    private Resource resource;
+    private Resource frenchVersionResource;
 
-    public String getResumeFileName() {
-        return resumeFileName;
+    @Value("classpath:xml-data/resume_en.xml")
+    private Resource englishVersionResource;
+
+    public String getFrenchResumeFileName() {
+        return frenchResumeFileName;
+    }
+
+    public String getEnglishResumeFileName() {
+        return englishResumeFileName;
     }
 
     public String getResumeImageDirectory() {
@@ -37,7 +47,19 @@ public class ResumeProperties {
         return resumeFilePath;
     }
 
-    public Resource getResource() {
-        return resource;
+    public Resource getFrenchVersionResource() {
+        return frenchVersionResource;
+    }
+
+    public Resource getEnglishVersionResource() {
+        return englishVersionResource;
+    }
+
+    public String getResumeFileName(boolean isResouceFrench) {
+        return isResouceFrench ? this.frenchResumeFileName : this.englishResumeFileName;
+    }
+
+    public Resource getResource(boolean isResouceFrench) {
+        return isResouceFrench ? this.frenchVersionResource : this.englishVersionResource;
     }
 }

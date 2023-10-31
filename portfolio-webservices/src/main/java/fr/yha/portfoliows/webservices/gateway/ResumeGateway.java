@@ -37,11 +37,11 @@ public class ResumeGateway {
     }
 
 
-    public byte[] downloadResume() throws IOException {
-        String filePath = resumeProperties.getResumeFilePath() + resumeProperties.getResumeFileName();
+    public byte[] downloadResume(String version) throws IOException {
+        String filePath = resumeProperties.getResumeFilePath() + resumeProperties.getResumeFileName(version.equalsIgnoreCase("FR"));
         Path path = Paths.get(filePath);
         LOGGER.info("Initiating resume generation job...");
-        CompletableFuture<Void> future = this.resumeService.launchResumeGenerationJob();
+        CompletableFuture<Void> future = this.resumeService.launchResumeGenerationJob(version);
         future.join();
         LOGGER.info("Resume generation job launched successfully.");
 

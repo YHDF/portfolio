@@ -6,7 +6,7 @@ import {ResumeSseService} from "../../services/resume-sse.service";
   selector: 'app-custom-alert',
   template: `
     <ng-container *ngIf="message">
-      <div class="alert-ctn">
+      <div class="alert-ctn light-text-color">
         <c-spinner size="sm" class="spinner"></c-spinner>
         <span class="message">{{ message }}</span>
       </div>
@@ -32,13 +32,6 @@ import {ResumeSseService} from "../../services/resume-sse.service";
       vertical-align: bottom;
     }`,
     `.spinner, .message {
-      background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
-      background-size: 100%;
-      -webkit-background-clip: text;
-      -moz-background-clip: text;
-      line-break: auto;
-      -webkit-text-fill-color: transparent;
-      -moz-text-fill-color: transparent;
       white-space: nowrap;
     }`,
     `span::before {

@@ -1,24 +1,25 @@
 package fr.yha.portfoliocore.entity;
 
 import javax.xml.bind.annotation.XmlElement;
+import java.util.List;
 
 public class Miscellaneous {
 
-    private String item;
+    private List<Item> items;
 
     public Miscellaneous() {
     }
 
-    public Miscellaneous(String item) {
-        this.item = item;
+    public Miscellaneous(List<Item> items) {
+        this.items = items;
     }
 
     @XmlElement(name = "Item")
-    public String getItem() {
-        return item;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setItem(String item) {
-        this.item = item;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 }

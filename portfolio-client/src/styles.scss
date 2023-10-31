@@ -9,3 +9,52 @@ html, body {
   height: 100vh !important;
   overflow: hidden;
 }
+
+
+//dark mode
+.dark-component-bg {
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+}
+
+.dark-text-color h1, .dark-text-color p, .dark-text-color span, .dark-text-color h2, .dark-text-color ul{
+  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.dark-button-border-color button{
+  border: 3px solid rgb(255, 200, 124);
+}
+
+.main.dark-text-color section {
+  border-bottom: 0.01em solid rgb(255, 200, 124);
+  border-bottom-width: 0.0009em;
+}
+
+//light mode
+.light-component-bg {
+  background: linear-gradient(to bottom, #2c3e50, #bdc3c7);
+}
+
+.light-text-color h1, .light-text-color p, .light-text-color span, .light-text-color h2, .light-text-color ul{
+  background: #bdc3c7;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2c3e50, #bdc3c7);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2c3e50, #bdc3c7); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+}
+
+.light-button-border-color button{
+  border: 3px solid rgb(189, 195, 199);
+}
+
+main .light-text-color section {
+  border-bottom: 0.01em solid rgb(189, 195, 199);
+  border-bottom-width: 0.0009em;
+}

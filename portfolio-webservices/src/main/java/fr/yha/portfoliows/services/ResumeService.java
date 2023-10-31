@@ -38,12 +38,17 @@ public class ResumeService {
     /**
      * Launches the resume generation job with appropriate parameters.
      */
-    public CompletableFuture<Void> launchResumeGenerationJob() {
+    public CompletableFuture<Void> launchResumeGenerationJob(String version) {
         return CompletableFuture.runAsync(() -> {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             String date = sdf.format(new Date());
+            boolean isFrenchVersion = version.equalsIgnoreCase("FR");
 
-            JobParameters jobParameters = new JobParametersBuilder().addString("genDate", date).addString("fileName", this.resumeProperties.getResumeFileName()).toJobParameters();
+            JobParameters jobParameters = new JobParametersBuilder()
+                    .addString("genDate", date)
+                    .addString("fileName", this.resumeProperties.getResumeFileName(isFrenchVersion))
+                    .addString("isFrenchVersion", String.valueOf(isFrenchVersion))
+                    .toJobParameters();
             try {
 
                 jobLauncher.run(resumeGenerationJob, jobParameters);

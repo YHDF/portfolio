@@ -6,6 +6,9 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.StepExecution;
+import org.springframework.batch.core.annotation.BeforeStep;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
@@ -29,6 +32,27 @@ public class ResumeFTLProcessor implements ItemProcessor<Resume, String> {
 
     private final Configuration freemarkerConfiguration;
 
+    private boolean isFrenchVersion;
+
+    public boolean getFrenchVersion() {
+        return isFrenchVersion;
+    }
+
+    public void setFrenchVersion(boolean isFrenchVersion) {
+        this.isFrenchVersion = isFrenchVersion;
+    }
+
+    @BeforeStep
+    public void retrieveJobParameters(StepExecution stepExecution) {
+        JobParameters jobParameters = stepExecution.getJobParameters();
+        if(jobParameters.getString("isFrenchVersion") != null && !jobParameters.getString("isFrenchVersion").equals("")){
+            this.setFrenchVersion(Boolean.parseBoolean(jobParameters.getString("isFrenchVersion")));
+        }else{
+            this.setFrenchVersion(true);
+        }
+        logger.info("Job Parameter 'isFrenchVersion': {}", this.isFrenchVersion);
+    }
+
 
     public ResumeFTLProcessor(Configuration freemarkerConfiguration) {
         this.freemarkerConfiguration = freemarkerConfiguration;
@@ -46,18 +70,21 @@ public class ResumeFTLProcessor implements ItemProcessor<Resume, String> {
 
 
             // Get the template by name
-            Template temp = freemarkerConfiguration.getTemplate("resume_fr.ftl");
+            String templateName = this.isFrenchVersion ? "resume_fr.ftl" : "resume_en.ftl";
+            Template temp = freemarkerConfiguration.getTemplate(templateName);
 
             // Create a StringWriter to hold the HTML
             Writer stringWriter = new StringWriter();
 
             // Prepare the data model (if needed)
             Map<String, Object> model = new HashMap<>();
-            resume.getExperience().getJobs().forEach(job -> {
-                if (job.getDescription().contains(";")) {
-                    job.setDescriptionList(Arrays.asList(job.getDescription().split(";")));
-                }
-            });
+            if(resume.getExperience() != null){
+                resume.getExperience().getJobs().forEach(job -> {
+                    if (job.getDescription().contains(";")) {
+                        job.setDescriptionList(Arrays.asList(job.getDescription().split(";")));
+                    }
+                });
+            }
             model.put("resume", resume);
 
             // Populate model with data (example: model.put("name", "John Doe");)

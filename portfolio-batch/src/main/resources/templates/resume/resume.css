@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata');
-
 @page {
     margin: 0;
 }
@@ -8,7 +7,6 @@
 html {
     height: 100%;
 }
-
 
 body {
     width: 100% !important;
@@ -26,7 +24,7 @@ body {
     height: auto;
     margin-left: 15px;
     margin-right: 15px;
-    margin-top: 15px;
+    margin-top: 50px;
     border-spacing: 10px;
 }
 
@@ -36,40 +34,13 @@ body {
     height: 92%;
     margin-bottom: 2%;
     background: #f5ebe0;
-    border-radius: 10px;
+    border-radius: 5px;
     border: 2px solid #0f2533;
 }
 
-.inner-ctn div{
-    border-spacing: 20px;
-}
-
-.inner-ctn a{
-    color: #0077b6;
-}
-
-.inner-ctn ul {
-    margin: 0;
-    padding: 0 1vw 0 2vw;
-}
-
-.inner-ctn div > div {
-    display: table-row
-}
-
-.inner-ctn div h2, .inner-ctn ul h2 {
-    margin: 0;
-}
-
-.contact-skill {
-    height: auto;
-    width: 100%;
-}
-
 .outter-ctn {
-    height: inherit;
     background: #a2d2ff;
-    border-radius: 10px;
+    border-radius: 5px;
     align-items: center;
     justify-content: center;
     padding: 10px;
@@ -84,12 +55,6 @@ body {
     text-align: center;
 }
 
-.person {
-    margin-top: 10px;
-    padding: 0;
-}
-
-
 .image {
     width: 10%;
     background-image: url('../../assets/photo.jpg');
@@ -99,10 +64,32 @@ body {
     border: 2px solid #0f2533;
 }
 
+.inner-ctn div {
+    border-spacing: 5px;
+}
 
-.contact-skill,
-.experience-education-miscellaneous {
+.inner-ctn a {
+    color: #0077b6;
+}
+
+.inner-ctn ul {
+    margin: 0;
+    padding: 0 1vw 0 2vw;
+}
+
+.inner-ctn div>div {
     display: table-row;
+}
+
+.inner-ctn div h2,
+.inner-ctn ul h2 {
+    margin: 0;
+}
+
+.person,
+.experience {
+    height: 20%;
+    margin-top: 10px;
 }
 
 .person .inner-ctn {
@@ -115,67 +102,80 @@ body {
     display: table-cell;
 }
 
-.person .inner-ctn div h2{
+.person .inner-ctn div h2 {
     margin: 10px 5px;
     text-align: center;
 }
 
-.contact-skill>div {
+.contact-miscellaneous,
+.education-skill {
+    display: table-row;
+}
+
+.contact-miscellaneous {
+    height: 50%;
+}
+
+.contact-miscellaneous>div,
+.education-skill>div {
     display: table-cell;
 }
 
-.contact-skill div:nth-child(1) {
-    width: 35%;
+.contact-miscellaneous>div:nth-child(1),
+.education-skill>div:nth-child(1) {
+    width: 40%;
 }
 
-.experience-education-miscellaneous, .miscellaneous {
-    margin-top: 10px;
+.contact-miscellaneous .inner-ctn {
+    height: 275px
 }
 
-.experience-education-miscellaneous>div {
-    display: table-cell;
+.contact-miscellaneous .miscellaneous .inner-ctn>ul {
+    list-style: none;
+    margin-top: 10%;
+    font-size: 12px;
+    height: 80%;
 }
 
-
-.education-miscellaneous .education .inner-ctn ul {
-    margin: 0;
-}
-
-.education-miscellaneous .education .inner-ctn h2, .education-miscellaneous .miscellaneous .inner-ctn h2, .contact-skill .contact .inner-ctn .contact-info-ctn h2 {
+.contact-miscellaneous .contact .inner-ctn>div{
+    margin: 20% 30px;
     text-align: center;
 }
 
-.contact-skill .contact .inner-ctn .contact-info-ctn h2{
-    margin-left: 15px;
-
+.education-skill .inner-ctn {
+    height: 375px;
+    text-align: end;
 }
 
-.education-miscellaneous .education .inner-ctn h2{
-    margin-left: -45px;
-}
-
-.education-miscellaneous .miscellaneous .inner-ctn p, .contact-skill .contact .inner-ctn .contact-info-ctn p {
-    text-align: center;
-}
-
-.contact .inner-ctn .contact-info-ctn p {
-    margin: 0;
-    margin-bottom: 15px;
-    margin-left: 10px;
-
-}
-
-.contact-skill .contact .inner-ctn .contact-info-ctn{
+.education-skill .education .inner-ctn>ul {
+    list-style: none;
     margin-top: 25%;
+    font-size: 12px;
+    height: 50%;
+    margin-left: -25px;
+    text-align: center;
 }
 
-.contact-skill .contact .inner-ctn .contact-info-ctn, .contact-skill .contact .inner-ctn .contact-info-ctn > div{
-    width: 100%;
+.education-skill .skill .inner-ctn>ul {
+    list-style: none;
+    margin-top: 2%;
+    font-size: 12px;
+    height: 96%;
 }
 
+.experience ul{
+    margin-left: 25px;
+}
 
-.contact-skill .contact .inner-ctn {
-    height: 275px;
+.experience h2{
+    text-decoration: underline;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.experience ul{
+    margin-left: 25px;
+    font-size: 12px;
 }
 
 .vertical-separator {
@@ -186,10 +186,6 @@ body {
     border: 5px solid transparent;
 }
 
-.person h1 {
-    padding-top: 10px;
-}
-
-span{
-    text-align: center;
+.page-break {
+    break-after: page;
 }

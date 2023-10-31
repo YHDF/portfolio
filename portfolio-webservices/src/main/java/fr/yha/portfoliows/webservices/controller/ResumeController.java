@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
 
@@ -30,10 +31,10 @@ public class ResumeController {
     }
 
     @GetMapping("/download")
-    public ResponseEntity<byte[]> downloadResume() {
+    public ResponseEntity<byte[]> downloadResume(@RequestParam String version) {
         LOGGER.info("Starting resume creation and download process.");
         try {
-            byte[] resumeBytes = resumeGateway.downloadResume();
+            byte[] resumeBytes = resumeGateway.downloadResume(version);
             LOGGER.info("Resume downloaded successfully.");
             return ResponseEntity.ok()
                     .header("Content-Type", "application/pdf")

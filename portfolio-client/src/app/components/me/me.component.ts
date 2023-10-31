@@ -99,20 +99,22 @@ export class MeComponent implements AfterViewInit, OnDestroy {
     }, 1000);
   }
 
-  downloadResume() {
+  downloadResume(version : string) {
     const httpOptions : Object = {
       headers: new HttpHeaders({
         'Accept': 'application/pdf',
       }),
       responseType: 'blob' as 'json'
     };
-    this.meService.downloadResume(new Map(),httpOptions).pipe().subscribe({
+    const resumeParamsMap = new Map();
+    resumeParamsMap.set('version', version);
+    this.meService.downloadResume(resumeParamsMap,httpOptions).pipe().subscribe({
       next : (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = 'CV-développeur-Java.pdf'; // Set the desired file name
+        a.download = version === 'fr' ? 'CV-développeur-Java.pdf' : 'Java-developer-resume.pdf';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
