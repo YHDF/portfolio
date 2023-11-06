@@ -1,3 +1,3 @@
 export const environment = {
-  portfolioWSURL: 'http://localhost:9000/portfolio-client',
+  portfolioWSURL: 'http://34.172.45.41:9000/portfolio-client',
 };
