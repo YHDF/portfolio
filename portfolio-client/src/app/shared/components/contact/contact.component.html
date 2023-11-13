@@ -1,17 +1,15 @@
 <main>
-  <section class="contact-form-ctn">
-    <h1>WRITE ME</h1>
-    <p>Don't hesitate to contact me with any questions regarding my work or services.</p>
-    <p>I will do my best to respond to you as soon as possible.</p>
+  <section [defaultClasses]="['contact-form-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="['text-color', 'form-element-color', 'button-hover', 'bottom-border-color', 'border']" appLightingMode>
+    <h1>{{'_CONTACT_WRITE_ME_' | translate}}</h1>
+    <p>{{'_CONTACT_FIRST_MESSAGE_' | translate}}</p>
+    <p>{{'_CONTACT_SECOND_MESSAGE_' | translate}}</p>
     <div class="form-ctn">
-      <input #input name="mail" placeholder="Email" type="email" />
-      <input #input name="name" placeholder="Full Name" type="text" />
-      <input #input name="subject" placeholder="Subject" type="text" />
-      <textarea #textarea cols="50" name="message" placeholder="message" rows="4"></textarea>
-      <button (click)="sendEmail()" >Submit</button>
+      <input #input name="mail" placeholder="{{'_CONTACT_EMAIL_PLACEHOLDER_' | translate}}" type="email" />
+      <input #input name="name" placeholder="{{'_CONTACT_NAME_PLACEHOLDER_' | translate}}" type="text" />
+      <input #input name="subject" placeholder="{{'_CONTACT_SUBJECT_PLACEHOLDER_' | translate}}" type="text" />
+      <textarea #textarea cols="50" name="{{'_CONTACT_MESSAGE_PLACEHOLDER_' | translate}}" placeholder="message" rows="4"></textarea>
+      <button (click)="sendEmail()" >{{'_CONTACT_SEND_BUTTON_' | translate}}</button>
     </div>
   </section>
-  <aside class="contact-info-ctn">
 
-  </aside>
 </main>

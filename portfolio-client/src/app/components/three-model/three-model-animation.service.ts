@@ -169,7 +169,7 @@ export class ThreeModelAnimationService {
     const animationSuppliers: ((...args: any) => any)[] = [
       async (intersectionName: string, animationId: number, enableMouseMove: boolean, __beforeAnimationCallback: () => void, __afterAnimationCallback: () => void) => {
       this.removeMouseMove();
-      setTimeout(() =>       this.animateCamera(animationId, enableMouseMove, __beforeAnimationCallback, __afterAnimationCallback), 100)
+      setTimeout(() => this.animateCamera(animationId, enableMouseMove, __beforeAnimationCallback, __afterAnimationCallback), 100)
       return await new Promise((resolve, reject) => {
         const material : THREE.Material = __callback.apply(this, [intersectionName])[0];
         setTimeout(() => {

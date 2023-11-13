@@ -1,33 +1,6 @@
-// imports & declaration
-@font-face {
-  font-family: 'Anton';
-  src: url("../../../assets/fonts/Anton-Regular.ttf");
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
-
-
-//display modes
-
-  //dark mode
-.dark-bg {
-  animation-name: dark-bg-color-change ;
-}
-
-  //light mode
-.light-bg {
-  animation-name: light-bg-color-change ;
-}
-
-
 //styles
 .upper-ctn{
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: #ADADAD;
+  background: none;
   font-family: 'Anton';
   animation-duration: 1s;
   animation-fill-mode: forwards;
@@ -54,35 +27,7 @@
   animation-fill-mode: forwards;*/
 }
 
-.header {
-  all: revert;
-}
-
-.header {
-  margin-top: 1vh;
-  display: flex; /* sets up a flex container */
-  justify-content: space-between; /* places children on opposite sides */
-}
-
-.about{
-  margin-right: auto;
-  margin-left: 3%;
-  height: 100%;
-}
-
-.contact{
-  width: fit-content;
-  margin-right: 3%;
-}
-
-
-
-.header section.about button, .header section.contact button{
-  background: none;
-  border: none;
-}
-
-.header section.about h1, .header section.contact h1, main section.main h1.name{
+ main section.main h1.name{
   text-align: center;
   font-weight: bolder;
   font-size: 2.5em;
@@ -166,15 +111,6 @@ section.main .info-btn-ctn.light-button-border-color button:hover{
 
 
 //animations
-@keyframes dark-bg-color-change {
-  from {background: #748cab;}
-  to {background: #202633;}
-}
-
-@keyframes light-bg-color-change {
-  from {background: #ddbea9;}
-  to {background: #ffe8d6;}
-}
 
 @keyframes content-opacity-change {
   from {opacity: 0;}

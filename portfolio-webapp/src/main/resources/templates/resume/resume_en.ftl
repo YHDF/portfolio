@@ -36,15 +36,17 @@
                             <h2>Phone Number :</h2>
                             <p>${resume.person.phone} </p>
                         </div>
-                        <div class="contact-info-address">
-                            <h2>Address :</h2>
-                            <p style="text-align: center">${resume.person.address.street}
-                                59120 ${resume.person.address.city}, ${resume.person.address.country}</p>
-                        </div>
                         <div class="contact-info-email">
                             <h2>Email :</h2>
                             <p>${resume.person.email}</p>
                         </div>
+                        <div class="contact-info-address">
+                            <h2>Address :</h2>
+                            <p style="text-align: center">${resume.person.address.street}
+                                59120 ${resume.person.address.city}, ${resume.person.address.country}</p>
+                            <p><b>Mobile on France and Belgium</b></p>
+                        </div>
+
                     </div>
                 </div>
             </div>

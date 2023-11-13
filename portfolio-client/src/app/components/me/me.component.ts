@@ -3,17 +3,19 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  Input,
   OnDestroy,
   QueryList,
   ViewChildren,
   ViewEncapsulation
 } from '@angular/core';
 import {MeService} from "./me.service";
-import {Repository, Work} from "./me";
 import {NavigationEnd, Router} from '@angular/router';
-import {lastValueFrom, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
 import {ResumeSseService} from "../../shared/services/resume-sse.service";
 import {HttpHeaders} from "@angular/common/http";
+import {LightingModeService} from "../../shared/services/lighting-mode.service";
+import {SharedDataProviderService} from "../../shared/services/shared-data-provider.service";
 
 @Component({
   selector: 'app-me',
@@ -27,22 +29,22 @@ export class MeComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('slideL') leftElement!: QueryList<ElementRef>;
   @ViewChildren('slideR') rightElement!: QueryList<ElementRef>;
 
-  public showProjects: boolean = false;
-  public showWork: boolean = false;
-  public showContact: boolean = false;
-  public showAbout: boolean = false;
-  public repositories: Repository[] = [];
-  public experiences: Work[] = [];
-  message: any = undefined;
-  private readonly messageSubscription: Subscription;
+  public isDarkMode: boolean = false;
 
-
-  constructor(private cdr: ChangeDetectorRef, private readonly meService: MeService, private readonly  resumeSseService: ResumeSseService,  private router: Router) {
+  constructor(private cdr: ChangeDetectorRef, private readonly meService: MeService,
+              private readonly  resumeSseService: ResumeSseService,  private router: Router,
+              private lightingModeService: LightingModeService,
+              private readonly sharedDataProviderService : SharedDataProviderService) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
       }
     });
+
+    this.lightingModeService.lightingMode$.subscribe(mode => {
+      this.isDarkMode = mode === 'dark';
+    });
+
     this.messageSubscription = this.resumeSseService.messages$.subscribe(
       message => {
         this.message = message;
@@ -50,16 +52,14 @@ export class MeComponent implements AfterViewInit, OnDestroy {
       });
   }
 
-  ngAfterViewInit() {
-    const repositories$ = this.meService.fetchGithubRepositories();
-    const repositoriesPromise = lastValueFrom(repositories$);
+  message: any = undefined;
+  private readonly messageSubscription: Subscription;
 
-    const experiences$ = this.meService.fetchWorkExperiences();
-    const experiencesPromise = lastValueFrom(experiences$);
-    Promise.all([repositoriesPromise, experiencesPromise]).then((values) => {
-      this.repositories = values[0];
-      this.experiences = values[1];
-    });
+  @Input()
+  toggleShowMe : (value : boolean) => void = (value) => {};
+
+  ngAfterViewInit() {
+    this.sharedDataProviderService.fetchWorkAndProjects();
     this.listenToEvents();
   }
 
@@ -70,33 +70,13 @@ export class MeComponent implements AfterViewInit, OnDestroy {
   clearScreenAnimationAndShowProjects() {
     this.slideR();
     this.slideL();
-    setTimeout(() => {
-      this.showProjects = true;
-    }, 1000);
+    this.router.navigate(['/projects'])
   }
 
   clearScreenAnimationAndShowWork() {
     this.slideR();
     this.slideL();
-    setTimeout(() => {
-      this.showWork = true;
-    }, 1000);
-  }
-
-  clearScreenAnimationAndShowContact() {
-    this.slideR();
-    this.slideL();
-    setTimeout(() => {
-      this.showContact = true;
-    }, 1000);
-  }
-
-  clearScreenAnimationAndShowAbout() {
-    this.slideR();
-    this.slideL();
-    setTimeout(() => {
-      this.showAbout = true;
-    }, 1000);
+    this.router.navigate(['/work'])
   }
 
   downloadResume(version : string) {
@@ -114,7 +94,7 @@ export class MeComponent implements AfterViewInit, OnDestroy {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = version === 'fr' ? 'CV-développeur-Java.pdf' : 'Java-developer-resume.pdf';
+        a.download = version === 'fr' ? 'CV-développeur-fullstack.pdf' : 'Fullstack-developer-resume.pdf';
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -148,5 +128,10 @@ export class MeComponent implements AfterViewInit, OnDestroy {
       this.messageSubscription.unsubscribe();
     }
     this.resumeSseService.unsubscribe();
+  }
+
+  quit(){
+    this.sharedDataProviderService.showMe = false;
+    this.toggleShowMe(this.sharedDataProviderService.showMe);
   }
 }

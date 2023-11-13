@@ -9,20 +9,30 @@ import {BrowserModule} from "@angular/platform-browser";
 import {WorkComponent} from './components/work/work.component';
 import {CustomAlertComponent} from './components/custom-alert/custom-alert.component';
 import {ContactComponent} from './components/contact/contact.component';
+import {LightingModeDirective} from './directives/lighting-mode.directive';
+import {ContactInfoComponent} from './components/contact-info/contact-info.component';
+import {OptionMenuComponent} from './components/option-menu/option-menu.component';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
     ProjectComponent,
     WorkComponent,
     CustomAlertComponent,
-    ContactComponent
+    ContactComponent,
+    LightingModeDirective,
+    ContactInfoComponent,
+    OptionMenuComponent,
   ],
-    exports: [
-        ProjectComponent,
-        WorkComponent,
-        CustomAlertComponent,
-        ContactComponent
-    ],
+  exports: [
+    ProjectComponent,
+    WorkComponent,
+    CustomAlertComponent,
+    ContactComponent,
+    LightingModeDirective,
+    ContactInfoComponent,
+    OptionMenuComponent
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -32,6 +42,8 @@ import {ContactComponent} from './components/contact/contact.component';
     HttpClientModule,
     ButtonDirective,
     SpinnerComponent,
+    TranslateModule,
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+}

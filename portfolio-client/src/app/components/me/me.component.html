@@ -1,21 +1,13 @@
-<div class="upper-ctn light-bg">
+<div [defaultClasses]="['upper-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="[]" appLightingMode>
   <main>
-    <div class="header light-text-color">
-      <section class="about">
-        <button (click)="clearScreenAnimationAndShowAbout()"><h1>ABOUT</h1></button>
-      </section>
-
-      <section class="contact">
-        <button (click)="clearScreenAnimationAndShowContact()"><h1>WRITE ME</h1></button>
-      </section>
-    </div>
-    <section *ngIf="!showProjects && !showWork && !showAbout && !showContact else elseBlock" class="main light-text-color">
-      <h1 #slideR class="name">YOUNESS H.</h1>
-      <p #slideR class="title">Software developer</p>
-      <p #slideR class="description">Crafting beautiful and intuitive user interfaces is my passion.</p>
-      <div class="info-btn-ctn light-text-color light-button-border-color">
-        <button #slideL (click)="clearScreenAnimationAndShowProjects()"><span>Projects</span></button>
-        <button #slideL (click)="clearScreenAnimationAndShowWork()"><span>Work</span></button>
+    <section [defaultClasses]="['main']" [isDarkMode]="isDarkMode" [lightingClasses]="['text-color']"
+             appLightingMode>
+      <h1 #slideR class="name">{{'_NAME_' | translate}}</h1>
+      <p #slideR class="title">{{'_ME_TITLE_' | translate}}</p>
+      <p #slideR class="description">{{'_ME_DESCRIPTION_' | translate}}</p>
+      <div [defaultClasses]="['info-btn-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="['text-color', 'button-border-color']" appLightingMode>
+        <button #slideL (click)="clearScreenAnimationAndShowProjects()"><span>{{'_PROJECTS_' | translate}}</span></button>
+        <button #slideL (click)="clearScreenAnimationAndShowWork()"><span>{{'_WORK_' | translate}}</span></button>
 
         <div class="resume-download-ctn">
           <button #slideL (click)="downloadResume('en')">
@@ -31,7 +23,7 @@
             stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path></g></svg>
             -->
         </span>
-            <span>Resume (EN)</span>
+            <span>{{'_RESUME_' | translate}} - EN </span>
           </button>
           <button #slideL (click)="downloadResume('fr')">
           <span>
@@ -46,28 +38,14 @@
             stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.5"></path></g></svg>
             -->
         </span>
-            <span>Curriculum vitae (FR)</span>
+            <span>{{'_RESUME_' | translate}} - FR</span>
           </button>
         </div>
-        <button #slideL><span>Quit</span></button>
+        <button #slideL (click)="quit()"><span>{{'_QUIT_' | translate}}</span></button>
 
       </div>
       <app-custom-alert></app-custom-alert>
     </section>
-    <ng-template #elseBlock>
-      <section *ngIf="showProjects">
-        <app-project [repositories]="repositories"></app-project>
-      </section>
-      <section *ngIf="showWork">
-        <app-work [workExperiences]="experiences"></app-work>
-      </section>
-      <section *ngIf="showAbout">
-        <div>About</div>
-      </section>
-      <section *ngIf="showContact">
-        <app-contact ></app-contact>
-      </section>
-    </ng-template>
   </main>
 </div>
 

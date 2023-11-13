@@ -58,7 +58,7 @@ body {
 .image {
     width: 10%;
     background-image: url('../../assets/photo.jpg');
-    background-size: 100%;
+    background-size: 120% 100%;
     background-position: center;
     background-repeat: no-repeat;
     border: 2px solid #0f2533;
@@ -103,7 +103,7 @@ body {
 }
 
 .person .inner-ctn div h2 {
-    margin: 10px 5px;
+    margin: 5px 5px;
     text-align: center;
 }
 
@@ -138,7 +138,7 @@ body {
 }
 
 .contact-miscellaneous .contact .inner-ctn>div{
-    margin: 20% 30px;
+    margin: 10% 30px;
     text-align: center;
 }
 

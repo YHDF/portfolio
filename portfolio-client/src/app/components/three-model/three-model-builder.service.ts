@@ -136,13 +136,20 @@ export class ThreeModelBuilderService {
   }
 
   createThreeModel(element: HTMLElement, threeModelConfig: any, lightConfig: any, materialConfig: any, interactiveMapConfig: any, islightMode : boolean): ThreeModel {
-    const scene = this.createScene(threeModelConfig.scene);
-    const camera = this.createCamera(threeModelConfig.camera);
-    const renderer = this.createRenderer(element, threeModelConfig.renderer);
-    const lights = this.createLights(lightConfig);
-    const materials = this.createMaterials(materialConfig, true);
-    const geometry = this.createGeometry(scene, materials, materialConfig, interactiveMapConfig.interactiveMap, islightMode);
+    if(!ThreeModel.isInstanceCreated()){
+      const scene = this.createScene(threeModelConfig.scene);
+      const camera = this.createCamera(threeModelConfig.camera);
+      const renderer = this.createRenderer(element, threeModelConfig.renderer);
+      const lights = this.createLights(lightConfig);
+      const materials = this.createMaterials(materialConfig, true);
+      const geometry = this.createGeometry(scene, materials, materialConfig, interactiveMapConfig.interactiveMap, islightMode);
+      return ThreeModel.getInstance(renderer, camera, scene, lights, geometry, materials);
+    }
+    return ThreeModel.getInstance();
+  }
 
-    return ThreeModel.getInstance(renderer, camera, scene, lights, geometry, materials);
+
+  getThreeModel(){
+    return ThreeModel.getInstance();
   }
 }

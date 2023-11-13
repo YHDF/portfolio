@@ -1,4 +1,4 @@
-<div class="work-ctn">
+<div *ngIf="experiences?.length != 0 else elseBlock" [defaultClasses]="['work-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="['border']" appLightingMode>
   <div class="timeline-slider-ctn">
     <div #timelineSlider class="timeline-slider">
       <div #timelineElement (click)="scrollToSection(0)" class="timeline-section-unclicked"></div>
@@ -7,18 +7,19 @@
 
       <div #timelineElement (click)="scrollToSection(3)" class="timeline-section-unclicked"></div>
 
-      <div #progress [@fillUp]="dynamicHeight" class="progress light-component-bg"></div>
+      <div #progress [@fillUp]="dynamicHeight"
+           [defaultClasses]="['progress']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>
     </div>
 
   </div>
   <div #containerElement (scroll)="onContainerScroll($event)" class="timeline-data-ctn">
     <!-- Here will be the experiences/contents you want to show -->
-    <ng-container *ngFor="let experience of workExperiences">
+    <ng-container *ngFor="let experience of experiences">
       <div #childElement class="experience">
-        <div class="timeline-data-date light-text-color" >
+        <div [defaultClasses]="['timeline-data-date']" [isDarkMode]="isDarkMode" [lightingClasses]="['text-color']" appLightingMode >
           <h1>{{experience.period}}</h1>
         </div>
-        <div class="timeline-data-context light-text-color">
+        <div  [defaultClasses]="['timeline-data-context']" [isDarkMode]="isDarkMode" [lightingClasses]="['text-color']" appLightingMode>
           <h1>{{experience.title}}</h1>
 
           <h2>{{experience.description}}</h2>
@@ -29,6 +30,8 @@
         </div>
       </div>
     </ng-container>
-
   </div>
 </div>
+<ng-template #elseBlock>
+  <c-spinner color="light" variant="grow"></c-spinner>
+</ng-template>

@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import {contactMailDto} from "./contact";
 import {ContactService} from "./contact.service";
+import {LightingModeService} from "../../services/lighting-mode.service";
 
 @Component({
   selector: 'app-contact',
@@ -23,10 +24,13 @@ export class ContactComponent implements OnInit, OnDestroy {
   @ViewChild('textarea') textAreaField!: ElementRef;
   @ViewChild('button') buttonField!: ElementRef;
 
+  isDarkMode: boolean = false;
   private inputName: string[] = ["mail", "name", "subject"]
 
-  constructor(private readonly contactService : ContactService) {
-
+  constructor(private readonly contactService : ContactService, private lightingModeService: LightingModeService) {
+    this.lightingModeService.lightingMode$.subscribe(mode => {
+      this.isDarkMode = mode === 'dark';
+    });
   }
 
   ngOnInit(): void {

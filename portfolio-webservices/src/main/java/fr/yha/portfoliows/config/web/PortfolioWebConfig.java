@@ -16,7 +16,7 @@ public class PortfolioWebConfig implements WebMvcConfigurer {
         LOGGER.info("Configuring CORS mappings...");
 
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://localhost:4200") // Use allowedOriginPatterns instead of allowedOrigins
+                .allowedOriginPatterns("*") // Use allowedOriginPatterns instead of allowedOrigins
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
                 .exposedHeaders("Authorization", "Link")

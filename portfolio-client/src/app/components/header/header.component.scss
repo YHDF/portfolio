@@ -1,0 +1,60 @@
+
+div.header {
+  all: revert;
+  font-family: 'Anton';
+}
+
+
+div.header {
+  margin-top: 1vh;
+  display: flex; /* sets up a flex container */
+}
+
+.about{
+  position: absolute;
+  left: 0;
+  margin-right: auto;
+  margin-left: 3%;
+  height: 100%;
+  z-index: 10;
+}
+
+.contact{
+  position: absolute;
+  right: 0;
+  width: fit-content;
+  margin-right: 3%;
+  z-index: 10;
+}
+
+div.header section.about button, div.header section.contact button{
+  background: none;
+  border: none;
+}
+
+div.header section.about h1, div.header section.contact h1{
+  text-align: center;
+  font-weight: bolder;
+  font-size: 2.5em;
+  white-space: nowrap;
+}
+
+.contact-info-ctn{
+  position: absolute;
+  top: 35%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  z-index: 10;
+}
+
+.option-menu-ctn {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  z-index: 10;
+}

@@ -3,14 +3,16 @@ import {CommonModule} from '@angular/common';
 import {DashboardComponent} from './dashboard.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ThreeModelModule} from "../three-model/three-model.module";
+import {HeaderModule} from "../header/header.module";
 
 
-const routes : Routes = [
+const routes: Routes = [
   {
-    path : 'dashboard',
+    path: 'dashboard',
     component: DashboardComponent
   }
 ]
+
 @NgModule({
   declarations: [
     DashboardComponent,
@@ -18,7 +20,9 @@ const routes : Routes = [
   imports: [
     CommonModule,
     ThreeModelModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    HeaderModule
   ]
 })
-export class DashboardModule { }
+export class DashboardModule {
+}

@@ -36,14 +36,15 @@
                             <h2>Numéro de téléphone :</h2>
                             <p>${resume.person.phone} </p>
                         </div>
-                        <div class="contact-info-address">
-                            <h2>Addresse :</h2>
-                            <p style="text-align: center">${resume.person.address.street}
-                                59120 ${resume.person.address.city}, ${resume.person.address.country}</p>
-                        </div>
                         <div class="contact-info-email">
                             <h2>Email :</h2>
                             <p>${resume.person.email}</p>
+                        </div>
+                        <div class="contact-info-address">
+                            <h2>Adresse :</h2>
+                            <p style="text-align: center">${resume.person.address.street}
+                                59120 ${resume.person.address.city}, ${resume.person.address.country}</p>
+                            <h2>Mobilité Nationale</h2>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
                             <h2>${degree.institution}</h2>
                             <li>
                                 <span>${degree.duration} : </span>
-                                <span>${degree.program}</span>
+                                <span>${degree.program} .</span>
                             </li>
                             <br/>
                         </#list>
@@ -94,9 +95,9 @@
                         <#list resume.skills as skill>
                             <#if skill.value?matches("(https?://)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)")>
                                 <li><span><b style="text-decoration: underline">${skill.type} :</b> <a href="${skill.value}"
-                                                                    target="_blank">${skill.value}</a></span></li>
+                                                                    target="_blank">${skill.value} .</a></span></li>
                             <#else>
-                                <li><span><b style="text-decoration: underline">${skill.type} :</b> ${skill.value}</span></li>
+                                <li><span><b style="text-decoration: underline">${skill.type} :</b> ${skill.value}.</span></li>
                             </#if>
                         </#list>
                     </ul>
@@ -116,12 +117,12 @@
                         <#if job.descriptionList?? && (job.descriptionList?size > 0) >
                             <#list job.descriptionList as descriptionItem>
                                 <li>
-                                    <span>${descriptionItem}</span><br/>
+                                    <span>${descriptionItem}.</span><br/>
                                 </li>
                             </#list>
                         <#else>
                             <li>
-                                <span>${job.description}</span><br/>
+                                <span>${job.description}.</span><br/>
                             </li>
                         </#if>
                     </#list>

@@ -2,7 +2,7 @@
 <Resume>
     <Person>
         <Name>HOUDAIFA Youness</Name>
-        <Title>Java Spring Boot Developer</Title>
+        <Title>FullStack Developer - Spring Boot, Angular, Nodejs</Title>
         <Experience>3 years of experience</Experience>
         <Image src="images/image2.jpg"/>
         <Address>
@@ -12,34 +12,38 @@
         </Address>
         <Email>unes.houdaifa@gmail.com</Email>
         <Phone>+33 6 70 62 73 81</Phone>
-        <Description>Java developer, specialized in N-Tier solutions design. With experience in diverse environments, including web development. I leverage my technical skills to meet business needs and ensure customer satisfaction.</Description>
+        <Description>FullStack Developer specialized in Spring Boot, Angular, and Node.js, I design efficient and scalable N-Tier solutions. My experience in web development across diverse platforms has endowed me with technical expertise that I leverage to meet business objectives, with a constant commitment to excellence and customer satisfaction.
+        </Description>
     </Person>
     <Skills>
-        <Skill type="Programming Languages">Java 16, JavaScript, C, Python</Skill>
-        <Skill type="Web Technologies">HTML, JS, CSS (SASS), Webpack, Vite, ES, Kibana</Skill>
+        <Skill type="Programming languages">Java 16, JavaScript, C, Python</Skill>
+        <Skill type="Web technologies">HTML, JS, CSS (SAAS), Webpack, Vite, ES, Kibana</Skill>
         <Skill type="Databases">MongoDB, MySQL, SQL Server, FireBase, PocketBase, GraphQL, Redis, Prisma</Skill>
-        <Skill type="Tools and Environments">Linux, Github Action, Docker, Ansible, Jenkins, Postman</Skill>
+        <Skill type="Tools and environments">Linux, Github Action, Docker, Ansible, Google Cloud, Jenkins, Datadog, Dynatrace, Zabbix</Skill>
         <Skill type="Cloud">Kubernetes Lens, k9s</Skill>
-        <Skill type="Message Handling">MQTT, MQTT Explorer (Conduktor)</Skill>
-        <Skill type="Collaboration Tools">Jira, Slack, Mattermost, Teams, OneNote</Skill>
-        <Skill type="Frameworks and Libraries">ExpressJs, React/NextJs, Angular Svelte/Svelte Kit, SpringBoot 2, JUnit, Flutter</Skill>
-        <Skill type="Work Methodologies">Agile (Scrum), UML, Merise, Relational Database Design</Skill>
-        <Skill type="Development Practices">Design patterns, refactoring, modular programming, reusable and scalable classes</Skill>
+        <Skill type="Message management">MQTT, MQTT Explorer (Conduktor)</Skill>
+        <Skill type="Collaboration tools">Jira, Slack, Mattermost, Teams, OneNote</Skill>
+        <Skill type="Frameworks and libraries">ExpressJs, React/NextJs, Angular Svelte/Svelte Kit, SpringBoot 2, JUnit, Flutter
+        </Skill>
+        <Skill type="Work methodologies">Agile (Scrum), UML, Merise, Relational Database Design
+        </Skill>
+        <Skill type="Development practices">Design patterns, refactoring, modular programming, reusable and scalable classes
+        </Skill>
         <Skill type="Testing">Unit tests, integration tests, functional tests</Skill>
         <Skill type="GitHub Profile">https://github.com/YHDF</Skill>
     </Skills>
     <Experience>
         <Job>
             <Duration>2 years (2021 - 2023)</Duration>
-            <Position>Java Developer, Spring Boot</Position>
+            <Position>Java, Spring Boot Developer</Position>
             <Company>Worldline</Company>
             <Description>
-                Collaborated within an Agile Squad of 5 members for the development of the "Santé des Armées" application as part of a project to create a digital healthcare platform exclusively for the French Army;
-                Responsible for setting up Build and Run operations using Spring Boot 2 (Java 11) and Angular 9 to ensure a robust and scalable architecture;
-                Implemented unit and integration tests using JUnit 5 and Mockito 5 to ensure code quality, contributing to a significant increase in test coverage for the application;
+                Collaborated within a 5-member Agile Squad on the "Health of the Armed Forces" application as part of a project to create a digital healthcare platform exclusively for the French Army;
+                Responsible for setting up Build and Run operations with Spring Boot 2 (Java 11) and Angular 9 to ensure a robust and scalable architecture;
+                Carried out the implementation of unit and integration tests using JUnit 5 and Mockito 5 to guarantee code quality, while significantly increasing the application's code coverage through these tests;
                 Actively contributed to continuous integration and deployment with Gitlab CI, Kubernetes, and Ansible on a private cloud, facilitating rapid and reliable application delivery;
-                Close coordination of efforts within the team, especially with functional leads and project managers, through daily and weekly meetings to ensure project deadlines and budgets are met;
-                Adopted agile methodology to optimize team efficiency, reduce delays, improve code quality, and ensure regular delivery, increased application stability, and high user satisfaction;
+                Coordinated efforts closely within the team, particularly with functional managers and project managers, through daily and weekly meetings, to ensure the project's deadlines and budgets were met;
+                Adopted agile methodology to optimize team efficiency, reduce delays, improving code quality and ensuring regular delivery, increased application stability, and high end-user satisfaction;
                 Implemented advanced authentication mechanisms, including the use of PKI cards for secure user identification and access to sensitive medical data.
             </Description>
         </Job>
@@ -48,20 +52,22 @@
             <Position>Software Development Intern</Position>
             <Company>Lutexia</Company>
             <Description>
-                Worked independently on the development of a full-stack application for managing the accounting calendar and client portfolio;
-                Used Node.js 14 and React 17 for development, as well as Shell Scripting for deployment;
-                Implemented security measures to protect accounting and client portfolio data, including the application of security protocols (HTTPS) and management of security headers.
+                Worked autonomously on the development of a full-stack application for managing the accounting calendar and client portfolio;
+                Used the Node.js 14 stack and React 17 for development, as well as Shell Scripting for deployment;
+                Implemented security measures to protect accounting data and client portfolio, including the application of security protocols (HTTPS) and management of security headers.
             </Description>
         </Job>
         <Job>
             <Duration>3 months (2020)</Duration>
             <Position>Web Development Intern</Position>
-            <Company>Bolloré Transport and Logistics</Company>
+            <Company>Bolloré Transport et Logistique</Company>
             <Description>
-                Contributed to the maintenance of a logistics control application for goods;
-                Implemented alert and notification systems for potential delays, stockouts, or other logistics issues;
+                Contributed to the project to maintain a logistic control application for goods;
+                Set up an alert and notification system in case of potential delays, stock shortages, or other logistic issues;
                 Used technologies such as Express 4, React 16, and MongoDB to ensure smooth operations and an optimal user experience;
-                Contributed to the implementation of security measures, including protection of cargo tracking data and access rights management to ensure data integrity.
+                Contributed to the implementation of security measures, including the protection of goods tracking data and the management of access rights to ensure the integrity of sensitive information;
+                Implemented and managed Datadog for precise application performance monitoring, ensuring continuous surveillance through trace and log aggregation;
+                Set up visuals and pager duty alerts and on Slack upon business request.
             </Description>
         </Job>
         <Job>
@@ -69,10 +75,10 @@
             <Position>Web Development Intern</Position>
             <Company>ENSA B., Morocco</Company>
             <Description>
-                Participated in the development of a digital space for students;
-                Used the C# 3.1 and ASP.NET 4 stack for the backend, HTML and CSS for the frontend, and SQL Server for the database;
-                Responsible for implementing a session-based authentication system to ensure secure access to application features;
-                Played a key role in creating web services and integrating APIs to enhance the user experience.
+                Participated in the development of an application serving as a digital space for students;
+                Used the C# 3.1 stack and ASP.NET 4 for the backend, HTML and CSS for the frontend, and SQL Server for the database;
+                Responsible for setting up a session-based authentication system to ensure secure access to application features;
+                Played a key role in creating web services and integrating APIs to enhance user experience.
             </Description>
         </Job>
         <!-- Other jobs here -->
@@ -80,37 +86,37 @@
     <Education>
         <Degree>
             <Duration>2021-2023</Duration>
-            <Program>Master's in Application and Software Engineering</Program>
+            <Program>Master's Degree in Application and Software Engineering</Program>
             <Institution>EFFICOM - Lille</Institution>
         </Degree>
         <Degree>
             <Duration>2020-2021</Duration>
-            <Program>Bachelor's in Computer Science L3</Program>
-            <Institution>University of Picardie Jules Vernes - Amiens</Institution>
+            <Program>Bachelor's Degree in Computer Science</Program>
+            <Institution>University of Picardie Jules Vernes -Amiens.</Institution>
         </Degree>
         <Degree>
             <Duration>2018-2020</Duration>
-            <Program>University Diploma in Computer Engineering</Program>
+            <Program>University Diploma of Technology in Computer Engineering</Program>
             <Institution>ENSA B. - Morocco</Institution>
         </Degree>
         <!-- Other degrees here -->
     </Education>
     <Miscellaneous>
         <Item>
-            <Title>Technological Watch</Title>
-            <Description>On new Java and JavaScript libraries, as well as other technical and organizational developments in IT.</Description>
+            <Title>Technology Monitoring</Title>
+            <Description>Keeping up-to-date on new Java and JavaScript libraries, as well as other technical and organizational developments in IT.</Description>
         </Item>
         <Item>
             <Title>Sports</Title>
-            <Description>Regular practice of sports activities for physical and mental well-being.</Description>
+            <Description>Regularly engaging in sports activities for physical and mental well-being.</Description>
         </Item>
         <Item>
             <Title>Video Games</Title>
-            <Description>Video game hobby, providing relaxation and entertainment.</Description>
+            <Description>A recreational pastime, offering relaxation and entertainment.</Description>
         </Item>
         <Item>
             <Title>Travel</Title>
-            <Description>Occasional exploration of new cultures and broadening horizons through travel.</Description>
+            <Description>Occasional exploration of new cultures and broadening of horizons through travel.</Description>
         </Item>
     </Miscellaneous>
 </Resume>

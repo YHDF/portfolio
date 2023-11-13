@@ -12,6 +12,8 @@ export class AnimationConfigService {
   constructor(@Inject(ANIMATION_CONFIG_TOKEN) private readonly animationConfig: AnimationConfig) {
   }
 
+
+
   animateCamera(gsap: any, camera: THREE.Camera, animationId: number, __callback: (target: THREE.Vector3) => void, __mouseMoveCallback: () => void, enableMouseMove: boolean, __beforeAnimation?: (animationId?: number) => void, __afterAnimation?: (animationId?: number) => void) {
 
     __beforeAnimation?.apply(null, [animationId]);

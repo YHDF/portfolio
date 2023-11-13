@@ -1,26 +1,26 @@
-<section *ngIf="repositories?.length != 0 else elseBlock">
-  <c-carousel  class="carousel-dimensions">
+<section *ngIf="repositories?.length != 0 else elseBlock" [defaultClasses]="[]" [isDarkMode]="isDarkMode" [lightingClasses]="['border']" appLightingMode>
+  <c-carousel [dark]="!isDarkMode" [interval]="0" class="carousel-dimensions">
     <c-carousel-indicators></c-carousel-indicators>
     <c-carousel-inner>
       <c-carousel-item *ngFor="let repo of repositories">
-        <div class="slide-bg">
-          <div class="project-title">
+        <div [defaultClasses]="['slide']" [isDarkMode]="isDarkMode" [lightingClasses]="['bg', 'text-color', 'button-border-color']" appLightingMode>
+          <div [defaultClasses]="['project-title']" [isDarkMode]="isDarkMode" [lightingClasses]="['text-color']" appLightingMode>
             <h1>{{repo.name}}</h1>
-            <p>{{repo.description}}</p>
+            <p [defaultClasses]="[]" [isDarkMode]="isDarkMode" [lightingClasses]="['white-text-color']" appLightingMode>{{repo.description}}</p>
           </div>
           <div class="project-metadata">
-            <div class="repository-metadata">
+            <div [defaultClasses]="['repository-metadata']" [isDarkMode]="isDarkMode" [lightingClasses]="['white-text-color']" appLightingMode>
               <p>Main technology : {{repo.language}}</p>
               <p>Created : {{repo.created_at | date:'dd/MM/yyyy'}}</p>
               <p>Licences : {{repo.license}}</p>
             </div>
-            <div class="user-metadata">
+            <div [defaultClasses]="['user-metadata']" [isDarkMode]="isDarkMode" [lightingClasses]="['white-text-color', 'border']" appLightingMode>
               <img src="{{repo.owner.avatar_url}}">
               <p>Owner username  : {{repo.owner.login}}</p>
               <a href="{{repo.owner.html_url}}" target="_blank">Visit profile</a>
             </div>
           </div>
-          <button (click)="navigateTo(repo.html_url)" cButton class="visit-btn" color="light" type="button">Visit repository</button>
+          <button (click)="navigateTo(repo.html_url)" [defaultClasses]="['info-btn-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="[]" appLightingMode type="button"><span>Visit repository</span></button>
         </div>
       </c-carousel-item>
     </c-carousel-inner>

@@ -2,7 +2,7 @@
 <Resume>
     <Person>
         <Name>HOUDAIFA Youness</Name>
-        <Title>Développeur Java Spring Boot</Title>
+        <Title>Développeur FullStack - Spring Boot, Angular, Nodejs</Title>
         <Experience>3 ans d'expérience</Experience>
         <Image src="images/image2.jpg"/>
         <Address>
@@ -10,18 +10,19 @@
             <City>Loos</City>
             <Country>France</Country>
         </Address>
-        <Email>contact@amarena-consulting.com</Email>
-        <Phone>+33 6 59 51 40 11</Phone>
-        <Description>Développeur Java, spécialisé dans la conception de solutions N-Tier. Avec une expérience sur des
-            environnements diversifiés, dans le développement web. Je mets mon appétence technique en faveur de la
-            satisfaction des besoins métier.
+        <Email>unes.houdaifa@gmail.com</Email>
+        <Phone>+33 6 70 62 73 81</Phone>
+        <Description>Développeur FullStack spécialisé en Spring Boot, Angular et Node.js, je conçois des solutions N-Tier
+            performantes et évolutives. Mon expérience en développement web sur des plateformes diversifiées m'a doté d'une
+            expertise technique que je mets au service des objectifs métier, avec un engagement constant vers l'excellence
+            et la satisfaction client.
         </Description>
     </Person>
     <Skills>
         <Skill type="Langages de programmation">Java 16, JavaScript, C, Python</Skill>
         <Skill type="Technologies web">HTML, JS, CSS(SAAS), Webpack, Vite, ES, Kibana</Skill>
         <Skill type="Bases de données">MongoDB, MySQL , SQL Server, FireBase, PocketBase, GraphQL, Redis, Prisma</Skill>
-        <Skill type="Outils et environnements">Linux, Github Action, Docker, Ansible, Jenkins, Postman</Skill>
+        <Skill type="Outils et environnements">Linux, Github Action, Docker, Ansible, Google Cloud, Jenkins, Datadog, Dynatrace, Zabbix</Skill>
         <Skill type="Cloud">Kubernetes Lens, k9s</Skill>
         <Skill type="Gestion des messages">MQTT, MQTT Explorer (Conduktor)</Skill>
         <Skill type="Outils de collaboration">Jira, Slack, Mattermost, Teams, OneNote</Skill>
@@ -91,7 +92,9 @@
                 opérations fluides et une expérience utilisateur optimale;
                 Contribution à la mise en place de mesures de sécurité, notamment la protection des
                 données de suivi des marchandises et la gestion des droits d&#39;accès pour garantir l&#39;intégrité
-                des informations sensibles
+                des informations sensibles;
+                Implémentation et gestion de Datadog pour le suivi précis des performances applicatives, assurant la surveillance en continu grâce à l'agrégation des traces et des logs;
+                Mise en place de visuels et d'alertes pager duty et sur slack à la demande du métier
             </Description>
         </Job>
         <Job>

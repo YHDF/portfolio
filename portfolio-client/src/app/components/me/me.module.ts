@@ -4,19 +4,22 @@ import {MeComponent} from "./me.component";
 import {SharedModule} from "../../shared/shared.module";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AlertComponent} from "@coreui/angular";
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
-    MeComponent,
+    MeComponent
   ],
-  exports : [
+  exports: [
     MeComponent,
   ],
     imports: [
         CommonModule,
         SharedModule,
         BrowserAnimationsModule,
-        AlertComponent
+        AlertComponent,
+        TranslateModule,
     ]
 })
-export class MeModule { }
+export class MeModule {
+}

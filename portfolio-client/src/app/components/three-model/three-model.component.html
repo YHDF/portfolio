@@ -1,7 +1,10 @@
-<canvas *ngIf="!showMe" id="room"></canvas>
-<app-me *ngIf="showMe"></app-me>
-<div *ngIf="showIndicators" class="indicator-ctn">
-  <div class="static-indicator"></div>
-  <div (click)="switchLightMode()" class="dynamic-indicator"></div>
+<div *ngIf="!showMe" class="three-model-ctn">
+  <canvas id="room"></canvas>
+  <div *ngIf="showIndicators" class="indicator-ctn">
+    <div class="static-indicator"></div>
+    <div (click)="zoomIn()" class="dynamic-indicator"></div>
+  </div>
 </div>
+<app-me *ngIf="showMe" [toggleShowMe]="toggleShowMe"></app-me>
+
 

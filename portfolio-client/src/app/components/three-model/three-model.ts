@@ -21,26 +21,34 @@ export type InteractiveGeometry = {
   children : string[]
 }
 export class ThreeModel {
-  private static instance: ThreeModel;
+  private static _instance: ThreeModel | undefined;
 
   public constructor(private renderer: THREE.WebGLRenderer, private camera: THREE.Camera, private scene: THREE.Scene, private lights: THREE.Light[],
                      private geometry: GLTFLoader, private materials : THREE.Material[]) {}
 
-  public static getInstance(renderer: THREE.WebGLRenderer, camera: THREE.Camera, scene: THREE.Scene, lights: THREE.Light[],
-                            geometry: GLTFLoader, material : THREE.Material[]): ThreeModel {
-    if (!ThreeModel.instance) {
+  static set instance(value: ThreeModel | undefined) {
+    this._instance = value;
+  }
+
+  public static isInstanceCreated() : boolean{
+    return ThreeModel._instance != null;
+  }
+
+  public static getInstance(renderer?: THREE.WebGLRenderer, camera?: THREE.Camera, scene?: THREE.Scene, lights?: THREE.Light[],
+                            geometry?: GLTFLoader, material? : THREE.Material[]): ThreeModel {
+    if (!ThreeModel._instance) {
       // Construct the ThreeModel using the Builder pattern
       const builder = new ThreeModelBuilder();
-      ThreeModel.instance = builder
-        .setRenderer(renderer)
-        .setCamera(camera)
-        .setScene(scene)
-        .setLights(lights)
-        .setGeometry(geometry)
-        .setMaterials(material)
+      ThreeModel._instance = builder
+        .setRenderer(renderer!)
+        .setCamera(camera!)
+        .setScene(scene!)
+        .setLights(lights!)
+        .setGeometry(geometry!)
+        .setMaterials(material!)
         .build();
     }
-    return ThreeModel.instance;
+    return ThreeModel._instance;
   }
   public getRenderer(): THREE.WebGLRenderer {
     return this.renderer;
@@ -152,6 +160,7 @@ export class AnimationFunctionSupplier {
 
   // PopulateTuple method
   public populateTuple(keys : string[], funs: ((...args: any[]) => any)[]) {
+    console.log(this.data.size)
     if (keys.length !== funs.length) {
       throw new Error('Keys and functions arrays must be of the same length');
     }

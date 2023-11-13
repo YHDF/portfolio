@@ -12,11 +12,7 @@ main {
 }
 
 main section.contact-form-ctn{
-  flex: 2;
-}
-
-main aside.contact-info-ctn{
-  flex: 1;
+  flex: 1.95;
 }
 
 main section.contact-form-ctn .form-ctn{
@@ -27,12 +23,6 @@ main section.contact-form-ctn .form-ctn{
 
 main section.contact-form-ctn h1, main section.contact-form-ctn p{
   text-align: center;
-  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
   white-space: nowrap;
 }
 
@@ -53,47 +43,19 @@ main section.contact-form-ctn h1{
 main section.contact-form-ctn input, main section.contact-form-ctn textarea, main section.contact-form-ctn button{
   width: 50%;
   margin: 3vh auto;
-  background-color: transparent;
   border: none;
-  border-bottom: 0.01em solid rgb(255, 200, 124);
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
   font-size: 1em;
-  background: radial-gradient(circle at 10% 20%, rgb(255, 200, 124) 50%, rgb(252, 251, 121) 90%);
-  background-size: 100%;
-  -webkit-background-clip: text;
-  -moz-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  -moz-text-fill-color: transparent;
   white-space: nowrap;
-  outline: none;
-  caret-color: rgb(255, 200, 124);
 }
 
 main section.contact-form-ctn button{
   width: fit-content;
-  border: 3px solid rgb(255, 200, 124);
-  height: fit-content;
-  padding: .5vh 2vw; /* Resetting the padding */
-  display: inline-flex; /* Flex layout to align the text properly */
-  align-items: center; /* Centering the span vertically */
+  padding: 1vh 3vw;
 }
 
-main section.contact-form-ctn button:hover{
-  background: transparent; /* Remove the background */
-  background-size: auto; /* Reset background size */
-  -webkit-background-clip: initial; /* Reset background-clip */
-  -moz-background-clip: initial; /* Reset background-clip */
-  -webkit-text-fill-color: initial; /* Reset text-fill-color */
-  -moz-text-fill-color: initial; /* Reset text-fill-color */
-  white-space: nowrap;
-  outline: none;
-  background: rgba(255, 255, 255, .3);
-  color: rgb(255, 200, 124);
-}
-
-
-input:focus::placeholder, main section.contact-form-ctn textarea:focus::placeholder,  {
+input:focus::placeholder, main section.contact-form-ctn textarea:focus::placeholder{
   background: transparent; /* Remove the background */
   background-size: auto; /* Reset background size */
   -webkit-background-clip: initial; /* Reset background-clip */
@@ -103,6 +65,8 @@ input:focus::placeholder, main section.contact-form-ctn textarea:focus::placehol
   white-space: nowrap;
   outline: none;
  }
+
+
 
 
 
