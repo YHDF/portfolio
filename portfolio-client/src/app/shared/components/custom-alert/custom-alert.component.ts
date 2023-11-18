@@ -60,18 +60,10 @@ export class CustomAlertComponent implements AfterViewInit, OnDestroy {
         this.cdr.detectChanges();
       }
     });
-    this.listenToEvents();
-
   }
 
-  listenToEvents() {
-    this.resumeSseService.subscribe("/resume/stream-see");
-  }
+
 
   ngOnDestroy(): void {
-    if (this.messageSubscription) {
-      this.messageSubscription.unsubscribe();
-    }
-    this.resumeSseService.unsubscribe();
   }
 }

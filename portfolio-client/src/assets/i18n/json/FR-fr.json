@@ -14,5 +14,12 @@
   "_CONTACT_EMAIL_PLACEHOLDER_": "E-mail",
   "_CONTACT_NAME_PLACEHOLDER_": "Nom Complet",
   "_CONTACT_SUBJECT_PLACEHOLDER_": "Sujet",
-  "_CONTACT_MESSAGE_PLACEHOLDER_": "Message"
+  "_CONTACT_MESSAGE_PLACEHOLDER_": "Message",
+  "_GREETING_" : "Bonjour! Je suis Youness.<br>Développeur web<br>créatif et passionné,<br>basé en France. ",
+  "_PROJECT_MAIN_TECH_": "Technologie principale : {{repoLanguage}}",
+  "_PROJECT_CREATED_": "Créé le : {{createdAt}}",
+  "_PROJECT_LICENSES_": "Licences : {{license}}",
+  "_PROJECT_OWNER_USERNAME_": "Nom d'utilisateur du propriétaire : {{ownerUsername}}",
+  "_PROJECT_VISIT_PROFILE_": "Visiter le profil",
+  "_VISIT_REPOSITORY_": "Visiter le répertoire"
 }

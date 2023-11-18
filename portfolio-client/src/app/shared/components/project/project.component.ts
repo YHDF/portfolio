@@ -19,6 +19,7 @@ export class ProjectComponent implements AfterViewInit{
 
   constructor(private router: Router, private lightingModeService: LightingModeService,
               private readonly meService: MeService, private readonly sharedDataProviderService : SharedDataProviderService) {
+    this.sharedDataProviderService.showHeaderSubject$.next(true)
     this.lightingModeService.lightingMode$.subscribe(mode => {
       this.isDarkMode = mode === 'dark';
     });

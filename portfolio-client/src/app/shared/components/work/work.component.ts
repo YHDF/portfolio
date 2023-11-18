@@ -44,10 +44,12 @@ export class WorkComponent implements OnInit {
 
   constructor(private cdRef: ChangeDetectorRef, private lightingModeService: LightingModeService,
               private readonly sharedDataProviderService: SharedDataProviderService) {
-
+    this.sharedDataProviderService.showHeaderSubject$.next(true)
     this.lightingModeService.lightingMode$.subscribe(mode => {
       this.isDarkMode = mode === 'dark';
     });
+
+
   }
 
   ngOnInit(): void {

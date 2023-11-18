@@ -4,6 +4,8 @@ import {DashboardComponent} from './dashboard.component';
 import {RouterModule, Routes} from '@angular/router';
 import {ThreeModelModule} from "../three-model/three-model.module";
 import {HeaderModule} from "../header/header.module";
+import {SharedModule} from "../../shared/shared.module";
+import {TranslateModule} from "@ngx-translate/core";
 
 
 const routes: Routes = [
@@ -21,7 +23,9 @@ const routes: Routes = [
     CommonModule,
     ThreeModelModule,
     RouterModule.forChild(routes),
-    HeaderModule
+    HeaderModule,
+    SharedModule,
+    TranslateModule
   ]
 })
 export class DashboardModule {

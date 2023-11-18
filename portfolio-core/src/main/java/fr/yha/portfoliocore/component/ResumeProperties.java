@@ -2,15 +2,10 @@ package fr.yha.portfoliocore.component;
 
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 @Component
-@PropertySources({
-        @PropertySource("classpath:resume.properties"),
-})
 public class ResumeProperties {
 
     @Value("${resume.file.name.fr}")

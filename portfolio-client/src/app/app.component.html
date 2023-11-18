@@ -1,6 +1,7 @@
-<app-header></app-header>
-
-<div [defaultClasses]="['app']" [isDarkMode]="isDarkMode" [lightingClasses]="['bg']" appLightingMode>
-  <router-outlet></router-outlet>
-</div>
+<ng-container *ngIf="showDashBoard">
+  <app-header></app-header>
+  <div [defaultClasses]="['app']" [isDarkMode]="isDarkMode" [lightingClasses]="['bg']" appLightingMode>
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>
 

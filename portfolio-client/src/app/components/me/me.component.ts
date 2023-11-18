@@ -11,7 +11,6 @@ import {
 } from '@angular/core';
 import {MeService} from "./me.service";
 import {NavigationEnd, Router} from '@angular/router';
-import {Subscription} from "rxjs";
 import {ResumeSseService} from "../../shared/services/resume-sse.service";
 import {HttpHeaders} from "@angular/common/http";
 import {LightingModeService} from "../../shared/services/lighting-mode.service";
@@ -35,6 +34,8 @@ export class MeComponent implements AfterViewInit, OnDestroy {
               private readonly  resumeSseService: ResumeSseService,  private router: Router,
               private lightingModeService: LightingModeService,
               private readonly sharedDataProviderService : SharedDataProviderService) {
+    this.sharedDataProviderService.showHeaderSubject$.next(true)
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         window.scrollTo(0, 0);
@@ -45,38 +46,26 @@ export class MeComponent implements AfterViewInit, OnDestroy {
       this.isDarkMode = mode === 'dark';
     });
 
-    this.messageSubscription = this.resumeSseService.messages$.subscribe(
-      message => {
-        this.message = message;
-        this.cdr.detectChanges(); // force change detection
-      });
   }
-
-  message: any = undefined;
-  private readonly messageSubscription: Subscription;
 
   @Input()
   toggleShowMe : (value : boolean) => void = (value) => {};
 
   ngAfterViewInit() {
     this.sharedDataProviderService.fetchWorkAndProjects();
-    this.listenToEvents();
-  }
-
-  listenToEvents() {
-    this.resumeSseService.subscribe("/resume/stream-see");
   }
 
   clearScreenAnimationAndShowProjects() {
+    setTimeout(() => this.router.navigate(['/projects']), 500)
     this.slideR();
     this.slideL();
-    this.router.navigate(['/projects'])
+
   }
 
   clearScreenAnimationAndShowWork() {
+    setTimeout(() => this.router.navigate(['/work']), 500)
     this.slideR();
     this.slideL();
-    this.router.navigate(['/work'])
   }
 
   downloadResume(version : string) {
@@ -124,10 +113,6 @@ export class MeComponent implements AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.messageSubscription) {
-      this.messageSubscription.unsubscribe();
-    }
-    this.resumeSseService.unsubscribe();
   }
 
   quit(){

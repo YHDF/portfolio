@@ -7,6 +7,7 @@ import {GLTFLoader} from "three/examples/jsm/loaders/GLTFLoader";
 import {MaterialConfigService} from "../../shared/services/material-config.service";
 
 import {DRACOLoader} from 'three/examples/jsm/loaders/DRACOLoader';
+import * as threeModelConfig from "../../../assets/json/three-config.json";
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,6 @@ export class ThreeModelBuilderService {
 
   private interactiveGeometries: InteractiveGeometry[] = [];
   private materialConfigService : MaterialConfigService;
-
 
   constructor() {
     this.materialConfigService = new MaterialConfigService();
@@ -44,58 +44,51 @@ export class ThreeModelBuilderService {
     return LightConfigService.createLightsFromConfig(lightConfig);
   }
 
-  createGeometry(scene: THREE.Scene, materials: THREE.Material[], materialConfig: any, interactiveMapConfig: any[], islightMode : boolean): GLTFLoader {
-    //    MaterialConfigService.getMaterialParentObjects(materialConfig);
+  createGeometry(scene: THREE.Scene, materials: THREE.Material[], materialConfig: any, interactiveMapConfig: any[], islightMode: boolean): Promise<GLTFLoader> {
+    return new Promise((resolve, reject) => {
+      const gltfObjectGroup = GLTFObjectGroup.getInstance();
+      const dracoLoader = new DRACOLoader();
+      dracoLoader.setDecoderPath('./assets/draco/');
+      dracoLoader.preload();
+      const loader = new GLTFLoader();
+      loader.setDRACOLoader(dracoLoader);
 
-    const gltfObjectGroup = GLTFObjectGroup.getInstance();
+      loader.load('./assets/3d-models/Room.glb', (gltf) => {
+        const objects = gltf.scene;
+        gltfObjectGroup.objects = objects;
+        scene.add(objects);
+        objects.traverse((object: any) => {
+          if (!["DirectionalLight", "PointLight", "SpotLight"].includes(object.type)) {
+            object.castShadow = true;
+            object.receiveShadow = true;
 
-    // Instantiate a loader
-    const dracoLoader = new DRACOLoader();
+            if (object.material) {
+              this.applyMaterialOptionsConfiguration(object, materialConfig, islightMode);
+            }
 
-    // Specify path to a folder containing WASM/JS decoding libraries.
-    dracoLoader.setDecoderPath('./assets/draco/');
-
-    // Optional: Pre-fetch Draco WASM/JS module.
-    dracoLoader.preload();
-
-    const loader = new GLTFLoader();
-    loader.setDRACOLoader(dracoLoader);
-
-    // Load the GLTF model for the room
-    loader.load('./assets/3d-models/Room.glb', (gltf) => {
-      const objects = gltf.scene;
-      gltfObjectGroup.objects = objects;
-      scene.add(objects);
-      objects.traverse((object: any) => {
-        if (!["DirectionalLight", "PointLight", "SpotLight"].includes(object.type)) {
-          object.castShadow = true;
-          object.receiveShadow = true;
-
-          //Block to remove
-          if(object.material){
-            this.applyMaterialOptionsConfiguration(object, materialConfig, islightMode)
-          }
-          //Block to remove
-
-          for (let i = 0; i < materialConfig.materials.length; i++) {
-            if (object.name === materialConfig.materials[i].parentObject && object.isMesh) {
-              object.material = materials[i];
-              const geometry: InteractiveGeometry = {
-                mesh: object.name,
-                children: interactiveMapConfig[i].interactiveChildren,
-              };
-              this.interactiveGeometries.push(geometry);
-              // Perform the necessary actions here
-              // such as opening the menu or changing the texture
+            for (let i = 0; i < materialConfig.materials.length; i++) {
+              if (object.name === materialConfig.materials[i].parentObject && object.isMesh) {
+                object.material = materials[i];
+                const geometry: InteractiveGeometry = {
+                  mesh: object.name,
+                  children: interactiveMapConfig[i].interactiveChildren,
+                };
+                this.interactiveGeometries.push(geometry);
+              }
             }
           }
-        }
+        });
+
+        // Resolve the promise after the GLTFLoader has finished loading
+        resolve(loader);
+      }, undefined, function (error) {
+        console.error(error);
+        // Reject the promise if there's an error during loading
+        reject(error);
       });
-    }, undefined, function (error) {
-      console.error(error);
     });
-    return loader;
   }
+
 
   applyMaterialOptionsConfiguration(object : any, materialConfig: any, islightMode: boolean){
     this.materialConfigService.applyMaterialOptionsConfiguration(object, materialConfig, islightMode)
@@ -135,19 +128,14 @@ export class ThreeModelBuilderService {
     return this.interactiveGeometries;
   }
 
-  createThreeModel(element: HTMLElement, threeModelConfig: any, lightConfig: any, materialConfig: any, interactiveMapConfig: any, islightMode : boolean): ThreeModel {
+
+  buildThreeModel(element: HTMLElement, scene : THREE.Scene, camera : THREE.Camera, lights : THREE.Light[], geometry?: GLTFLoader, materials? : THREE.Material[]): ThreeModel {
     if(!ThreeModel.isInstanceCreated()){
-      const scene = this.createScene(threeModelConfig.scene);
-      const camera = this.createCamera(threeModelConfig.camera);
       const renderer = this.createRenderer(element, threeModelConfig.renderer);
-      const lights = this.createLights(lightConfig);
-      const materials = this.createMaterials(materialConfig, true);
-      const geometry = this.createGeometry(scene, materials, materialConfig, interactiveMapConfig.interactiveMap, islightMode);
-      return ThreeModel.getInstance(renderer, camera, scene, lights, geometry, materials);
+      return ThreeModel.getInstance(renderer, camera, scene, lights, geometry, materials!);
     }
     return ThreeModel.getInstance();
   }
-
 
   getThreeModel(){
     return ThreeModel.getInstance();

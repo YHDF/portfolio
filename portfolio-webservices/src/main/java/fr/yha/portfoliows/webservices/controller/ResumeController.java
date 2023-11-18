@@ -46,7 +46,7 @@ public class ResumeController {
         }
     }
 
-    @GetMapping(path = "/stream-see", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(path = "/stream-sse", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<String> getServerSentEvents() {
         return resumeGateway.getServerSentEvents();
     }

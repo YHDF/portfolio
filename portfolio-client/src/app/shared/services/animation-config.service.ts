@@ -2,6 +2,7 @@ import {Inject, Injectable} from '@angular/core';
 import {THREE} from '../../components/three-model/three-wrapper';
 import {AnimationConfig} from "../../components/three-model/three-model";
 import {ANIMATION_CONFIG_TOKEN} from "../../components/three-model/animation-config.token";
+import {SharedDataProviderService} from "./shared-data-provider.service";
 
 
 @Injectable({
@@ -9,13 +10,14 @@ import {ANIMATION_CONFIG_TOKEN} from "../../components/three-model/animation-con
 })
 export class AnimationConfigService {
 
-  constructor(@Inject(ANIMATION_CONFIG_TOKEN) private readonly animationConfig: AnimationConfig) {
+  constructor(@Inject(ANIMATION_CONFIG_TOKEN) private readonly animationConfig: AnimationConfig, private readonly sharedDataProviderService : SharedDataProviderService) {
   }
 
 
 
   animateCamera(gsap: any, camera: THREE.Camera, animationId: number, __callback: (target: THREE.Vector3) => void, __mouseMoveCallback: () => void, enableMouseMove: boolean, __beforeAnimation?: (animationId?: number) => void, __afterAnimation?: (animationId?: number) => void) {
 
+    if(animationId !== 1) this.sharedDataProviderService.showGreetingSubject$.next(false)
     __beforeAnimation?.apply(null, [animationId]);
 
 
@@ -41,6 +43,10 @@ export class AnimationConfigService {
       }
     });
     animationOnComplete.then(value => {
+      if(animationId === 1){
+        this.sharedDataProviderService.showHeaderSubject$.next(true);
+        this.sharedDataProviderService.showGreetingSubject$.next(true);
+      }
       __afterAnimation?.apply(null, [animationId])
       if (enableMouseMove) __mouseMoveCallback?.apply(null, [])
     });

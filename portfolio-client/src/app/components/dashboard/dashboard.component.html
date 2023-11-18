@@ -1,1 +1,6 @@
+<div *ngIf="showGreeting" [defaultClasses]="['greeting']" [isDarkMode]="isDarkMode"
+     [lightingClasses]="['text-color']" appLightingMode>
+<h1 [innerHTML]="'_GREETING_' | translate">
+</h1>
+</div>
 <app-three-model></app-three-model>

@@ -15,7 +15,6 @@ div.header {
   left: 0;
   margin-right: auto;
   margin-left: 3%;
-  height: 100%;
   z-index: 10;
 }
 
@@ -51,7 +50,7 @@ div.header section.about h1, div.header section.contact h1{
 
 .option-menu-ctn {
   position: absolute;
-  top: 50%;
+  top: 60%;
   left: 0;
   display: flex;
   flex-direction: column;

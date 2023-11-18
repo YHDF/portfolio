@@ -4,18 +4,15 @@ import {gsap} from 'gsap';
 import {MotionPathPlugin} from 'gsap/MotionPathPlugin';
 import {ThreeModelBuilderService} from "./three-model-builder.service";
 import {GLTFObjectGroup} from "./three-model";
-import {ThreeModelAnimationService} from "./three-model-animation.service";
-
-//json configuration
-import * as threeModelConfig from '../../../assets/json/three-config.json';
-import * as lightModeLightConfig from '../../../assets/json/lights_light-mode.json';
-import * as darkModeLightConfig from '../../../assets/json/lights_dark-mode.json';
-import * as materialConfig from '../../../assets/json/materials.json';
-import * as interactiveMapConfig from '../../../assets/json/interactive-map.json';
 import {AnimationConfigService} from "../../shared/services/animation-config.service";
 import {ThreeModelWrapperService} from "./three-model-wrapper.service";
 import {SharedDataProviderService} from "../../shared/services/shared-data-provider.service";
 import {LightingModeService} from "../../shared/services/lighting-mode.service";
+
+
+import * as lightModeLightConfig from '../../../assets/json/lights_light-mode.json';
+import * as darkModeLightConfig from '../../../assets/json/lights_dark-mode.json';
+import * as materialConfig from '../../../assets/json/materials.json';
 
 
 gsap.registerPlugin(MotionPathPlugin);
@@ -25,15 +22,14 @@ gsap.registerPlugin(MotionPathPlugin);
   templateUrl: './three-model.component.html',
   styleUrls: ['./three-model.component.scss'],
 })
-export class ThreeModelComponent implements AfterViewInit{
-
-  showMe = false;
-
-  showIndicators = false;
+export class ThreeModelComponent implements AfterViewInit {
 
   static LIGHT_MODE_VALUE = 'light';
+  showMe = false;
+  showThree = false;
+  showIndicators = false;
   lightMode = false;
-  threeAnimation: ThreeModelAnimationService | undefined = undefined;
+  threeModelWrapperService: ThreeModelWrapperService | undefined = undefined
 
   constructor(private animationConfigService: AnimationConfigService,
               private el: ElementRef,
@@ -41,54 +37,42 @@ export class ThreeModelComponent implements AfterViewInit{
               private readonly sharedDataProviderService: SharedDataProviderService,
               private lightingModeService: LightingModeService) {
     this.lightingModeService.lightingMode$.subscribe(mode => {
-      this.lightMode !== (mode === ThreeModelComponent.LIGHT_MODE_VALUE) ? this.switchLightMode() : () => {};
-      //this.colorHex = this.isDarkMode ? "#FFC87C" : "#7d7d7d"
+      this.lightMode !== (mode === ThreeModelComponent.LIGHT_MODE_VALUE) ? this.switchLightMode() : () => {
+      };
     });
-
   }
 
-  ngAfterViewInit(): void {
+   ngAfterViewInit(): void {
     this.showMe = this.sharedDataProviderService.showMe;
+    if (!this.showMe) {
+      const {scene, camera, lights, materials, geometry} = this.sharedDataProviderService?.threeModelBuilder
+      const interactiveIcons = this.sharedDataProviderService?.interactiveIcons;
 
-    if(!this.showMe){
-      setTimeout(() => {
-        const canvas = this.el.nativeElement.querySelector('#room');
-
-        this.threeModelBuilderService.createThreeModel(canvas, threeModelConfig, this.lightMode ? lightModeLightConfig : darkModeLightConfig, materialConfig, interactiveMapConfig, this.lightMode);
-
-        this.threeModelBuilderService.getThreeModel().getRenderer().setSize(window.innerWidth, window.innerHeight);
-        this.threeModelBuilderService.getThreeModel().getRenderer().setPixelRatio(window.devicePixelRatio);
-        this.threeModelBuilderService.getThreeModel().getRenderer().toneMapping = THREE.NoToneMapping;
-        this.threeModelBuilderService.getThreeModel().getLights().map((value: any, index: number) => {
-          if (this.threeModelBuilderService.getThreeModel()) {
-            this.threeModelBuilderService.getThreeModel().getScene().add(value);
-          }
-        });
-
-        this.threeAnimation = ThreeModelWrapperService.getInstance(this.threeModelBuilderService, [this.threeModelBuilderService.getThreeModel().getScene(), this.threeModelBuilderService.getThreeModel().getCamera(), this.threeModelBuilderService.getThreeModel().getRenderer(), this.animationConfigService]).threeModelAnimationService;
-
-        this.threeAnimation.populateAnimationSuppliers(this.redraw)
-        this.threeAnimation.onMouseClick(this.threeModelBuilderService.getThreeModel().getCamera(), this.threeModelBuilderService.getThreeModel().getScene(), this.threeModelBuilderService.getInteractiveGeometries(), materialConfig, this.redraw, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
-        this.threeAnimation.animate();
-        this.threeAnimation.onResize();
-        this.threeAnimation.animateCamera(1, true, () => null, this.afterAnimation.bind(this));
-      }, 2000);
+      const canvas = this.el.nativeElement.querySelector('#room');
+      new Promise(async (resolve, reject) => {
+        this.threeModelWrapperService = await ThreeModelWrapperService.getInstance(this.threeModelBuilderService, [canvas, scene, camera, lights, geometry, materials, this.animationConfigService]);
+        resolve(this.threeModelWrapperService)
+      }).then((value: any) => {
+        this.threeModelWrapperService!.threeModelAnimationService.populateAnimationSuppliers(this.redraw)
+        this.threeModelWrapperService!.threeModelAnimationService.onMouseClick(this.threeModelBuilderService.getThreeModel().getCamera(), this.threeModelBuilderService.getThreeModel().getScene(), interactiveIcons, materialConfig, this.redraw, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
+        this.threeModelWrapperService!.threeModelAnimationService.animate();
+        this.threeModelWrapperService!.threeModelAnimationService.onResize();
+        this.threeModelWrapperService!.threeModelAnimationService.animateCamera(1, true, () => null, this.afterAnimation.bind(this));
+      })
     }
   }
 
   afterAnimation(animationId?: number) {
     if (animationId === 1) {
-      if (this.threeAnimation) {
-        this.threeAnimation.onMouseMove.bind(this);
+      if (this.threeModelWrapperService!.threeModelAnimationService) {
+        this.threeModelWrapperService!.threeModelAnimationService.onMouseMove.bind(this);
       }
       this.showIndicators = true;
 
     }
     if (animationId === 2) {
       this.showIndicators = false
-      this.sharedDataProviderService.showMe = true ;
-      this.showMe = this.sharedDataProviderService.showMe;
-      //this.router.navigate(['/me']);
+      this.showMe = this.sharedDataProviderService.showMe = true;
     }
     if (animationId === 3) {
       this.showIndicators = false
@@ -112,9 +96,9 @@ export class ThreeModelComponent implements AfterViewInit{
   }
 
   zoomIn() {
-    if (this.threeAnimation) {
-      this.threeAnimation.removeMouseMove();
-      this.threeAnimation.animateCamera(3, false, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
+    if (this.threeModelWrapperService!.threeModelAnimationService) {
+      this.threeModelWrapperService!.threeModelAnimationService.removeMouseMove();
+      this.threeModelWrapperService!.threeModelAnimationService.animateCamera(3, false, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
     }
   }
 

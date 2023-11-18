@@ -15,5 +15,12 @@
   "_CONTACT_NAME_PLACEHOLDER_": "Full Name",
   "_CONTACT_SUBJECT_PLACEHOLDER_": "Subject",
   "_CONTACT_MESSAGE_PLACEHOLDER_": "Message",
-  "_CONTACT_SEND_BUTTON_": "Submit"
+  "_CONTACT_SEND_BUTTON_": "Submit",
+  "_GREETING_" : "Hello there! I'm Youness.<br>A passionate and creative<br>Web Developer based<br>in France.",
+  "_PROJECT_MAIN_TECH_": "Main technology : {{repoLanguage}}",
+  "_PROJECT_CREATED_": "Created : {{createdAt}}",
+  "_PROJECT_LICENSES_": "Licenses : {{license}}",
+  "_PROJECT_OWNER_USERNAME_": "Owner username : {{ownerUsername}}",
+  "_PROJECT_VISIT_PROFILE_": "Visit profile",
+  "_VISIT_REPOSITORY_": "Visit repository"
 }

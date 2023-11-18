@@ -10,17 +10,17 @@
           </div>
           <div class="project-metadata">
             <div [defaultClasses]="['repository-metadata']" [isDarkMode]="isDarkMode" [lightingClasses]="['white-text-color']" appLightingMode>
-              <p>Main technology : {{repo.language}}</p>
-              <p>Created : {{repo.created_at | date:'dd/MM/yyyy'}}</p>
-              <p>Licences : {{repo.license}}</p>
+              <p>{{ '_PROJECT_MAIN_TECH_' | translate:{'repoLanguage': repo.language} }}</p>
+              <p>{{ '_PROJECT_CREATED_' | translate:{'createdAt': (repo.created_at | date:'dd/MM/yyyy')} }}</p>
+              <p>{{ '_PROJECT_LICENSES_' | translate:{'license': repo.license ? repo.license : ''} }}</p>
             </div>
             <div [defaultClasses]="['user-metadata']" [isDarkMode]="isDarkMode" [lightingClasses]="['white-text-color', 'border']" appLightingMode>
               <img src="{{repo.owner.avatar_url}}">
-              <p>Owner username  : {{repo.owner.login}}</p>
-              <a href="{{repo.owner.html_url}}" target="_blank">Visit profile</a>
+              <p>{{ '_PROJECT_OWNER_USERNAME_' | translate:{'ownerUsername': repo.owner.login} }}</p>
+              <a href="{{repo.owner.html_url}}" target="_blank">{{ '_PROJECT_VISIT_PROFILE_' | translate }}</a>
             </div>
           </div>
-          <button (click)="navigateTo(repo.html_url)" [defaultClasses]="['info-btn-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="[]" appLightingMode type="button"><span>Visit repository</span></button>
+          <button (click)="navigateTo(repo.html_url)" [defaultClasses]="['info-btn-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="[]" appLightingMode type="button"><span>{{ '_VISIT_REPOSITORY_' | translate }}</span></button>
         </div>
       </c-carousel-item>
     </c-carousel-inner>

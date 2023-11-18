@@ -1,5 +1,6 @@
 import {ThreeModelBuilderService} from "./three-model-builder.service";
 import {ThreeModelAnimationService} from "./three-model-animation.service";
+import {THREE} from "./three-wrapper";
 
 export class ThreeModelWrapperService {
 
@@ -30,19 +31,46 @@ export class ThreeModelWrapperService {
     this._threeModelAnimationService = value;
   }
 
-  static getInstance(threeModelBuilderService: ThreeModelBuilderService, args: any[]): ThreeModelWrapperService {
+  static async getInstance(defaultThreeModelBuilderService: ThreeModelBuilderService, args: any[]): Promise<ThreeModelWrapperService> {
     if (!this.instance) {
-      this.instance = new ThreeModelWrapperService(threeModelBuilderService, this.buildThreeModelAnimationService(args))
+      await this.initThreeModel(defaultThreeModelBuilderService, args).then((instanceValue) => this.instance = instanceValue);
     }
-    return this.instance
+    return this.instance!;
   }
 
-  static buildThreeModelBuilderService(): ThreeModelBuilderService {
-    return new ThreeModelBuilderService();
+
+  static initThreeModel(defaultThreeModelBuilderService: ThreeModelBuilderService, args: any[]): Promise<ThreeModelWrapperService> {
+    let {threeModelBuilderService, threeModelAnimationService}: any = {undefined};
+    return new Promise((resolve, reject) => {
+      threeModelBuilderService = ThreeModelWrapperService.buildThreeModelBuilderService(defaultThreeModelBuilderService, args);
+      resolve(threeModelBuilderService);
+    }).then((threeModelBuilderServicevalue: any) => {
+      threeModelAnimationService = ThreeModelWrapperService.buildThreeModelAnimationService(threeModelBuilderServicevalue, args)
+    }).then(() => {
+        return new ThreeModelWrapperService(threeModelBuilderService, threeModelAnimationService);
+    });
   }
 
-  static buildThreeModelAnimationService(args: any[]): ThreeModelAnimationService {
-    const [scene, camera, renderer, animationConfigService] = args;
+  static buildThreeModelBuilderService(threeModelBuilderService: ThreeModelBuilderService, args: any[]): ThreeModelBuilderService {
+    const [canvas, scene, camera, lights, geometry, materials] = args;
+    threeModelBuilderService.buildThreeModel(canvas, scene, camera, lights, geometry, materials);
+
+    threeModelBuilderService.getThreeModel().getRenderer().setSize(window.innerWidth, window.innerHeight);
+    threeModelBuilderService.getThreeModel().getRenderer().setPixelRatio(window.devicePixelRatio);
+    threeModelBuilderService.getThreeModel().getRenderer().toneMapping = THREE.NoToneMapping;
+    threeModelBuilderService.getThreeModel().getLights().map((value: any, index: number) => {
+      if (threeModelBuilderService.getThreeModel()) {
+        threeModelBuilderService.getThreeModel().getScene().add(value);
+      }
+    });
+    return threeModelBuilderService;
+  }
+
+  static buildThreeModelAnimationService(threeModelBuilderService: ThreeModelBuilderService, args: any[]): ThreeModelAnimationService {
+    const scene = threeModelBuilderService.getThreeModel().getScene()!
+    const camera = threeModelBuilderService.getThreeModel().getCamera()!
+    const renderer = threeModelBuilderService.getThreeModel().getRenderer()!;
+    const animationConfigService = args.slice(-1)[0];
     return new ThreeModelAnimationService(scene, camera, renderer, animationConfigService);
   }
 }

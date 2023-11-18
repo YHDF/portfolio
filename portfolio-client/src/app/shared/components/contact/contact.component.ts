@@ -11,6 +11,7 @@ import {
 import {contactMailDto} from "./contact";
 import {ContactService} from "./contact.service";
 import {LightingModeService} from "../../services/lighting-mode.service";
+import {SharedDataProviderService} from "../../services/shared-data-provider.service";
 
 @Component({
   selector: 'app-contact',
@@ -27,7 +28,9 @@ export class ContactComponent implements OnInit, OnDestroy {
   isDarkMode: boolean = false;
   private inputName: string[] = ["mail", "name", "subject"]
 
-  constructor(private readonly contactService : ContactService, private lightingModeService: LightingModeService) {
+  constructor(private readonly contactService : ContactService, private lightingModeService: LightingModeService,
+  private readonly sharedDataProviderService : SharedDataProviderService) {
+    this.sharedDataProviderService.showHeaderSubject$.next(true)
     this.lightingModeService.lightingMode$.subscribe(mode => {
       this.isDarkMode = mode === 'dark';
     });

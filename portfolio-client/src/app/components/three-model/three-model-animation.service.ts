@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {THREE} from './three-wrapper';
 import {gsap} from 'gsap';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
-import {AnimationFunctionSupplier, InteractiveGeometry} from "./three-model";
+import {AnimationFunctionSupplier} from "./three-model";
 import {MaterialConfigService} from "../../shared/services/material-config.service";
 import {AnimationConfigService} from "../../shared/services/animation-config.service";
 
@@ -49,25 +49,8 @@ export class ThreeModelAnimationService {
   }
 
 
-  onMouseClick(camera: THREE.Camera, scene: THREE.Scene, meshes: InteractiveGeometry[], materialConfig: any, __callback: (parentObject: string, onInit?: boolean) => THREE.Material[], __toggleIndicatorsCallback: () => void, __toggleMeCallback: () => void) {
-    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, this.findInteractiveIcons(meshes, materialConfig.materials), __callback, __toggleIndicatorsCallback, __toggleMeCallback]), false);
-  }
-
-  findInteractiveIcons(meshes: InteractiveGeometry[], materials: any[]): any[] {
-    const interactiveIconsData: any[] = [];
-    materials.map((value, index) => {
-      meshes.map((value1, index1) => {
-        if (value.parentObject === value1.mesh) {
-          value1.children?.map((value2, index2) => {
-            interactiveIconsData.push({
-              parentMesh: value.parentObject,
-              childrenConfig: value.items.find((element: any) => element?.identifier === value2)
-            })
-          })
-        }
-      })
-    });
-    return interactiveIconsData;
+  onMouseClick(camera: THREE.Camera, scene: THREE.Scene, interactiveIcons: any[], materialConfig: any, __callback: (parentObject: string, onInit?: boolean) => THREE.Material[], __toggleIndicatorsCallback: () => void, __toggleMeCallback: () => void) {
+    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, interactiveIcons, __callback, __toggleIndicatorsCallback, __toggleMeCallback]), false);
   }
 
   async calculateIntersects(event: any, camera: THREE.Camera, scene: THREE.Scene, icons: any[], __callback: (parentObject: string, onInit?: boolean) => THREE.Material[], __beforeAnimationCallback: (animationId?: number) => void, __afterAnimationCallback: (animationId?: number) => void) {

@@ -1,11 +1,8 @@
 package fr.yha.portfoliows.component;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Component;
 
-@PropertySources({@PropertySource("classpath:vault.properties"), @PropertySource("classpath:mail.properties")})
 @Component
 public class ContactMailProperties {
     @Value("${mail.host.email}")

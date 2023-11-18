@@ -77,47 +77,80 @@ export class ThreeModel {
 }
 
 export class ThreeModelBuilder {
-  private renderer?: THREE.WebGLRenderer;
-  private camera?: THREE.Camera;
-  private scene?: THREE.Scene;
-  private lights?: THREE.Light[] | any;
-  private geometry?: GLTFLoader | any;
-  private materials?: THREE.Material[] | any;
+  constructor() {
+  }
+
+  private _renderer?: THREE.WebGLRenderer;
+
+  get renderer(): THREE.WebGLRenderer {
+    return this._renderer!;
+  }
+
+  private _camera?: THREE.Camera;
+
+  get camera(): THREE.Camera {
+    return this._camera!;
+  }
+
+  private _scene?: THREE.Scene;
+
+  get scene(): THREE.Scene {
+    return this._scene!;
+  }
+
+  private _lights?: THREE.Light[] | any;
+
+  get lights(): any {
+    return this._lights!;
+  }
+
+  private _geometry?: GLTFLoader | any;
+
+  get geometry(): any {
+    return this._geometry!;
+  }
+
+  private _materials?: THREE.Material[] | any;
+
+  get materials(): any {
+    return this._materials!;
+  }
+
   setRenderer(renderer: THREE.WebGLRenderer): ThreeModelBuilder {
-    this.renderer = renderer;
+    this._renderer = renderer;
     return this;
   }
 
   setCamera(camera: THREE.Camera): ThreeModelBuilder {
-    this.camera = camera;
+    this._camera = camera;
     return this;
   }
 
   setScene(scene: THREE.Scene): ThreeModelBuilder {
-    this.scene = scene;
+    this._scene = scene;
     return this;
   }
 
   setGeometry(geometry: GLTFLoader): ThreeModelBuilder {
-    this.geometry = geometry;
+    this._geometry = geometry;
     return this;
   }
 
   setLights(lights: THREE.Light[]): ThreeModelBuilder {
-    this.lights = lights;
+    this._lights = lights;
     return this;
   }
 
   setMaterials(materials: THREE.Material[]): ThreeModelBuilder {
-    this.materials = materials;
+    this._materials = materials;
     return this;
   }
 
   build(): ThreeModel {
-    if (!this.renderer || !this.camera || !this.scene || !this.lights || !this.geometry || !this.materials) {
+    if (!this._renderer || !this._camera || !this._scene || !this._lights || !this._geometry || !this._materials) {
       throw new Error('ThreeModel is not fully configured');
     }
-    return new ThreeModel(this.renderer, this.camera, this.scene, this.lights, this.geometry, this.materials);
+    return new ThreeModel(this._renderer, this._camera, this._scene, this._lights, this._geometry, this._materials);
   }
 }
 
