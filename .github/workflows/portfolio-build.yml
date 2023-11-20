@@ -15,7 +15,7 @@ jobs:
         env:
           MESSAGE: Launching the Maven build for the Portfolio application
         run: |
-          echo $MESSAGE.
+          pwd; ls; echo $MESSAGE.
       - name: run mvn install
         working-directory: ../
         run: |
