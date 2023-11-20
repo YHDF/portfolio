@@ -1,24 +1,26 @@
-name: Build
+name: Build Portfolio application
+
 on:
   push:
     branches:
-    - main
-    - master
-    
-    
+      - main
+      - master
+
 jobs:
-  maven_build:
-    name: Build overall application
+  build:
+    name: Build entire project
     runs-on: ubuntu-latest
     steps:
       - name: Print a message
         env:
-          MESSAGE: Launching the maven build for the Portfolio application
+          MESSAGE: Launching the Maven build for the Portfolio application
         run: |
           echo $MESSAGE.
       - name: run mvn install
+        working-directory: ./portfolio
         run: |
           mvn clean install
+
   npm_build:
     name: Build front
     runs-on: ubuntu-latest
@@ -27,11 +29,12 @@ jobs:
         env:
           MESSAGE: Launching the npm build for the Portfolio-client application
         run: |
-          cd portfolio-client; echo $MESSAGE.
+          echo $MESSAGE.
       - name: run npm install 
+        working-directory: ./portfolio/portfolio-client
         run: |
-         npm install
+          npm install
       - name: run npm build
+        working-directory: ./portfolio/portfolio-client
         run: |
-         npm run build
-
+          npm run build
