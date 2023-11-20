@@ -66,7 +66,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.production.ts"
+                  "with": "src/environments/deployment/environment.production.ts"
                 }
               ]
             },
@@ -80,7 +80,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
+                  "with": "src/environments/deployment/environment.development.ts"
                 }
               ]
             },
@@ -90,7 +90,7 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
             }
           },
           "defaultConfiguration": "default"

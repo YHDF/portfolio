@@ -11,6 +11,15 @@ jobs:
     name: Build entire project
     runs-on: ubuntu-latest
     steps:
+      - name: Set up Java 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+      - name: Print Java version
+        run: java -version
+      - name: Print Maven version
+        run: mvn -version
       - name: Print a message
         env:
           MESSAGE: Launching the Maven build for the Portfolio application
