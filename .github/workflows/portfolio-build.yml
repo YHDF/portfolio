@@ -27,8 +27,11 @@ jobs:
         env:
           MESSAGE: Launching the npm build for the Portfolio-client application
         run: |
-          echo $MESSAGE.
-      - name: run npm install build
+          cd portfolio-client; echo $MESSAGE.
+      - name: run npm install 
+        run: |
+         npm install
+      - name: run npm build
         run: |
          npm run build
 
