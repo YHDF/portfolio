@@ -83,9 +83,17 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "default": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "default"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

@@ -16,9 +16,8 @@ jobs:
           MESSAGE: Launching the Maven build for the Portfolio application
         run: echo $MESSAGE.
       - name: Checkout repository
-        uses: actions/checkout@v2  # Ensure the repository is checked out
+        uses: actions/checkout@v2
       - name: run mvn install
-        working-directory: ./portfolio  # Adjust the working directory to the parent project
         run: mvn clean install
 
   npm_build:
@@ -30,11 +29,11 @@ jobs:
           MESSAGE: Launching the npm build for the Portfolio-client application
         run: echo $MESSAGE.
       - name: Checkout repository
-        uses: actions/checkout@v2  # Ensure the repository is checked out
+        uses: actions/checkout@v2
       - name: run npm install 
-        working-directory: ./portfolio-client  # Adjust the working directory to the front-end project
+        working-directory: ./portfolio-client
         run: npm install
       - name: run npm build
-        working-directory: ./portfolio-client  # Adjust the working directory to the front-end project
+        working-directory: ./portfolio-client
         run: npm run build
 
