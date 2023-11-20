@@ -6,6 +6,7 @@ on:
       - main
       - master
 
+
 jobs:
   build:
     name: Build entire project
@@ -15,8 +16,9 @@ jobs:
         env:
           MESSAGE: Launching the Maven build for the Portfolio application
         run: |
-          ls; echo $MESSAGE.
+          echo $MESSAGE.
       - name: run mvn install
+        working-directory: ./portfolio  # Adjust the working directory to the parent project
         run: |
           mvn clean install
 
@@ -30,10 +32,11 @@ jobs:
         run: |
           echo $MESSAGE.
       - name: run npm install 
-        working-directory: portfolio-client
+        working-directory: ./portfolio/portfolio-client  # Adjust the working directory to the front-end project
         run: |
           npm install
       - name: run npm build
-        working-directory: portfolio-client
+        working-directory: ./portfolio/portfolio-client  # Adjust the working directory to the front-end project
         run: |
           npm run build
+
