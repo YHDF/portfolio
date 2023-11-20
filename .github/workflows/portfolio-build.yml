@@ -15,9 +15,8 @@ jobs:
         env:
           MESSAGE: Launching the Maven build for the Portfolio application
         run: |
-          pwd; ls; echo $MESSAGE.
+          ls; echo $MESSAGE.
       - name: run mvn install
-        working-directory: ../
         run: |
           mvn clean install
 
@@ -31,10 +30,10 @@ jobs:
         run: |
           echo $MESSAGE.
       - name: run npm install 
-        working-directory: ../portfolio-client
+        working-directory: portfolio-client
         run: |
           npm install
       - name: run npm build
-        working-directory: ../portfolio-client
+        working-directory: portfolio-client
         run: |
           npm run build
