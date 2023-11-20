@@ -6,7 +6,6 @@ on:
       - main
       - master
 
-
 jobs:
   build:
     name: Build entire project
@@ -15,12 +14,12 @@ jobs:
       - name: Print a message
         env:
           MESSAGE: Launching the Maven build for the Portfolio application
-        run: |
-          echo $MESSAGE.
+        run: echo $MESSAGE.
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Ensure the repository is checked out
       - name: run mvn install
         working-directory: ./portfolio  # Adjust the working directory to the parent project
-        run: |
-          mvn clean install
+        run: mvn clean install
 
   npm_build:
     name: Build front
@@ -29,14 +28,13 @@ jobs:
       - name: Print a message
         env:
           MESSAGE: Launching the npm build for the Portfolio-client application
-        run: |
-          echo $MESSAGE.
+        run: echo $MESSAGE.
+      - name: Checkout repository
+        uses: actions/checkout@v2  # Ensure the repository is checked out
       - name: run npm install 
-        working-directory: ./portfolio/portfolio-client  # Adjust the working directory to the front-end project
-        run: |
-          npm install
+        working-directory: ./portfolio-client  # Adjust the working directory to the front-end project
+        run: npm install
       - name: run npm build
-        working-directory: ./portfolio/portfolio-client  # Adjust the working directory to the front-end project
-        run: |
-          npm run build
+        working-directory: ./portfolio-client  # Adjust the working directory to the front-end project
+        run: npm run build
 
