@@ -1,6 +1,6 @@
 import {SseService} from "./data/sse.service";
 import {Injectable} from "@angular/core";
-import {environment} from "../../../environment";
+import {environment} from "../../../environments/environment";
 import {Subject} from "rxjs";
 
 

@@ -13,10 +13,10 @@ import javax.annotation.PostConstruct;
 
 @Configuration
 @PropertySources({
-        @PropertySource("classpath:${property.environment.folder:}/jdbc${property.environment.suffix:}.properties"),
-        @PropertySource("classpath:${property.environment.folder:}/resume${property.environment.suffix:}.properties"),
-        @PropertySource("classpath:${property.environment.folder:}/mail${property.environment.suffix:}.properties"),
-        @PropertySource("classpath:${property.environment.folder:}/vault${property.environment.suffix:}.properties"),
+        @PropertySource("classpath:jdbc${property.environment.suffix:}.properties"),
+        @PropertySource("classpath:resume${property.environment.suffix:}.properties"),
+        @PropertySource("classpath:mail${property.environment.suffix:}.properties"),
+        @PropertySource("classpath:vault${property.environment.suffix:}.properties"),
 })
 public class PropertyConfig {
 
@@ -32,7 +32,7 @@ public class PropertyConfig {
     @PostConstruct
     void init() {
         LOGGER.info("---------------------------------------------------------------------------------------");
-        LOGGER.info("--------------------------Running in {} environment------------------", portfolioRunEnv);
+        LOGGER.info("                            Running in {} environment", portfolioRunEnv);
         LOGGER.info("---------------------------------------------------------------------------------------");
     }
 }
