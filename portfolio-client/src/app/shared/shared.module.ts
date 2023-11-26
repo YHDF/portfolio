@@ -13,6 +13,7 @@ import {LightingModeDirective} from './directives/lighting-mode.directive';
 import {ContactInfoComponent} from './components/contact-info/contact-info.component';
 import {OptionMenuComponent} from './components/option-menu/option-menu.component';
 import {TranslateModule} from "@ngx-translate/core";
+import {ThreeIndicatorComponent} from './components/three-indicator/three-indicator.component';
 
 @NgModule({
   declarations: [
@@ -23,16 +24,18 @@ import {TranslateModule} from "@ngx-translate/core";
     LightingModeDirective,
     ContactInfoComponent,
     OptionMenuComponent,
+    ThreeIndicatorComponent,
   ],
-  exports: [
-    ProjectComponent,
-    WorkComponent,
-    CustomAlertComponent,
-    ContactComponent,
-    LightingModeDirective,
-    ContactInfoComponent,
-    OptionMenuComponent
-  ],
+    exports: [
+        ProjectComponent,
+        WorkComponent,
+        CustomAlertComponent,
+        ContactComponent,
+        LightingModeDirective,
+        ContactInfoComponent,
+        OptionMenuComponent,
+        ThreeIndicatorComponent
+    ],
   imports: [
     CommonModule,
     RouterModule,

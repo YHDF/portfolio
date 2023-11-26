@@ -13,7 +13,8 @@ export class ThreeModelAnimationService {
   private controls?: OrbitControls;
   private readonly boundMouseMoveListener: any;
 
-  constructor(private readonly scene: THREE.Scene, private readonly camera: THREE.Camera, private readonly renderer: THREE.WebGLRenderer, private readonly animationConfigService: AnimationConfigService) {
+  constructor(private readonly scene: THREE.Scene, private readonly camera: THREE.Camera,
+              private readonly renderer: THREE.WebGLRenderer, private readonly animationConfigService: AnimationConfigService) {
     this.scene = scene;
     this.camera = camera;
     this.renderer = renderer;
@@ -24,7 +25,6 @@ export class ThreeModelAnimationService {
 
   initControls() {
     this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.target.set(-11, 2, -4);
     this.controls.enableDamping = true;
     this.controls.dampingFactor = 0.05;
     this.controls.rotateSpeed = 0.5;
@@ -53,6 +53,13 @@ export class ThreeModelAnimationService {
     window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, interactiveIcons, __callback, __toggleIndicatorsCallback, __toggleMeCallback]), false);
   }
 
+  zoomIn(animationId : number,  __beforeAnimation?: (animationId?: number) => void, __afterAnimation?: (animationId?: number) => void) {
+    if (this) {
+      this.removeMouseMove();
+      this.animateCamera(animationId, false, __beforeAnimation!.bind(this), __afterAnimation!.bind(this));
+    }
+  }
+
   async calculateIntersects(event: any, camera: THREE.Camera, scene: THREE.Scene, icons: any[], __callback: (parentObject: string, onInit?: boolean) => THREE.Material[], __beforeAnimationCallback: (animationId?: number) => void, __afterAnimationCallback: (animationId?: number) => void) {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
@@ -78,14 +85,13 @@ export class ThreeModelAnimationService {
           const materialConfigService = new MaterialConfigService();
           const parentWidth = 1920;
           const parentHeight = 1080;
-          const rectX = materialConfigService.evalValue(icons[j].childrenConfig.position.x, {parentWidth})
-          const rectY = materialConfigService.evalValue(icons[j].childrenConfig.position.y, {parentHeight})
-          const rectWidth = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.width, {parentWidth})
-          const rectHeight = materialConfigService.evalValue(icons[j].childrenConfig.dimensions.height, {parentHeight})
+          const rectX = materialConfigService.evalValue(icons[j].childrenConfig?.position.x, {parentWidth})
+          const rectY = materialConfigService.evalValue(icons[j].childrenConfig?.position.y, {parentHeight})
+          const rectWidth = materialConfigService.evalValue(icons[j].childrenConfig?.dimensions.width, {parentWidth})
+          const rectHeight = materialConfigService.evalValue(icons[j].childrenConfig?.dimensions.height, {parentHeight})
           // Check if the click was inside the rectangle
           if (x >= rectX && x <= rectX + rectWidth && y >= rectY && y <= rectY + rectHeight) {
             const animationFunctions = AnimationFunctionSupplier.getInstance();
-            console.log(icons[j].childrenConfig.properties.type)
             if (icons[j].childrenConfig.properties.type === "_CUSTOM_ICON_") {
               await animationFunctions.execSupplier(icons[j].childrenConfig.properties.name, this, [intersection.name, 2, false, __beforeAnimationCallback, __afterAnimationCallback]).then(executionValue => {
                 if(executionValue) {
@@ -112,7 +118,6 @@ export class ThreeModelAnimationService {
     //this.controls!.update();
     this.renderer.render(this.scene, this.camera);
   }
-
 
   updateCameraPosition(event: any, vector3: number[]) {
     const target = new THREE.Vector3(...vector3);

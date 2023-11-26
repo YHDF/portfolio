@@ -104,7 +104,7 @@ export class MaterialConfigService {
     if (item.type && item.type?.value === "image") {
       ctx.fillStyle = "rgba(255, 255, 255, 0)";
       let img = new Image();
-      img.src = `data:image/${item.type.format}+xml;utf8,${item.type.src}`;
+      img.src = item.type.location === "external" ? `data:image/${item.type.format}+xml;utf8,${item.type.src}` : item.type.src;
       img.onload = function () {
         console.info("Image loaded successfully");
         ctx.drawImage(img, x, y, width, height);
@@ -113,12 +113,16 @@ export class MaterialConfigService {
         console.error("Error loading the image:", err);
       };
     }
+    const metaData  = item.type?.hasOwnProperty('iconMetaData') ? item.type.iconMetaData : item.type?.hasOwnProperty('textMetaData') ? item.type.textMetaData : undefined;
 
-    if (item.type && item.type.hasOwnProperty('iconMetaData')) {
-      ctx.fillStyle = "#000"
-      const spacing = 12;
-      ctx.font = `bold ${spacing}px sans-serif`;
-      ctx.fillText(item.type.iconMetaData.label, x, y + height + spacing);
+    if(metaData && metaData.hasOwnProperty('placeholders')){
+      this.handleMultiPropertyLabels(ctx, metaData, x, y, width, height)
+    }
+    else if (metaData) {
+      ctx.fillStyle = `${metaData.color}`
+      //const spacing = 12;
+      ctx.font = `bold ${metaData.spacing}px sans-serif`;
+      ctx.fillText(metaData.label, x, y + height + metaData.spacing);
       ctx.fillStyle = "rgba(255, 255, 255, 0)";
     }
 
@@ -134,8 +138,39 @@ export class MaterialConfigService {
       ctx.beginPath();
       ctx.arc(x + width / 2, y + height / 2, width / 2, 0, 2 * Math.PI);
       ctx.fill();
+      ctx.fillStyle = "rgba(255, 255, 255, 0)";
+
     } else {
       ctx.fillRect(x, y, width, height);
     }
+  }
+
+  private handleMultiPropertyLabels(ctx : CanvasRenderingContext2D, metaData : any, x?: number, y?: number, width?: number, height?: number){
+
+    const metaDataPlaceholders : any[] = [];
+    for(let index = 0; index < Object.keys(metaData.placeholders).length; index++){
+      metaDataPlaceholders.push(Object.values(Object.values(metaData.placeholders)[index] as {})[0])
+    }
+
+    const regex =/\$\d+/g;
+
+    const words = metaData.label.split(regex)
+    let sentenceWidth = 0;
+
+    if(Array.isArray(words)){
+      words.pop() // we remove the last element (in most cases its an empty space)
+      words.map((value: string, index : number) => {
+        ctx.fillStyle = `${metaData.color}`
+        const spacing = metaData.spacing;
+        ctx.font = `bold ${metaData.spacing}px sans-serif`;
+        ctx.fillText(value, x! + sentenceWidth, y! + height! + metaData.spacing);
+        sentenceWidth += ctx.measureText(value).width;
+        ctx.fillStyle = `${(Object.values(Object.values(metaData.placeholders)[index] as Array<string>))[1]}`
+        ctx.fillText(metaDataPlaceholders[index], x! + sentenceWidth, y! + height! + metaData.spacing);
+        sentenceWidth += ctx.measureText(metaDataPlaceholders[index]).width;
+      })
+    }
+
+    ctx.fillStyle = "rgba(255, 255, 255, 0)";
   }
 }

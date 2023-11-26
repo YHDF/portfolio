@@ -4,6 +4,7 @@ import {ThreeModelComponent} from './three-model.component';
 import {ANIMATION_CONFIG_TOKEN} from "./animation-config.token";
 import * as animationConfig from '../../../assets/json/animation.json'
 import {MeModule} from "../me/me.module";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -12,10 +13,11 @@ import {MeModule} from "../me/me.module";
   exports: [
     ThreeModelComponent
   ],
-  imports: [
-    CommonModule,
-    MeModule
-  ],
+    imports: [
+        CommonModule,
+        MeModule,
+        SharedModule
+    ],
   providers: [
     {
       provide: ANIMATION_CONFIG_TOKEN,

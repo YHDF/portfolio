@@ -8,8 +8,10 @@ import {ThreeModelBuilderService} from "../../components/three-model/three-model
 //json configuration
 import * as threeModelConfig from '../../../assets/json/three-config.json';
 import * as darkModeLightConfig from '../../../assets/json/lights_dark-mode.json';
+import * as lightModeLightConfig from '../../../assets/json/lights_light-mode.json';
 import * as materialConfig from '../../../assets/json/materials.json';
 import * as interactiveMapConfig from '../../../assets/json/interactive-map.json';
+import {THREE} from "../../components/three-model/three-wrapper";
 
 @Injectable({providedIn : 'root'})
 export class SharedDataProviderService {
@@ -19,6 +21,7 @@ export class SharedDataProviderService {
   private _repositories: Repository[] = [];
   showHeaderSubject$ = new Subject<boolean>();
   showGreetingSubject$ = new Subject<boolean>();
+  showIndicatorsSubject$ = new Subject<boolean>();
 
   constructor(private readonly meService : MeService,
               private threeModelBuilderService : ThreeModelBuilderService) {
@@ -56,12 +59,35 @@ export class SharedDataProviderService {
 
   private _interactiveIcons : any[] = [];
 
+  private _lightModelights : THREE.Light[] = [];
+
+  get lightModelights(): THREE.Light[] {
+    return this._lightModelights;
+  }
+
+
+
+
   get interactiveIcons(): any[] {
     return this._interactiveIcons;
   }
 
   set interactiveIcons(value: any[]) {
     this._interactiveIcons = value;
+  }
+
+  set lightModelights(value: THREE.Light[]) {
+    this._lightModelights = value;
+  }
+
+  private _darkModelights : THREE.Light[] = [];
+
+  get darkModelights(): THREE.Light[] {
+    return this._darkModelights;
+  }
+
+  set darkModelights(value: THREE.Light[]) {
+    this._darkModelights = value;
   }
 
   private _showHeader: boolean = false;
@@ -84,6 +110,17 @@ export class SharedDataProviderService {
     this.showGreeting = value;
   }
 
+  private _showIndicators: boolean = false;
+
+
+  get showIndicators(): boolean {
+    return this._showIndicators;
+  }
+
+  set showIndicators(value: boolean) {
+    this._showIndicators = value;
+  }
+
   fetchWorkAndProjects() : Promise<void> {
     const repositories$ = this.meService.fetchGithubRepositories();
     const repositoriesPromise = lastValueFrom(repositories$);
@@ -101,21 +138,23 @@ export class SharedDataProviderService {
     return new Promise((resolve, reject) => {
       const scene = this.threeModelBuilderService.createScene(threeModelConfig.scene);
       const camera = this.threeModelBuilderService.createCamera(threeModelConfig.camera);
-      const lights = this.threeModelBuilderService.createLights(darkModeLightConfig);
+      const darkLights = this.threeModelBuilderService.createLights(darkModeLightConfig);
+      const lightLights = this.threeModelBuilderService.createLights(lightModeLightConfig);
       const materials = this.threeModelBuilderService.createMaterials(materialConfig, true);
-
       const geometry = this.threeModelBuilderService.createGeometry(scene, materials, materialConfig, interactiveMapConfig.interactiveMap, false)
         .then(() => {
-          resolve({ scene, camera, lights, materials, geometry });
+          resolve({ scene, camera, darkLights, lightLights, materials, geometry });
         })
         .catch((error) => {
           reject(error);
         });
     })
       .then((value: any) => {
+        this.lightModelights = value.lightLights
+        this.darkModelights = value.darkLights
         this.threeModelBuilder.setScene(value.scene);
         this.threeModelBuilder.setCamera(value.camera);
-        this.threeModelBuilder.setLights(value.lights);
+        this.threeModelBuilder.setLights(value.darkLights);
         this.threeModelBuilder.setMaterials(value.materials);
         this.threeModelBuilder.setGeometry(value.geometry);
         this._interactiveIcons = this.findInteractiveIcons(

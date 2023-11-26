@@ -167,6 +167,7 @@
           "shape": "circle",
           "type": {
             "value": "image",
+            "location" : "external",
             "format": "svg",
             "src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z\"/></svg>"
           },
@@ -198,6 +199,7 @@
           "shape": "circle",
           "type": {
             "value": "image",
+            "location" : "external",
             "format": "svg",
             "src": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\"><path d=\"M19 0H5a5 5 0 0 0-5 5v14a5 5 0 0 0 5 5h14a5 5 0 0 0 5-5V5a5 5 0 0 0-5-5zM8 19H5V8h3v11zM6.5 6.732c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM20 19h-3v-5.604c0-3.368-4-3.113-4 0V19h-3V8h3v1.765c1.396-2.586 7-2.777 7 2.476V19z\" fill=\"%23144c8c\"/></svg>"
           },
@@ -227,11 +229,13 @@
           "color": "#037",
           "type": {
             "value": "image",
+            "location" : "external",
             "format": "svg",
             "src" : "%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20viewBox%3D%220%200%20512%20512%22%20xml%3Aspace%3D%22preserve%22%20width%3D%2264px%22%20height%3D%2264px%22%20fill%3D%22%23000000%22%3E%3Cg%20id%3D%22SVGRepo_bgCarrier%22%20stroke-width%3D%220%22%3E%3C%2Fg%3E%3Cg%20id%3D%22SVGRepo_tracerCarrier%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3C%2Fg%3E%3Cg%20id%3D%22SVGRepo_iconCarrier%22%3E%20%3Cpath%20id%3D%22SVGCleanerId_0%22%20style%3D%22fill%3A%2362a0ea%3B%22%20d%3D%22M183.295%2C123.586H55.05c-6.687%2C0-12.801-3.778-15.791-9.76l-12.776-25.55%20l12.776-25.55c2.99-5.982%2C9.103-9.76%2C15.791-9.76h128.246c6.687%2C0%2C12.801%2C3.778%2C15.791%2C9.76l12.775%2C25.55l-12.776%2C25.55%20C196.096%2C119.808%2C189.983%2C123.586%2C183.295%2C123.586z%22%3E%3C%2Fpath%3E%20%3Cg%3E%20%3Cpath%20id%3D%22SVGCleanerId_0_1_%22%20style%3D%22fill%3A%2362a0ea%3B%22%20d%3D%22M183.295%2C123.586H55.05c-6.687%2C0-12.801-3.778-15.791-9.76l-12.776-25.55%20l12.776-25.55c2.99-5.982%2C9.103-9.76%2C15.791-9.76h128.246c6.687%2C0%2C12.801%2C3.778%2C15.791%2C9.76l12.775%2C25.55l-12.776%2C25.55%20C196.096%2C119.808%2C189.983%2C123.586%2C183.295%2C123.586z%22%3E%3C%2Fpath%3E%20%3C%2Fg%3E%20%3Cpath%20style%3D%22fill%3A%23EFF2FA%3B%22%20d%3D%22M485.517%2C70.621H26.483c-4.875%2C0-8.828%2C3.953-8.828%2C8.828v44.138h476.69V79.448%20C494.345%2C74.573%2C490.392%2C70.621%2C485.517%2C70.621z%22%3E%3C%2Fpath%3E%20%3Crect%20x%3D%2217.655%22%20y%3D%22105.931%22%20style%3D%22fill%3A%23E1E6F2%3B%22%20width%3D%22476.69%22%20height%3D%2217.655%22%3E%3C%2Frect%3E%20%3Cpath%20style%3D%22fill%3A%2362a0ea%3B%22%20d%3D%22M494.345%2C88.276H217.318c-3.343%2C0-6.4%2C1.889-7.895%2C4.879l-10.336%2C20.671%20c-2.99%2C5.982-9.105%2C9.76-15.791%2C9.76H55.05c-6.687%2C0-12.801-3.778-15.791-9.76L28.922%2C93.155c-1.495-2.99-4.552-4.879-7.895-4.879%20h-3.372C7.904%2C88.276%2C0%2C96.18%2C0%2C105.931v335.448c0%2C9.751%2C7.904%2C17.655%2C17.655%2C17.655h476.69c9.751%2C0%2C17.655-7.904%2C17.655-17.655%20V105.931C512%2C96.18%2C504.096%2C88.276%2C494.345%2C88.276z%22%3E%3C%2Fpath%3E%20%3Cpath%20style%3D%22fill%3A%2362a0ea%3B%22%20d%3D%22M485.517%2C441.379H26.483c-4.875%2C0-8.828-3.953-8.828-8.828l0%2C0c0-4.875%2C3.953-8.828%2C8.828-8.828%20h459.034c4.875%2C0%2C8.828%2C3.953%2C8.828%2C8.828l0%2C0C494.345%2C437.427%2C490.392%2C441.379%2C485.517%2C441.379z%22%3E%3C%2Fpath%3E%20%3Cpath%20style%3D%22fill%3A%23EFF2FA%3B%22%20d%3D%22M326.621%2C220.69h132.414c4.875%2C0%2C8.828-3.953%2C8.828-8.828v-70.621c0-4.875-3.953-8.828-8.828-8.828%20H326.621c-4.875%2C0-8.828%2C3.953-8.828%2C8.828v70.621C317.793%2C216.737%2C321.746%2C220.69%2C326.621%2C220.69z%22%3E%3C%2Fpath%3E%20%3Cpath%20style%3D%22fill%3A%23C7CFE2%3B%22%20d%3D%22M441.379%2C167.724h-97.103c-4.875%2C0-8.828-3.953-8.828-8.828l0%2C0c0-4.875%2C3.953-8.828%2C8.828-8.828%20h97.103c4.875%2C0%2C8.828%2C3.953%2C8.828%2C8.828l0%2C0C450.207%2C163.772%2C446.254%2C167.724%2C441.379%2C167.724z%22%3E%3C%2Fpath%3E%20%3Cpath%20style%3D%22fill%3A%23D7DEED%3B%22%20d%3D%22M441.379%2C203.034h-97.103c-4.875%2C0-8.828-3.953-8.828-8.828l0%2C0c0-4.875%2C3.953-8.828%2C8.828-8.828%20h97.103c4.875%2C0%2C8.828%2C3.953%2C8.828%2C8.828l0%2C0C450.207%2C199.082%2C446.254%2C203.034%2C441.379%2C203.034z%22%3E%3C%2Fpath%3E%20%3C%2Fg%3E%3C%2Fsvg%3E",
             "iconMetaData" : {
               "label" : "About Me",
-              "color" : "#000"
+              "color" : "#000",
+              "spacing" : 12
             }
           },
           "position": {
@@ -318,8 +322,8 @@
       "materialType": "canvas",
       "parentObject": "Cube006_1",
       "canvas": {
-        "width": 1366,
-        "height": 768
+        "width": 1920,
+        "height": 1080
       },
       "items": [
         {
@@ -405,69 +409,22 @@
           "drawOnInit": true
         },
         {
-          "identifier": "taskbar_002_1",
-          "label": "taskbar",
-          "color": "#FFF",
-          "position": {
-            "x": 0,
-            "y": "parentHeight - 40"
-          },
-          "dimensions": {
-            "width": "parentWidth",
-            "height": 40
-          },
-          "drawOnInit": true
-        },
-        {
-          "identifier": "taskbar-icon_002_1",
-          "label": "taskbar-icon",
-          "color": "#444",
-          "spacing": 10,
-          "count": 5,
-          "position": {
-            "x": "10 + (30 + 10) * index",
-            "y": "parentHeight - 40 + (40 - 30) / 2"
-          },
-          "dimensions": {
-            "width": 30,
-            "height": 30
-          },
-          "drawOnInit": true
-        },
-        {
-          "identifier": "resume-icon_002_1",
-          "label": "resume-icon",
-          "color": "#037",
-          "spacing": 10,
-          "count": 5,
-          "position": {
-            "x": 30,
-            "y": 30
-          },
-          "dimensions": {
-            "width": 30,
-            "height": 30
-          },
-          "drawOnInit": true
-        },
-        {
-          "identifier": "window_11_style",
-          "label": "Windows 11 Style Window",
+          "identifier": "terminal_bg",
+          "label": "terminal-background",
           "position": {
             "x": "parentWidth * 0.05",
             "y": "parentHeight * 0.08"
           },
           "dimensions": {
             "width": "parentWidth * 0.90",
-            "height": "parentHeight * 0.80"
+            "height": "parentHeight * 0.90"
           },
-          "titleBarHeight": "50",
-          "color": "#43576B",
-          "titleBarColor": "#ADADAD",
-          "drawOnInit": false
+          "titleBarHeight": 75,
+          "color": "rgba(10, 10, 10, 0.98)",
+          "drawOnInit": true
         },
         {
-          "identifier": "minimize_button_002_1",
+          "identifier": "minimize_button_002_1_S",
           "label": "minimize_button",
           "shape": "circle",
           "color": "#FFC700",
@@ -479,7 +436,7 @@
             "width": 30,
             "height": 30
           },
-          "drawOnInit": false
+          "drawOnInit": true
         },
         {
           "identifier": "maximize_button_002_1",
@@ -494,7 +451,7 @@
             "width": 30,
             "height": 30
           },
-          "drawOnInit": false
+          "drawOnInit": true
         },
         {
           "identifier": "close_button_002_1",
@@ -509,7 +466,84 @@
             "width": 30,
             "height": 30
           },
-          "drawOnInit": false
+          "drawOnInit": true
+        },
+        {
+          "identifier": "term_bg_green_001_text_001",
+          "label": "term_bg_green_text",
+          "type": {
+            "value": "image",
+            "location" : "local",
+            "format": "png",
+            "src": "assets/images/term_bg_green.png"
+          },
+          "position": {
+            "x": "120",
+            "y": "150"
+          },
+          "dimensions": {
+            "width": 800,
+            "height": 400
+          },
+          "drawOnInit": true
+        },
+        {
+          "identifier": "term_prompt_text_001",
+          "label": "terminal-help-prompt-menu",
+          "type": {
+            "value": "text",
+            "location" : "local",
+            "format": "txt",
+            "src" : "",
+            "textMetaData" : {
+              "label" : "Welcome to the command line tool! If you need assistance or want to see the available commands, type 'help' and press Enter.",
+              "color" : "#5C5C5C",
+              "spacing" : 18
+            }
+          },
+          "position": {
+            "x": 120,
+            "y": 500
+          },
+          "dimensions": {
+            "width": 64,
+            "height": 64
+          },
+          "drawOnInit": true
+        },
+        {
+          "identifier": "term_prompt_text_002",
+          "label": "terminal-prompt",
+          "type": {
+            "value": "text",
+            "location" : "local",
+            "format": "txt",
+            "src" : "",
+            "textMetaData" : {
+              "label" : "[ynshdf@Website$0]$1",
+              "placeholders": {
+                "$0"  : {
+                  "label" : " portfolio ",
+                  "color" : "#787878"
+                },
+                "$1"  : {
+                  "label" : " $ ",
+                  "color" : "#508BD9"
+                }
+              },
+              "color" : "#116027",
+              "spacing" : 24
+            }
+          },
+          "position": {
+            "x": 120,
+            "y": 600
+          },
+          "dimensions": {
+            "width": 64,
+            "height": 64
+          },
+          "drawOnInit": true
         }
       ]
     },

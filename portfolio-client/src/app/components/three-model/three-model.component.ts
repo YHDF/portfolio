@@ -26,8 +26,6 @@ export class ThreeModelComponent implements AfterViewInit {
 
   static LIGHT_MODE_VALUE = 'light';
   showMe = false;
-  showThree = false;
-  showIndicators = false;
   lightMode = false;
   threeModelWrapperService: ThreeModelWrapperService | undefined = undefined
 
@@ -63,29 +61,46 @@ export class ThreeModelComponent implements AfterViewInit {
   }
 
   afterAnimation(animationId?: number) {
-    if (animationId === 1) {
-      if (this.threeModelWrapperService!.threeModelAnimationService) {
-        this.threeModelWrapperService!.threeModelAnimationService.onMouseMove.bind(this);
-      }
-      this.showIndicators = true;
+    switch (animationId) {
+      case 1:
+        if (this.threeModelWrapperService!.threeModelAnimationService) {
+          this.threeModelWrapperService!.threeModelAnimationService.onMouseMove.bind(this);
+        }
+        this.sharedDataProviderService.showIndicatorsSubject$.next(true);
+        break;
 
+      case 2:
+        this.sharedDataProviderService.showIndicatorsSubject$.next(false);
+        this.showMe = this.sharedDataProviderService.showMe = true;
+        break;
+
+      case 3:
+      case 4:
+        this.sharedDataProviderService.showIndicatorsSubject$.next(false);
+
+        if (animationId === 4) {
+          this.sharedDataProviderService.showHeaderSubject$.next(false);
+        }
+        break;
+
+      default:
+        break;
     }
-    if (animationId === 2) {
-      this.showIndicators = false
-      this.showMe = this.sharedDataProviderService.showMe = true;
-    }
-    if (animationId === 3) {
-      this.showIndicators = false
-    }
+
   }
 
   beforeAnimation(animationId?: number) {
-    if (animationId === 2) {
-      this.showIndicators = false
+    switch (animationId) {
+      case 2:
+      case 3:
+      case 4:
+        this.sharedDataProviderService.showIndicatorsSubject$.next(false);
+        break;
+
+      default:
+        break;
     }
-    if (animationId === 3) {
-      this.showIndicators = false
-    }
+
   }
 
   redraw(parentObject: string, onInit?: boolean): THREE.Material[] {
@@ -95,10 +110,23 @@ export class ThreeModelComponent implements AfterViewInit {
     return this.threeModelBuilderService.createMaterials(materialConfig, onInit, parentObject);
   }
 
-  zoomIn() {
+  bindFirstScreen(){
+    return this.zoomFirstScreen.bind(this)
+  }
+
+  bindSecondScreen(){
+    return this.zoomSecondScreen.bind(this)
+  }
+
+  zoomFirstScreen() {
     if (this.threeModelWrapperService!.threeModelAnimationService) {
-      this.threeModelWrapperService!.threeModelAnimationService.removeMouseMove();
-      this.threeModelWrapperService!.threeModelAnimationService.animateCamera(3, false, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
+      this.threeModelWrapperService!.threeModelAnimationService.zoomIn(3, this.beforeAnimation.bind(this), this.afterAnimation.bind(this))
+    }
+  }
+
+  zoomSecondScreen() {
+    if (this.threeModelWrapperService!.threeModelAnimationService) {
+      this.threeModelWrapperService!.threeModelAnimationService.zoomIn(4, this.beforeAnimation.bind(this), this.afterAnimation.bind(this))
     }
   }
 
@@ -106,8 +134,8 @@ export class ThreeModelComponent implements AfterViewInit {
     const currentLightConfig = this.lightMode ? lightModeLightConfig : darkModeLightConfig;
     this.threeModelBuilderService.removeLights(currentLightConfig, this.threeModelBuilderService.getThreeModel().getScene()!);
     this.lightMode = !this.lightMode;
-    const newLightConfig = this.lightMode ? lightModeLightConfig : darkModeLightConfig;
-    this.threeModelBuilderService.addLights(newLightConfig, this.threeModelBuilderService.getThreeModel().getScene()!);
+    const lights = this.lightMode ? this.sharedDataProviderService.lightModelights : this.sharedDataProviderService.darkModelights;
+    this.threeModelBuilderService.addLights(lights, this.threeModelBuilderService.getThreeModel().getScene()!);
     GLTFObjectGroup.getInstance().objects.traverse(object => {
       if (Object.hasOwn(object, "material")) {
         this.threeModelBuilderService.applyMaterialOptionsConfiguration(object, materialConfig, this.lightMode)

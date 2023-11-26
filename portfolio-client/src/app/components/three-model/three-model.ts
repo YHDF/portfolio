@@ -193,7 +193,6 @@ export class AnimationFunctionSupplier {
 
   // PopulateTuple method
   public populateTuple(keys : string[], funs: ((...args: any[]) => any)[]) {
-    console.log(this.data.size)
     if (keys.length !== funs.length) {
       throw new Error('Keys and functions arrays must be of the same length');
     }

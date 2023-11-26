@@ -99,9 +99,13 @@ export class ThreeModelBuilderService {
     scene.remove(...lightsToRemove);
   }
 
-  addLights(lightConfig: any, scene: THREE.Scene) {
+  createAndAddLights(lightConfig: any, scene: THREE.Scene) {
     const lightsToAdd = this.createLights(lightConfig);
     scene.add(...lightsToAdd);
+  }
+
+  addLights(lights: THREE.Light[], scene: THREE.Scene) {
+    scene.add(...lights);
   }
 
 

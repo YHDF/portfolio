@@ -46,7 +46,6 @@ export class ContactComponent implements OnInit, OnDestroy {
       const subject = this.getInputvalue("subject");
       const message = this.textAreaField.nativeElement.value;
       const contactMail = new contactMailDto(name, mail, subject, message);
-      console.log(contactMail)
       this.contactService.sendFormEmail(undefined, contactMail, undefined).subscribe(
         response => {
           // Handle the response here

@@ -1,9 +1,7 @@
 <div *ngIf="!showMe" class="three-model-ctn">
   <canvas id="room"></canvas>
-  <div *ngIf="showIndicators" class="indicator-ctn">
-    <div class="static-indicator"></div>
-    <div (click)="zoomIn()" class="dynamic-indicator"></div>
-  </div>
+  <app-three-indicator [bindScreen]="bindFirstScreen()" [ngClass]="'first-monitor-position'" [outputSource]="'_DP_MAIN_'"></app-three-indicator>
+  <app-three-indicator [bindScreen]="bindSecondScreen()" [ngClass]="'second-monitor-position'" [outputSource]="'_DP_SIDE_'"></app-three-indicator>
 </div>
 <app-me *ngIf="showMe" [toggleShowMe]="toggleShowMe"></app-me>
 

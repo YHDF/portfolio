@@ -13,54 +13,16 @@
   height: 100vh;
 }
 
-.indicator-ctn{
-  cursor: pointer;
+.first-monitor-position{
+  position: absolute;
+  left: 47.5vw;
+  top: 44vh;
 }
 
-.static-indicator{
+.second-monitor-position{
   position: absolute;
-  left: 47vw;
+  left: 60.5vw;
   top: 43vh;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: rgba(125, 125, 125, 0.9);
-  z-index: 100;
-}
-
-.dynamic-indicator{
-  position: absolute;
-  left: 47vw;
-  top: 43vh;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: rgba(125, 125, 125, 0.5);
-  animation: beat 1s infinite alternate;
-  transform-origin: center;
-  z-index: 100;
-}
-
-.dynamic-light-mode{
-  position: absolute;
-  right: 15vw;
-  top: 2vh;
-}
-
-.dynamic-light-mode * {
-  display: inline-block;
-}
-
-.dynamic-light-switch{
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: rgb(255, 255, 255);
-}
-
-span{
-  color : white;
-  margin: 8px 12px;
 }
 
 @keyframes beat{

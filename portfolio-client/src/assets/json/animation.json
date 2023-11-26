@@ -39,6 +39,19 @@
       "repeat": 0,
       "numPoints": 50,
       "ease": "power1.inOut"
+    },
+    {
+      "animationId" : 4,
+      "duration": 0.025,
+      "path": [
+        [-6, 4, -2],
+        [-7, 4, -4],
+        [-9.4, 3.27, -6.03]
+      ],
+      "target": [-13, 3.25, -7.25],
+      "repeat": 0,
+      "numPoints": 50,
+      "ease": "power1.inOut"
     }
 
   ]

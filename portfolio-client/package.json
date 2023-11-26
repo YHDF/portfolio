@@ -6,6 +6,7 @@
     "clean": "rm -rf node_modules dist .angular",
     "start": "ng serve",
     "build": "ng build",
+    "build-prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
