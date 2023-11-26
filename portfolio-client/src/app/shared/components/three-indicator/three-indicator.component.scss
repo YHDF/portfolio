@@ -1,0 +1,27 @@
+
+.indicator-ctn{
+  cursor: pointer;
+}
+
+.indicator-ctn > div{
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  z-index: 100;
+}
+
+.static-indicator{
+  background: rgba(125, 125, 125, 0.9);
+}
+
+.dynamic-indicator{
+  background: rgba(125, 125, 125, 0.5);
+  animation: beat 1s infinite alternate;
+  transform-origin: center;
+}
+
+
+@keyframes beat{
+  to { transform: scale(1.8); }
+}
