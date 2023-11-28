@@ -65,9 +65,6 @@ export class SharedDataProviderService {
     return this._lightModelights;
   }
 
-
-
-
   get interactiveIcons(): any[] {
     return this._interactiveIcons;
   }

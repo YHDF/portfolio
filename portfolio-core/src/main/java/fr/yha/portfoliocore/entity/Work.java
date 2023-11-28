@@ -32,6 +32,7 @@ public class Work implements Serializable {
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
+    private String languageVersion;
 
     @PrePersist
     public void prePersist() {
@@ -93,5 +94,13 @@ public class Work implements Serializable {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public String getLanguageVersion() {
+        return languageVersion;
+    }
+
+    public void setLanguageVersion(String languageVersion) {
+        this.languageVersion = languageVersion;
     }
 }

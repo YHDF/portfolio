@@ -6,6 +6,7 @@ $slider-bg-color: rgba(0, 0, 0, .3);
   margin: 8vh 5vw;
   width: 90vw;
   display: flex;
+  overflow: hidden;
 }
 
 .timeline-slider-ctn {
@@ -35,45 +36,40 @@ $slider-bg-color: rgba(0, 0, 0, .3);
   top: 0;
 }
 
-.timeline-section-unclicked {
+.timeline-section-unclicked, .timeline-section-clicked {
   width: 100%;
   height: 25%;
   position: relative;
-  cursor: pointer; // to indicate it's clickable
-
-  &::before {
+  z-index: 100;
+  button {
     content: '';
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: rgba(161, 161, 161, 1);
     position: absolute;
     top: 100%;
     left: 50%;
+    border: none;
+    outline: none;
     transform: translate(-50%, -50%);
     z-index: 10;
+  }
+}
+
+.timeline-section-unclicked {
+  cursor: pointer; // to indicate it's not clickable
+  button {
+    background-color: rgba(161, 161, 161, 1);
   }
 }
 
 .timeline-section-clicked {
-  width: 100%;
-  height: 25%;
-  position: relative;
-  cursor: auto; // to indicate it's clickable
-
-  &::before {
-    content: '';
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+   cursor: auto; // to indicate it's clickable
+  button{
     background-color: rgba(255, 255, 255, 1);
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
   }
 }
+
 
 .timeline-data-ctn {
   flex: 10;
@@ -182,5 +178,17 @@ $slider-bg-color: rgba(0, 0, 0, .3);
 
 .timeline-data-ctn .animate-visible-experience{
   @include increaseUp(40vh, 0)
+}
+
+
+//aspect ratio
+@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  .work-ctn .timeline-data-ctn h1, .work-ctn .timeline-data-ctn h2{
+    font-size: 1.5rem;
+  }
+
+  .work-ctn .timeline-data-ctn li{
+    font-size: 0.8rem;
+  }
 }
 

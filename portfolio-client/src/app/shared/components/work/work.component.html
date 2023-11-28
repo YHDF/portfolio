@@ -1,11 +1,19 @@
 <div *ngIf="experiences?.length != 0 else elseBlock" [defaultClasses]="['work-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="['border']" appLightingMode>
   <div class="timeline-slider-ctn">
     <div #timelineSlider class="timeline-slider">
-      <div #timelineElement (click)="scrollToSection(0)" class="timeline-section-unclicked"></div>
-      <div #timelineElement (click)="scrollToSection(1)" class="timeline-section-unclicked"></div>
-      <div #timelineElement (click)="scrollToSection(2)" class="timeline-section-unclicked"></div>
+      <div #timelineElement  class="timeline-section-unclicked">
+        <button (click)="scrollToSection(0)"></button>
+      </div>
+      <div #timelineElement class="timeline-section-unclicked">
+        <button (click)="scrollToSection(1)"></button>
+      </div>
+      <div #timelineElement class="timeline-section-unclicked">
+        <button (click)="scrollToSection(2)"></button>
+      </div>
 
-      <div #timelineElement (click)="scrollToSection(3)" class="timeline-section-unclicked"></div>
+      <div #timelineElement class="timeline-section-unclicked">
+        <button (click)="scrollToSection(3)"></button>
+      </div>
 
       <div #progress [@fillUp]="dynamicHeight"
            [defaultClasses]="['progress']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>

@@ -22,6 +22,7 @@ public class WorkItemProcessor implements ItemProcessor<WorkDTO, Work> {
         work.setTitle(workDTO.getTitle());
         work.setDescription(workDTO.getDescription());
         work.setTasks(workDTO.getTasks());
+        work.setLanguageVersion(workDTO.getLanguageVersion());
         if(work.getCreatedOn() == null){
             work.setCreatedOn(LocalDateTime.now());
         }

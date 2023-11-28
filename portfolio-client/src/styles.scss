@@ -14,6 +14,7 @@ html, body {
   width: 100vw !important;
   height: 100vh !important;
   overflow: hidden;
+  touch-action: none;
 }
 
 //display modes
@@ -96,9 +97,6 @@ p.light-white-text-color, .light-white-text-color p, .light-white-text-color a {
 .dark-bottom-border-color input, .dark-bottom-border-color textarea{
   border-bottom: 0.01em solid rgb(255, 200, 124) !important;
 }
-
-
-
 
 
 

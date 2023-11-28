@@ -126,3 +126,10 @@ section.main .info-btn-ctn.light-button-border-color button:hover{
   to {transform: translateX(100vw);}
 }
 
+
+//aspect ratio
+@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  .upper-ctn * {
+    transform: scale(0.9);
+  }
+}

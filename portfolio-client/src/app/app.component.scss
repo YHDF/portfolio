@@ -5,6 +5,13 @@
   width: 100vw;
   height: 100vh;
   margin: 0;
-  padding-top: 10vh ;
+  padding-top: 6vh ;
   padding-bottom: 1vh ;
+}
+
+//aspect ratio
+@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  .app {
+    padding-top: 2vh ;
+  }
 }

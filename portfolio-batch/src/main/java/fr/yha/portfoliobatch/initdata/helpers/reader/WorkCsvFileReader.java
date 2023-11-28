@@ -9,11 +9,9 @@ import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.FlatFileParseException;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.FileNotFoundException;
@@ -23,7 +21,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-@Component
 public class WorkCsvFileReader implements ItemReader<WorkDTO> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WorkCsvFileReader.class);
@@ -31,17 +28,20 @@ public class WorkCsvFileReader implements ItemReader<WorkDTO> {
 
     private final ResourcePatternResolver resourcePatternResolver;
 
+    private final DefaultLineMapper<WorkDTO> lineMapper = new DefaultLineMapper<>();
 
-    @Autowired
-    public WorkCsvFileReader(ResourcePatternResolver resourcePatternResolver) {
+    private final String languageVersion;
+
+
+    public WorkCsvFileReader(ResourcePatternResolver resourcePatternResolver, String languageVersion) {
         this.workFlatFileItemReader = new FlatFileItemReader<>();
         this.resourcePatternResolver = resourcePatternResolver;
+        this.languageVersion = languageVersion;
     }
 
 
     public String getLatestVersionFileName() throws IOException {
-        Resource[] resources = this.resourcePatternResolver.getResources("classpath:work-experience-raw/work_v-*.csv");
-
+        Resource[] resources = this.resourcePatternResolver.getResources(String.format("classpath:work-experience-raw/%s/work_v-*.csv", this.languageVersion));
         LOGGER.info("Found {} resources to process", resources.length);
 
         return Arrays.stream(resources)
@@ -74,7 +74,7 @@ public class WorkCsvFileReader implements ItemReader<WorkDTO> {
 
         // Set the resource (CSV file)
         String latestVersionFilePath = this.getLatestVersionFileName();
-        Pattern pattern = Pattern.compile("work-experience-raw/work_v-([0-9]\\.){2}[0-9]\\.csv", Pattern.CASE_INSENSITIVE);
+        Pattern pattern = Pattern.compile(String.format("work-experience-raw/%s/work_v-([0-9]\\.){2}[0-9]\\.csv", this.languageVersion), Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(latestVersionFilePath);
         if (matcher.find()) {
             LOGGER.info("Setting resource to {}", matcher.group(0));
@@ -97,9 +97,8 @@ public class WorkCsvFileReader implements ItemReader<WorkDTO> {
     }
 
     private void setupLineMapper() {
-        DefaultLineMapper<WorkDTO> lineMapper = new DefaultLineMapper<>();
-        lineMapper.setLineTokenizer(new DelimitedLineTokenizer());
-        lineMapper.setFieldSetMapper(new WorkFieldSetMapper());
+        this.lineMapper.setFieldSetMapper(new WorkFieldSetMapper(this.languageVersion));
+        this.lineMapper.setLineTokenizer(new DelimitedLineTokenizer());
 
         // Set the line mapper
         this.workFlatFileItemReader.setLineMapper(lineMapper);

@@ -5,12 +5,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
-import org.springframework.stereotype.Component;
 
-@Component
 public class WorkFieldSetMapper implements FieldSetMapper<WorkDTO> {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(WorkFieldSetMapper.class);
+
+    private final String languageVersion;
+    public WorkFieldSetMapper(String languageVersion) {
+        this.languageVersion = languageVersion;
+    }
 
     public WorkDTO mapFieldSet(FieldSet fieldSet) {
         LOGGER.info("Processing and mapping FieldSet to workDTO.");
@@ -21,6 +24,7 @@ public class WorkFieldSetMapper implements FieldSetMapper<WorkDTO> {
         workDTO.setTitle(fieldSet.readString(1));
         workDTO.setDescription(fieldSet.readString(2));
         workDTO.setTasks(fieldSet.readString(3));
+        workDTO.setLanguageVersion(this.languageVersion);
 
         return workDTO;
     }

@@ -66,7 +66,11 @@ input:focus::placeholder, main section.contact-form-ctn textarea:focus::placehol
   outline: none;
  }
 
-
-
+//aspect ratio
+@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+  .contact-form-ctn *{
+    transform: scale(0.9);
+  }
+}
 
 

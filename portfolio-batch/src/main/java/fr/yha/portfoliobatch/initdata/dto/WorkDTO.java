@@ -10,6 +10,7 @@ public class WorkDTO {
 
     private String tasks;
 
+    private String languageVersion;
 
     public String getPeriod() {
         return period;
@@ -43,4 +44,11 @@ public class WorkDTO {
         this.tasks = tasks;
     }
 
+    public String getLanguageVersion() {
+        return languageVersion;
+    }
+
+    public void setLanguageVersion(String languageVersion) {
+        this.languageVersion = languageVersion;
+    }
 }

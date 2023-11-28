@@ -1,12 +1,14 @@
 <div *ngIf="showIndicators" class="indicator-ctn">
   <ng-container ngSwitch="{{outputSource}}">
     <ng-container *ngSwitchCase="'_DP_MAIN_'">
-      <div class="static-indicator"></div>
-      <div (click)="bindScreen()" class="dynamic-indicator"></div>
+      <div [defaultClasses]="['static-indicator']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>
+      <div (click)="bindScreen()"
+           [defaultClasses]="['dynamic-indicator']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>
     </ng-container>
     <ng-container *ngSwitchCase="'_DP_SIDE_'">
-      <div class="static-indicator"></div>
-      <div (click)="bindScreen()" class="dynamic-indicator"></div>
+      <div [defaultClasses]="['static-indicator']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>
+      <div (click)="bindScreen()"
+           [defaultClasses]="['dynamic-indicator']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>
     </ng-container>
   </ng-container>
 </div>

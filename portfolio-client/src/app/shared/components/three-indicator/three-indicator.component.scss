@@ -10,13 +10,11 @@
   border-radius: 50%;
   z-index: 100;
 }
-
 .static-indicator{
-  background: rgba(125, 125, 125, 0.9);
+  opacity: 0.7;
 }
-
 .dynamic-indicator{
-  background: rgba(125, 125, 125, 0.5);
+  opacity: 0.5;
   animation: beat 1s infinite alternate;
   transform-origin: center;
 }
