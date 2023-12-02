@@ -72,18 +72,16 @@
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
-        <version>10.0.17</version>
+        <version>10.0.18</version>
         <configuration>
           <webApp>
             <contextPath>/portfolio-client</contextPath>
             <webInfIncludeJarPattern>.*/portfolio-[^/]*\.jar$</webInfIncludeJarPattern>
             <containerIncludeJarPattern>^$</containerIncludeJarPattern>
           </webApp>
-          <httpConnector>
-            <port>9000</port>
-          </httpConnector>
           <stopPort>9001</stopPort>
           <stopKey>stop</stopKey>
+          <jettyXmls>${project.build.directory}/portfolio-webapp/WEB-INF/jetty.xml,${project.build.directory}/portfolio-webapp/WEB-INF/jetty-ssl.xml,${project.build.directory}/portfolio-webapp/WEB-INF/jetty-ssl-context.xml,${project.build.directory}/portfolio-webapp/WEB-INF/jetty-https.xml</jettyXmls>
         </configuration>
       </plugin>
     </plugins>

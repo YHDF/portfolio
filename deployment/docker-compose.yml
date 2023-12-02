@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  mysql:
+    build:
+      context: database
+      dockerfile: Dockerfile
+    ports:
+      - "3307:3306"
+    volumes:
+      - /tmp/data:/var/lib/mysql
+    env_file: database/.env
+  portfolio-webapp:
+    build:
+      context : ../.
+      args:
+        KEYSTORE_PASSWORD: ynshdf
+        KEYMANAGER_PASSWORD: ynshdf
+        CERT_ALIAS: jetty
+        JETTY_BASE: src/main/resources/keystore.p12
+      dockerfile: ./deployment/webapp/webservice/Dockerfile
+    ports:
+          - "8443:8443"
+    env_file: webapp/webservice/.env
+  portfolio-client:
+    build:
+      context: ../.
+      dockerfile: ./deployment/webapp/webclient/Dockerfile
+    ports:
+      - "4200:443"

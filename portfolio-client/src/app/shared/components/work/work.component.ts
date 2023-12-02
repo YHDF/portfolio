@@ -33,8 +33,11 @@ export class WorkComponent implements OnInit {
   dynamicHeight: string = '';
   currentSection: number = 0;
   isDarkMode: boolean = false;
+  isEnglishVersion = true;
 
-  experiences: Work[] = [];
+
+  experiencesFrenchVersion: Work[] = [];
+  experiencesEnglishVersion: Work[] = [];
 
   @ViewChild('timelineSlider', {static: false}) timelineSlider!: ElementRef;
   @ViewChild('progress', {static: false}) progressElement!: ElementRef;
@@ -48,8 +51,10 @@ export class WorkComponent implements OnInit {
     this.lightingModeService.lightingMode$.subscribe(mode => {
       this.isDarkMode = mode === 'dark';
     });
-
-
+    this.sharedDataProviderService.languageChangeSubject$.subscribe((langVers) => {
+      this.isEnglishVersion = langVers;
+      this.setExperiencesAndManageUi()
+    })
   }
 
   ngOnInit(): void {
@@ -64,8 +69,9 @@ export class WorkComponent implements OnInit {
 
   setExperiencesAndManageUi() {
     new Promise((resolve, reject) => {
-      this.experiences = this.sharedDataProviderService.experiences;
-      resolve(this.experiences)
+      this.experiencesEnglishVersion = this.sharedDataProviderService.experiences.filter((value) => value.languageVersion === "US-en");
+      this.experiencesFrenchVersion = this.sharedDataProviderService.experiences.filter((value) => value.languageVersion === "FR-fr");
+      resolve([this.experiencesEnglishVersion, this.experiencesFrenchVersion])
     }).then(() => {
       setTimeout(() => {
         this.manageClassList(this.timelineElement.get(this.currentSection)!, ["timeline-section-clicked"], ["timeline-section-unclicked"], 0, 0);

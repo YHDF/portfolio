@@ -1,2 +1,3 @@
-deployment/
+deployment/database/.env
+deployment/webapp/webservice/.env
 profiles/

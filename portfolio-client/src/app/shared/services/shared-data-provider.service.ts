@@ -12,6 +12,7 @@ import * as lightModeLightConfig from '../../../assets/json/lights_light-mode.js
 import * as materialConfig from '../../../assets/json/materials.json';
 import * as interactiveMapConfig from '../../../assets/json/interactive-map.json';
 import {THREE} from "../../components/three-model/three-wrapper";
+import {InternationalizationLangService} from "./internationalization-lang.service";
 
 @Injectable({providedIn : 'root'})
 export class SharedDataProviderService {
@@ -22,8 +23,10 @@ export class SharedDataProviderService {
   showHeaderSubject$ = new Subject<boolean>();
   showGreetingSubject$ = new Subject<boolean>();
   showIndicatorsSubject$ = new Subject<boolean>();
+  languageChangeSubject$ = new Subject<boolean>();
 
   constructor(private readonly meService : MeService,
+              readonly internationalizationLangService : InternationalizationLangService,
               private threeModelBuilderService : ThreeModelBuilderService) {
   }
 

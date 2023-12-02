@@ -45,3 +45,5 @@ Thumbs.db
 
 #Environments
 src/environments/deployment
+localhost.pem
+localhost-key.pem

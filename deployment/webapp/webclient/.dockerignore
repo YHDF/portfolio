@@ -1,0 +1,9 @@
+# Exclude files and directories from the build context
+../../.idea
+node_modules
+.git
+.vscode
+target
+.angular
+dist
+../../database/data

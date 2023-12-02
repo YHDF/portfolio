@@ -46,6 +46,7 @@ public class WorkService {
             workDTO.setTitle(work.getTitle());
             workDTO.setPeriod(work.getPeriod());
             workDTO.setDescription(work.getDescription());
+            workDTO.setLanguageVersion(work.getLanguageVersion());
             workDTO.setTasks(List.of(work.getTasks().split(";")));
             workDTOS.add(workDTO);
             LOGGER.debug("Converted Work to WorkDTO: {}", workDTO);

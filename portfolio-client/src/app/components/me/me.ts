@@ -222,11 +222,12 @@ export class Owner {
 
 
 export class Work {
-  constructor(period: string, title: string, description: string, tasks: string[]) {
+  constructor(period: string, title: string, description: string, tasks: string[], languageVersion: string) {
     this._period = period;
     this._title = title;
     this._description = description;
     this._tasks = tasks;
+    this._languageVersion = languageVersion
   }
 
   private _period: string;
@@ -267,6 +268,17 @@ export class Work {
 
   set tasks(value: string[]) {
     this._tasks = value;
+  }
+
+  private _languageVersion: string;
+
+
+  get languageVersion(): string {
+    return this._languageVersion;
+  }
+
+  set languageVersion(value: string) {
+    this._languageVersion = value;
   }
 }
 
