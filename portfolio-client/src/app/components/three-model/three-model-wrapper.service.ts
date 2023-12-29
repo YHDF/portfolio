@@ -4,7 +4,7 @@ import {THREE} from "./three-wrapper";
 
 export class ThreeModelWrapperService {
 
-  static instance: ThreeModelWrapperService | undefined;
+  static instance: ThreeModelWrapperService | any;
 
   constructor(threeModelBuilderService: ThreeModelBuilderService, threeModelAnimationService: ThreeModelAnimationService) {
     this._threeModelBuilderService = threeModelBuilderService;
@@ -33,9 +33,13 @@ export class ThreeModelWrapperService {
 
   static async getInstance(defaultThreeModelBuilderService: ThreeModelBuilderService, args: any[]): Promise<ThreeModelWrapperService> {
     if (!this.instance) {
-      await this.initThreeModel(defaultThreeModelBuilderService, args).then((instanceValue) => this.instance = instanceValue);
+      await this.initThreeModel(defaultThreeModelBuilderService, args).then((instanceValue : ThreeModelWrapperService | any) => this.instance = instanceValue);
     }
     return this.instance!;
+  }
+
+  static destroyInstance(){
+    this.instance = null;
   }
 
 

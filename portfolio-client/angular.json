@@ -108,9 +108,12 @@
             },
             "development": {
               "browserTarget": "portfolio-client:build:development"
+            },
+            "default": {
+              "browserTarget": "portfolio-client:build:default"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "default"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

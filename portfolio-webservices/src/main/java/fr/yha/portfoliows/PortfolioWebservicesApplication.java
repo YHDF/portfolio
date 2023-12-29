@@ -14,7 +14,7 @@ import org.springframework.web.WebApplicationInitializer;
 
 
 @SpringBootApplication(scanBasePackages = {"fr.yha.portfoliows","fr.yha.portfoliobatch.generateresume"}, exclude = {BatchAutoConfiguration.class})
-@Import({FeignClientConfig.class, JpaConfig.class, TemplateConfig.class, PropertyConfig.class})
+@Import({PropertyConfig.class, FeignClientConfig.class, JpaConfig.class, TemplateConfig.class})
 @EnableBatchProcessing
 public class PortfolioWebservicesApplication extends SpringBootServletInitializer implements WebApplicationInitializer {
 	public static void main(String[] args) {

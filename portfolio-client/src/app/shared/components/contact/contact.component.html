@@ -3,13 +3,26 @@
     <h1>{{'_CONTACT_WRITE_ME_' | translate}}</h1>
     <p>{{'_CONTACT_FIRST_MESSAGE_' | translate}}</p>
     <p>{{'_CONTACT_SECOND_MESSAGE_' | translate}}</p>
-    <div class="form-ctn">
-      <input #input name="mail" placeholder="{{'_CONTACT_EMAIL_PLACEHOLDER_' | translate}}" type="email" />
-      <input #input name="name" placeholder="{{'_CONTACT_NAME_PLACEHOLDER_' | translate}}" type="text" />
-      <input #input name="subject" placeholder="{{'_CONTACT_SUBJECT_PLACEHOLDER_' | translate}}" type="text" />
-      <textarea #textarea cols="50" name="{{'_CONTACT_MESSAGE_PLACEHOLDER_' | translate}}" placeholder="message" rows="4"></textarea>
+    <div [formGroup]="contactForm" class="form-ctn">
+      <input formControlName="email" name="mail" placeholder="{{'_CONTACT_EMAIL_PLACEHOLDER_' | translate}}" type="email" />
+      <ng-container [controlledFormCtrl]="contactForm.controls.email" [customTemplate]="error" appErrorMessage></ng-container>
+      <input formControlName="fullName" name="name" placeholder="{{'_CONTACT_NAME_PLACEHOLDER_' | translate}}" type="text" />
+      <ng-container [controlledFormCtrl]="contactForm.controls.fullName" [customTemplate]="error" appErrorMessage></ng-container>
+
+      <input formControlName="subject" name="subject" placeholder="{{'_CONTACT_SUBJECT_PLACEHOLDER_' | translate}}" type="text" />
+      <ng-container [controlledFormCtrl]="contactForm.controls.subject" [customTemplate]="error" appErrorMessage></ng-container>
+
+      <textarea formControlName="message" name="{{'_CONTACT_MESSAGE_PLACEHOLDER_' | translate}}" placeholder="message"></textarea>
+      <ng-container [controlledFormCtrl]="contactForm.controls.message" [customTemplate]="error" appErrorMessage></ng-container>
+
       <button (click)="sendEmail()" >{{'_CONTACT_SEND_BUTTON_' | translate}}</button>
+      <span *ngIf="globalErrorMessage !== '' " class="contact-form-error-msg">{{globalErrorMessage}}</span>
     </div>
   </section>
-
 </main>
+
+<ng-template #error let-errorMessage="errorMessage">
+  <span class="contact-form-error-msg">{{errorMessage}}</span>
+</ng-template>
+
+

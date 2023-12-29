@@ -1,6 +1,5 @@
 <div *ngIf="experiencesEnglishVersion?.length != 0 else elseBlock" [defaultClasses]="['work-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="['border']" appLightingMode>
-  <div class="timeline-slider-ctn">
-    <div #timelineSlider class="timeline-slider">
+    <div #timelineSlider class="timeline-slider-ctn">
       <div #timelineElement  class="timeline-section-unclicked">
         <button (click)="scrollToSection(0)"></button>
       </div>
@@ -19,7 +18,6 @@
            [defaultClasses]="['progress']" [isDarkMode]="isDarkMode" [lightingClasses]="['component-bg']" appLightingMode></div>
     </div>
 
-  </div>
   <div #containerElement (scroll)="onContainerScroll($event)" class="timeline-data-ctn">
     <!-- Here will be the experiences/contents you want to show -->
     <ng-container *ngFor="let experience of (isEnglishVersion ? experiencesEnglishVersion : experiencesFrenchVersion)">

@@ -79,7 +79,7 @@ button.info-btn-ctn {
   align-items: center; /* Centering the span vertically */
 }
 
-button.info-btn-ctn  span{
+button.info-btn-ctn span{
   font-size: 2rem;
   font-family: 'Montserrat', sans-serif;
   font-weight: bolder;
@@ -117,8 +117,24 @@ button.info-btn-ctn  span{
 
 
 //aspect ratio
-@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)  {
+@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.01), (min-resolution: 144dpi)  {
   .carousel-dimensions div {
     transform: scale(0.95);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .carousel-dimensions{
+    margin: 0;
+  }
+
+  .slide{
+    height: 85vh;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .project-title p{
+    font-size: 0.8em;
   }
 }

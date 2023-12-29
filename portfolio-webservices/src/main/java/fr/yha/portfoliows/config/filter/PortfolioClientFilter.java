@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Component
@@ -23,8 +22,7 @@ public class PortfolioClientFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         try {
-            if(request instanceof HttpServletRequest) {
-                HttpServletRequest httpRequest = (HttpServletRequest) request;
+            if (request instanceof HttpServletRequest httpRequest) {
                 LOGGER.info("HTTP Request: {} {}", httpRequest.getMethod(), httpRequest.getRequestURI());
             } else {
                 LOGGER.info("Request received at filter. Details: [{}]", request.toString());
@@ -32,17 +30,12 @@ public class PortfolioClientFilter implements Filter {
 
             chain.doFilter(request, response);
 
-            if(response instanceof HttpServletResponse) {
-                HttpServletResponse httpResponse = (HttpServletResponse) response;
-                LOGGER.info("HTTP Response: Status {}", httpResponse.getStatus());
-            } else {
-                LOGGER.info("Response processed at filter. Details: [{}]", response.toString());
-            }
         } catch (IOException | ServletException e) {
             LOGGER.error("Error processing request at filter: {}", e.getMessage(), e);
             throw e;
         }
     }
+
 
 
     @Override

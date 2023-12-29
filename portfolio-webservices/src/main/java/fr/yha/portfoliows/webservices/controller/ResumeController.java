@@ -10,8 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 import reactor.core.publisher.Flux;
+
+import java.sql.Timestamp;
+import java.util.Date;
 
 
 @Controller
@@ -23,22 +25,17 @@ public class ResumeController {
     @Autowired
     private ResumeGateway resumeGateway;
 
-    private final SseEmitter emitter = new SseEmitter(Long.MAX_VALUE); // Keep the connection open indefinitely
-
-    @GetMapping("/sse")
-    public SseEmitter handleSse() {
-        return emitter;
-    }
-
     @GetMapping("/download")
     public ResponseEntity<byte[]> downloadResume(@RequestParam String version) {
         LOGGER.info("Starting resume creation and download process.");
         try {
             byte[] resumeBytes = resumeGateway.downloadResume(version);
             LOGGER.info("Resume downloaded successfully.");
+            Date date = new Date();
+            Timestamp ts = new Timestamp(date.getTime());
             return ResponseEntity.ok()
                     .header("Content-Type", "application/pdf")
-                    .header("Content-Disposition", "attachment; filename=CV-développeur-Java.pdf")
+                    .header("Content-Disposition", "attachment; filename=CV-développeur-Java-" + ts.getTime() + ".pdf")
                     .body(resumeBytes);
         } catch (Exception e) {
             LOGGER.error("Error during resume download : {}", e.getMessage(), e);

@@ -16,18 +16,20 @@ public class PortfolioWebConfig implements WebMvcConfigurer {
         LOGGER.info("Configuring CORS mappings...");
 
         registry.addMapping("/**")
-                .allowedOriginPatterns("*") // Use allowedOriginPatterns instead of allowedOrigins
+                .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*")
-                .exposedHeaders("Authorization", "Link")
-                .allowCredentials(true)
+                .allowedHeaders("Content-Type", "X-Requested-With", "accept", "Origin", "Access-Control-Request-Method",
+                        "Access-Control-Request-Headers")
+                .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+                .allowCredentials(false)
                 .maxAge(3600);
+
 
         LOGGER.info("CORS mappings configured successfully:");
         LOGGER.info("- Allowed Origin Patterns: *");
         LOGGER.info("- Allowed Methods: GET, POST, PUT, DELETE, OPTIONS");
         LOGGER.info("- Allowed Headers: *");
-        LOGGER.info("- Allow Credentials: true");
+        LOGGER.info("- Allow Credentials: false");
         LOGGER.info("- Max Age: 180");
     }
 }

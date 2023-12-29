@@ -16,6 +16,8 @@ export class AppComponent {
   constructor(private lightingModeService: LightingModeService,
               private readonly resumeSseService: ResumeSseService,
               private sharedDataProviderService: SharedDataProviderService) {
+    this.sharedDataProviderService.isThreeModelHidden = this.sharedDataProviderService.showMe = this.shouldHideThreeModel();
+
     this.lightingModeService.lightingMode$.subscribe(mode => {
       this.isDarkMode = mode === 'dark';
     });
@@ -26,4 +28,8 @@ export class AppComponent {
   listenToEvents() {
     this.resumeSseService.subscribe("/resume/stream-sse");
   }
+
+  shouldHideThreeModel = () => /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(navigator.userAgent);
+
+
 }

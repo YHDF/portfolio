@@ -6,6 +6,7 @@ import {ThreeModelModule} from "../three-model/three-model.module";
 import {HeaderModule} from "../header/header.module";
 import {SharedModule} from "../../shared/shared.module";
 import {TranslateModule} from "@ngx-translate/core";
+import {MeModule} from "../me/me.module";
 
 
 const routes: Routes = [
@@ -19,14 +20,15 @@ const routes: Routes = [
   declarations: [
     DashboardComponent,
   ],
-  imports: [
-    CommonModule,
-    ThreeModelModule,
-    RouterModule.forChild(routes),
-    HeaderModule,
-    SharedModule,
-    TranslateModule
-  ]
+    imports: [
+        CommonModule,
+        ThreeModelModule,
+        RouterModule.forChild(routes),
+        HeaderModule,
+        SharedModule,
+        TranslateModule,
+        MeModule
+    ]
 })
 export class DashboardModule {
 }

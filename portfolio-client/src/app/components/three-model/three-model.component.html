@@ -1,8 +1,8 @@
-<div *ngIf="!showMe" class="three-model-ctn">
+<div #threeModelCanvasContainer>
   <canvas id="room"></canvas>
-  <app-three-indicator [bindScreen]="bindFirstScreen()" [ngClass]="'first-monitor-position'" [outputSource]="'_DP_MAIN_'"></app-three-indicator>
-  <app-three-indicator [bindScreen]="bindSecondScreen()" [ngClass]="'second-monitor-position'" [outputSource]="'_DP_SIDE_'"></app-three-indicator>
+  <app-three-indicator [bindScreen]="bindFirstScreen()" [ngClass]="'first-monitor-position'"
+                       [outputSource]="'_DP_MAIN_'"></app-three-indicator>
 </div>
-<app-me *ngIf="showMe" [toggleShowMe]="toggleShowMe"></app-me>
+
 
 

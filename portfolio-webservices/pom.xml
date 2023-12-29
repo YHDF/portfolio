@@ -145,6 +145,15 @@
 		</dependency>
 		<!--javax.inject-->
 
+
+		<!--SendGrid mail api-->
+		<dependency>
+			<groupId>com.sendgrid</groupId>
+			<artifactId>sendgrid-java</artifactId>
+		</dependency>
+		<!--SendGrid mail api-->
+
+
 		<!--Tests-->
 		<dependency>
 			<groupId>junit</groupId>

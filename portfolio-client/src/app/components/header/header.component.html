@@ -9,19 +9,21 @@
     </section>
   </div>
   <aside [defaultClasses]="['contact-info-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="[ 'form-element-color', 'button-hover', 'text-color']" appLightingMode>
-    <div class="app-contact-info-ctn">
-      <app-contact-info [isDarkMode]="isDarkMode" actionType="_ACTION_EMAIL_" contactType="Email Address"></app-contact-info>
-      <app-contact-info [isDarkMode]="isDarkMode"  actionType="_ACTION_PHONE_"  contactType="Phone Number"></app-contact-info>
-      <app-contact-info [isDarkMode]="isDarkMode" actionType="_ACTION_GITHUB_" contactType="Github Profil"></app-contact-info>
-      <app-contact-info [isDarkMode]="isDarkMode"  actionType="_ACTION_LINKEDIN_" contactType="Linkedin Profil"></app-contact-info>
+    <div *ngFor="let contactInfo of contactInfos;" class="app-contact-info-ctn">
+      <app-contact-info [actionMessage]="contactInfo.actionMessage" [actionType]="contactInfo.actionType"
+                        [actionValue]="contactInfo.actionValue" [contactType]="contactInfo.contactType" [isDarkMode]="isDarkMode"></app-contact-info>
     </div>
   </aside>
 
   <aside [defaultClasses]="['option-menu-ctn']" [isDarkMode]="isDarkMode" [lightingClasses]="[ 'form-element-color', 'button-hover', 'text-color']" appLightingMode>
     <div class="app-option-menu-ctn">
       <app-option-menu [isDarkMode]="isDarkMode" actionType="_ACTION_LIGHT_MODE_"></app-option-menu>
+    </div>
+    <div class="app-option-menu-ctn">
       <app-option-menu [isDarkMode]="isDarkMode" actionType="_ACTION_LANG_"></app-option-menu>
     </div>
-
   </aside>
+</ng-container>
+<ng-container *ngIf="showAlert">
+  <app-custom-alert [alertOperationType]="alertOperationType" [messageType]="'_SIMPLE_'" [simpleMessageValue]="alertMessage"></app-custom-alert>
 </ng-container>

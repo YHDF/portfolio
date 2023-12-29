@@ -49,8 +49,8 @@ export class ThreeModelAnimationService {
   }
 
 
-  onMouseClick(camera: THREE.Camera, scene: THREE.Scene, interactiveIcons: any[], materialConfig: any, __callback: (parentObject: string, onInit?: boolean) => THREE.Material[], __toggleIndicatorsCallback: () => void, __toggleMeCallback: () => void) {
-    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, interactiveIcons, __callback, __toggleIndicatorsCallback, __toggleMeCallback]), false);
+  onMouseClick(camera: THREE.Camera, scene: THREE.Scene, interactiveIcons: any[], materialConfig: any, __toggleIndicatorsCallback: () => void, __toggleMeCallback: () => void) {
+    window.addEventListener('click', (evt) => this.calculateIntersects.apply(this, [evt, camera, scene, interactiveIcons, __toggleIndicatorsCallback, __toggleMeCallback]), false);
   }
 
   zoomIn(animationId : number,  __beforeAnimation?: (animationId?: number) => void, __afterAnimation?: (animationId?: number) => void) {
@@ -60,7 +60,7 @@ export class ThreeModelAnimationService {
     }
   }
 
-  async calculateIntersects(event: any, camera: THREE.Camera, scene: THREE.Scene, icons: any[], __callback: (parentObject: string, onInit?: boolean) => THREE.Material[], __beforeAnimationCallback: (animationId?: number) => void, __afterAnimationCallback: (animationId?: number) => void) {
+  async calculateIntersects(event: any, camera: THREE.Camera, scene: THREE.Scene, icons: any[], __beforeAnimationCallback: (animationId?: number) => void, __afterAnimationCallback: (animationId?: number) => void) {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
     // calculate mouse position in normalized device coordinates

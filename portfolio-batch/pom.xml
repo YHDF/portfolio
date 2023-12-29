@@ -18,7 +18,7 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<opencsv-version>5.8</opencsv-version>
-		<jsoup-version>1.13.1</jsoup-version>
+		<jsoup-version>1.15.3</jsoup-version>
 		<openhtmltopdf-version>1.0.6</openhtmltopdf-version>
 	</properties>
 	<dependencies>

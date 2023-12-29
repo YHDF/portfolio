@@ -7,18 +7,16 @@
 main {
   width: 100%;
   height: 100%;
-  display: flex;
-  margin-top: 10vh;
+  overflow: hidden;
+  margin-top: 6vh;
 }
 
-main section.contact-form-ctn{
-  flex: 1.95;
-}
+
 
 main section.contact-form-ctn .form-ctn{
   display: flex;
   flex-direction: column;
-  margin-top: 5vh;
+  margin-top: 4vh;
 }
 
 main section.contact-form-ctn h1, main section.contact-form-ctn p{
@@ -50,6 +48,10 @@ main section.contact-form-ctn input, main section.contact-form-ctn textarea, mai
   white-space: nowrap;
 }
 
+main section.contact-form-ctn textarea {
+  resize: none;
+}
+
 main section.contact-form-ctn button{
   width: fit-content;
   padding: 1vh 3vw;
@@ -64,12 +66,34 @@ input:focus::placeholder, main section.contact-form-ctn textarea:focus::placehol
   -moz-text-fill-color: initial; /* Reset text-fill-color */
   white-space: nowrap;
   outline: none;
- }
+}
+
+.contact-form-error-msg{
+  font-family: 'Montserrat', sans-serif;
+  font-size: .9rem;
+  font-weight: lighter;
+  text-align: center;
+  color: #FEFAE0;
+}
 
 //aspect ratio
-@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi) {
+@media (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9), (-webkit-min-device-pixel-ratio: 1.01), (min-resolution: 144dpi) {
   .contact-form-ctn *{
     transform: scale(0.9);
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  main {
+    margin-top: 5vh;
+  }
+
+  main section.contact-form-ctn .form-ctn{
+    margin-top: 2vh;
+  }
+
+  main section.contact-form-ctn input, main section.contact-form-ctn textarea, main section.contact-form-ctn button{
+    width: 100%;
   }
 }
 

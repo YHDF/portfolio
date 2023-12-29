@@ -13,10 +13,8 @@ import java.util.Properties;
 @Configuration
 public class SpringMailConfig {
 
-
     @Autowired
     private ContactMailProperties mailProperties;
-
 
     @Bean
     public JavaMailSender getJavaMailSender() {

@@ -4,6 +4,8 @@ import {lastValueFrom, Subject} from "rxjs";
 import {Repository, Work} from "../../components/me/me";
 import {InteractiveGeometry, ThreeModelBuilder} from "../../components/three-model/three-model";
 import {ThreeModelBuilderService} from "../../components/three-model/three-model-builder.service";
+import {InternationalizationLangService} from "./internationalization-lang.service";
+import {THREE} from "../../components/three-model/three-wrapper";
 
 //json configuration
 import * as threeModelConfig from '../../../assets/json/three-config.json';
@@ -11,11 +13,16 @@ import * as darkModeLightConfig from '../../../assets/json/lights_dark-mode.json
 import * as lightModeLightConfig from '../../../assets/json/lights_light-mode.json';
 import * as materialConfig from '../../../assets/json/materials.json';
 import * as interactiveMapConfig from '../../../assets/json/interactive-map.json';
-import {THREE} from "../../components/three-model/three-wrapper";
-import {InternationalizationLangService} from "./internationalization-lang.service";
+import * as contactInfoConfig from '../../../assets/json/contact-info.json';
 
 @Injectable({providedIn : 'root'})
 export class SharedDataProviderService {
+  static EMPTY_NULL_MESSAGE;
+
+  static {
+    this.EMPTY_NULL_MESSAGE = "";
+  }
+
 
   showMeSubject$ = new Subject<boolean>();
 
@@ -23,6 +30,7 @@ export class SharedDataProviderService {
   showHeaderSubject$ = new Subject<boolean>();
   showGreetingSubject$ = new Subject<boolean>();
   showIndicatorsSubject$ = new Subject<boolean>();
+  AlertInfoSubject$ = new Subject<AlertInfo>();
   languageChangeSubject$ = new Subject<boolean>();
 
   constructor(private readonly meService : MeService,
@@ -44,6 +52,8 @@ export class SharedDataProviderService {
 
   private _showMe: boolean = false;
 
+  private _isThreeModelHidden: boolean = false;
+
   get threeModelBuilder(): ThreeModelBuilder {
     return this._threeModelBuilder!;
   }
@@ -54,6 +64,15 @@ export class SharedDataProviderService {
 
   set showMe(value: boolean) {
     this._showMe = value;
+  }
+
+
+  get isThreeModelHidden(): boolean {
+    return this._isThreeModelHidden;
+  }
+
+  set isThreeModelHidden(value: boolean) {
+    this._isThreeModelHidden = value;
   }
 
   set threeModelBuilder(value: ThreeModelBuilder) {
@@ -112,6 +131,7 @@ export class SharedDataProviderService {
 
   private _showIndicators: boolean = false;
 
+  private _showAlert: boolean = false;
 
   get showIndicators(): boolean {
     return this._showIndicators;
@@ -119,6 +139,57 @@ export class SharedDataProviderService {
 
   set showIndicators(value: boolean) {
     this._showIndicators = value;
+  }
+
+
+  get showAlert(): boolean {
+    return this._showAlert;
+  }
+
+  set showAlert(value: boolean) {
+    this._showAlert = value;
+  }
+
+  private _contactInfo : any;
+
+  get contactInfo(): any {
+    return this._contactInfo;
+  }
+
+  set contactInfo(value: any) {
+    this._contactInfo = value;
+  }
+
+  private _alertMessage: string = "";
+
+
+  get alertMessage(): string {
+    return this._alertMessage;
+  }
+
+  set alertMessage(value: string) {
+    this._alertMessage = value;
+  }
+
+  private _canvas : HTMLElement | any;
+
+  get canvas(): any {
+    return this._canvas;
+  }
+
+  set canvas(value: any) {
+    this._canvas = value;
+  }
+
+  loadContactInfo() {
+    const contactInfoArr : any[] = [];
+    this._contactInfo = {...contactInfoConfig}
+    const contactInfoValues: any[] = [...Object.values(this._contactInfo)]
+    contactInfoValues.splice(-1);
+    for(let index = 0; index < contactInfoValues.length; index++){
+      contactInfoArr.push(contactInfoValues[index])
+    }
+    return contactInfoArr;
   }
 
   fetchWorkAndProjects() : Promise<void> {
@@ -184,4 +255,16 @@ export class SharedDataProviderService {
     });
     return interactiveIconsData;
   }
+}
+
+export type AlertInfo = {
+  showAlert: boolean;
+  alertMessage: string;
+  alertOperationType : AlertOperationType
+};
+
+export enum AlertOperationType {
+  NA,
+  SYNC,
+  ASYNC,
 }

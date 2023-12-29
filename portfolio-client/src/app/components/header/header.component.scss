@@ -1,11 +1,6 @@
-
 div.header {
   all: revert;
   font-family: 'Anton';
-}
-
-
-div.header {
   margin-top: 1vh;
   display: flex; /* sets up a flex container */
 }
@@ -34,13 +29,13 @@ div.header section.about button, div.header section.contact button{
 div.header section.about h1, div.header section.contact h1{
   text-align: center;
   font-weight: bolder;
-  font-size: 2.5em;
+  font-size: 2.5rem;
   white-space: nowrap;
 }
 
 .contact-info-ctn{
   position: absolute;
-  top: 35%;
+  top: 40%;
   right: 0;
   display: flex;
   flex-direction: column;
@@ -50,10 +45,44 @@ div.header section.about h1, div.header section.contact h1{
 
 .option-menu-ctn {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 0;
   display: flex;
   flex-direction: column;
   height: fit-content;
   z-index: 10;
+}
+
+@media only screen and (max-width: 800px) {
+  .contact-info-ctn{
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    left: auto;
+    display: flex;
+    flex-direction: row;
+  }
+
+  .option-menu-ctn{
+    position: absolute;
+    bottom: 0;
+    top: auto;
+    left: auto;
+    display: none;
+    display: flex;
+    flex-direction: row;
+  }
+}
+@media only screen and (max-width: 800px) {
+  div.header section.about h1, div.header section.contact h1{
+    font-size: 1.5rem;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+
+  .option-menu-ctn, .contact-info-ctn{
+    display: none;
+  }
+
 }

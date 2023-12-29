@@ -8,12 +8,13 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ContactComponent} from "./shared/components/contact/contact.component";
 import {WorkComponent} from "./shared/components/work/work.component";
 import {ProjectComponent} from "./shared/components/project/project.component";
-import {HttpClient} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient} from "@angular/common/http";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {CustomHttpLoaderFactory} from "./factory/custom-http-loader.factory";
 import {SharedModule} from "./shared/shared.module";
 import {HeaderModule} from "./components/header/header.module";
 import {MeComponent} from "./components/me/me.component";
+import {HttpRequestInterceptor} from "./shared/interceptors/http.request.interceptor";
 
 
 const appRoutes: Routes = [
@@ -71,6 +72,12 @@ export function customHttpLoaderFactory(http: HttpClient) {
     HeaderModule
   ],
   bootstrap: [AppComponent],
+  providers: [
+    // Http Interceptor(s) -  adds with Client Credentials
+    [
+      { provide: HTTP_INTERCEPTORS, useClass: HttpRequestInterceptor, multi: true },
+    ],
+  ],
   exports: [AppComponent]
 })
 export class AppModule { }

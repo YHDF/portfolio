@@ -20,6 +20,9 @@ public class ContactMailProperties {
     @Value("${gmail.reciever.email}")
     private String recieverAddress;
 
+    @Value("${contact.personal.email}")
+    private String contactPersonalEmail;
+
     public String getHostAddress() {
         return hostAddress;
     }
@@ -58,5 +61,13 @@ public class ContactMailProperties {
 
     public void setRecieverAddress(String recieverAddress) {
         this.recieverAddress = recieverAddress;
+    }
+
+    public String getContactPersonalEmail() {
+        return contactPersonalEmail;
+    }
+
+    public void setContactPersonalEmail(String contactPersonalEmail) {
+        this.contactPersonalEmail = contactPersonalEmail;
     }
 }

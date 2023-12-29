@@ -1,12 +1,21 @@
 .option-menu-card {
-  margin: 2vh 2vw;
+  margin: 2vh 1vw;
   padding: 1vh 2vw;
 }
 
 .option-menu-action {
-  margin: 3vh 1vw;
+  margin: 3vh .5vw;
   vertical-align: center;
   width: 64px;
   height: 64px;
   border: none;
+}
+
+
+@media only screen and (max-width: 800px) {
+  .option-menu-action {
+    height: 32px;
+    width: 32px;
+    margin: 1vh 3.5vw;
+  }
 }

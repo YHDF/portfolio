@@ -11,9 +11,21 @@
   //text-align: center;
 }
 
+.three-model-ctn{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+}
+
+.hidden {
+  display: none;
+}
 
 //aspect ratio
-@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9) {
+@media (-webkit-min-device-pixel-ratio: 1.01), (min-resolution: 144dpi), (min-aspect-ratio: 3/4) and (max-aspect-ratio: 16/9) {
   .greeting h1 {
     transform: scale(0.75);
     top: 5vh;

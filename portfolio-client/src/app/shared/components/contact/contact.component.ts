@@ -1,17 +1,9 @@
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-  ViewEncapsulation
-} from '@angular/core';
+import {AfterViewChecked, Component, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
 import {contactMailDto} from "./contact";
 import {ContactService} from "./contact.service";
 import {LightingModeService} from "../../services/lighting-mode.service";
 import {SharedDataProviderService} from "../../services/shared-data-provider.service";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -19,14 +11,17 @@ import {SharedDataProviderService} from "../../services/shared-data-provider.ser
   styleUrls: ['./contact.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class ContactComponent implements OnInit, OnDestroy {
-
-  @ViewChildren('input') inputElements!: QueryList<ElementRef>;
-  @ViewChild('textarea') textAreaField!: ElementRef;
-  @ViewChild('button') buttonField!: ElementRef;
+export class ContactComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   isDarkMode: boolean = false;
-  private inputName: string[] = ["mail", "name", "subject"]
+  contactForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    fullName: new FormControl('', [Validators.required, Validators.minLength(2)]),
+    subject: new FormControl('', Validators.required),
+    message: new FormControl('', [Validators.required, Validators.minLength(10)]),
+  });
+
+  globalErrorMessage: string = "";
 
   constructor(private readonly contactService : ContactService, private lightingModeService: LightingModeService,
   private readonly sharedDataProviderService : SharedDataProviderService) {
@@ -40,54 +35,36 @@ export class ContactComponent implements OnInit, OnDestroy {
   }
 
   sendEmail() {
-    if (this.beforeSend()) {
-      const name = this.getInputvalue("name");
-      const mail = this.getInputvalue("mail");
-      const subject = this.getInputvalue("subject");
-      const message = this.textAreaField.nativeElement.value;
+    if (this.isFormValid()) {
+      const name = this.contactForm.controls.fullName.value!;
+      const mail = this.contactForm.controls.email.value!;
+      const subject = this.contactForm.controls.subject.value!;
+      const message = this.contactForm.controls.message.value!;
       const contactMail = new contactMailDto(name, mail, subject, message);
       this.contactService.sendFormEmail(undefined, contactMail, undefined).subscribe(
         response => {
           // Handle the response here
           console.log('Response:', response);
+          this.contactForm.reset();
         },
         error => {
           // Handle errors here
           console.error('Error:', error);
         }
       );
+    }else{
+      this.globalErrorMessage = `Failed to send. Form is invalid.`
     }
   }
 
-  getInputvalue(inputName: string): any {
-    let inputValue : string = "";
-    this.inputElements.map((item, index) => {
-      if (item.nativeElement.name === inputName) {
-        inputValue = item.nativeElement.value;
-      }
-    });
-    return inputValue
-  }
+   isFormValid = () => this.contactForm.valid ;
 
-  beforeSend(): boolean {
-    let readyToSend = true;
-    console.log(this.inputElements.toArray().length)
-    if (this.inputElements.toArray().length != 3) {
-      console.error("Too many inputs");
-      readyToSend = false;
-    } else {
-      this.inputElements.map(item => {
-        if(!this.inputName.includes(item.nativeElement.name)){
-          console.error("The form attributes were modified");
-          readyToSend = false;
-        }
-      })
-    }
-    return readyToSend;
-  }
 
   ngOnDestroy(): void {
   }
 
 
+  ngAfterViewChecked(): void {
+  }
 }
+

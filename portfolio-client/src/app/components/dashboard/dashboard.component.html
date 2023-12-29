@@ -3,4 +3,7 @@
 <h1 [innerHTML]="'_GREETING_' | translate">
 </h1>
 </div>
-<app-three-model></app-three-model>
+<div *ngIf="!showMe" [ngClass]="{'hidden': showMe}" class="three-model-ctn">
+<app-three-model [showMe]="showMe"></app-three-model>
+</div>
+<app-me *ngIf="showMe"></app-me>

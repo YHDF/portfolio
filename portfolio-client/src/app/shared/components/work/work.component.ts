@@ -19,10 +19,10 @@ import {SharedDataProviderService} from "../../services/shared-data-provider.ser
   styleUrls: ['./work.component.scss'],
   animations: [
     trigger('fillUp', [
-      state('0', style({height: '25%'})),
-      state('1', style({height: '50%'})),
-      state('2', style({height: '75%'})),
-      state('3', style({height: '100%'})),
+      state('0', style({'height': '25%'})),
+      state('1', style({'height': '50%'})),
+      state('2', style({'height': '75%'})),
+      state('3', style({'height': '100%'})),
       transition('* <=> *', [
         animate('.5s')
       ])
@@ -58,6 +58,7 @@ export class WorkComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isEnglishVersion = this.sharedDataProviderService.internationalizationLangService.getLanguage() === LanguageVersion.EN;
     if(this.sharedDataProviderService.experiences.length === 0){
       this.sharedDataProviderService.fetchWorkAndProjects().then(() => {
         this.setExperiencesAndManageUi();
@@ -69,8 +70,10 @@ export class WorkComponent implements OnInit {
 
   setExperiencesAndManageUi() {
     new Promise((resolve, reject) => {
-      this.experiencesEnglishVersion = this.sharedDataProviderService.experiences.filter((value) => value.languageVersion === "US-en");
-      this.experiencesFrenchVersion = this.sharedDataProviderService.experiences.filter((value) => value.languageVersion === "FR-fr");
+      this.experiencesEnglishVersion = this.sharedDataProviderService.experiences
+        .filter((value) => value.languageVersion === LanguageVersion.EN);
+      this.experiencesFrenchVersion = this.sharedDataProviderService.experiences
+        .filter((value) => value.languageVersion === LanguageVersion.FR);
       resolve([this.experiencesEnglishVersion, this.experiencesFrenchVersion])
     }).then(() => {
       setTimeout(() => {
@@ -131,3 +134,10 @@ export class WorkComponent implements OnInit {
     }
   }
 }
+
+
+enum LanguageVersion {
+  FR = "FR-fr",
+  EN = "US-en"
+}
+

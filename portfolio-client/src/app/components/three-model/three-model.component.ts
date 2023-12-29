@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild} from '@angular/core';
 import {THREE} from './three-wrapper';
 import {gsap} from 'gsap';
 import {MotionPathPlugin} from 'gsap/MotionPathPlugin';
@@ -22,13 +22,13 @@ gsap.registerPlugin(MotionPathPlugin);
   templateUrl: './three-model.component.html',
   styleUrls: ['./three-model.component.scss'],
 })
-export class ThreeModelComponent implements AfterViewInit {
-
+export class ThreeModelComponent implements AfterViewInit, OnDestroy {
   static LIGHT_MODE_VALUE = 'light';
+  @Input()
   showMe = false;
+  @ViewChild('threeModelCanvasContainer') threeModelCanvasContainer!: ElementRef;
   lightMode = false;
   threeModelWrapperService: ThreeModelWrapperService | undefined = undefined
-
   constructor(private animationConfigService: AnimationConfigService,
               private el: ElementRef,
               private threeModelBuilderService: ThreeModelBuilderService,
@@ -41,23 +41,31 @@ export class ThreeModelComponent implements AfterViewInit {
   }
 
    ngAfterViewInit(): void {
-    this.showMe = this.sharedDataProviderService.showMe;
     if (!this.showMe) {
       const {scene, camera, lights, materials, geometry} = this.sharedDataProviderService?.threeModelBuilder
       const interactiveIcons = this.sharedDataProviderService?.interactiveIcons;
-
-      const canvas = this.el.nativeElement.querySelector('#room');
+      if(!this.sharedDataProviderService.canvas){
+        this.sharedDataProviderService.canvas = this.el.nativeElement.querySelector('#room')
+      }else{
+        this.el.nativeElement.querySelector('#room').remove()
+        this.threeModelCanvasContainer.nativeElement.appendChild(this.sharedDataProviderService.canvas);
+      }
       new Promise(async (resolve, reject) => {
-        this.threeModelWrapperService = await ThreeModelWrapperService.getInstance(this.threeModelBuilderService, [canvas, scene, camera, lights, geometry, materials, this.animationConfigService]);
+        this.threeModelWrapperService = await ThreeModelWrapperService.getInstance(this.threeModelBuilderService, [this.sharedDataProviderService.canvas, scene, camera, lights, geometry, materials, this.animationConfigService]);
         resolve(this.threeModelWrapperService)
       }).then((value: any) => {
-        this.threeModelWrapperService!.threeModelAnimationService.populateAnimationSuppliers(this.redraw)
-        this.threeModelWrapperService!.threeModelAnimationService.onMouseClick(this.threeModelBuilderService.getThreeModel().getCamera(), this.threeModelBuilderService.getThreeModel().getScene(), interactiveIcons, materialConfig, this.redraw, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
+        this.threeModelWrapperService!.threeModelAnimationService.populateAnimationSuppliers(this.redraw.bind(this))
+        this.threeModelWrapperService!.threeModelAnimationService.onMouseClick(this.threeModelWrapperService?.threeModelBuilderService.getThreeModel().getCamera()!, this.threeModelWrapperService?.threeModelBuilderService.getThreeModel().getScene()!, interactiveIcons, materialConfig, this.beforeAnimation.bind(this), this.afterAnimation.bind(this));
         this.threeModelWrapperService!.threeModelAnimationService.animate();
         this.threeModelWrapperService!.threeModelAnimationService.onResize();
         this.threeModelWrapperService!.threeModelAnimationService.animateCamera(1, true, () => null, this.afterAnimation.bind(this));
       })
     }
+  }
+
+  ngOnDestroy() {
+    ThreeModelWrapperService.destroyInstance();
+    this.el.nativeElement = null;
   }
 
   afterAnimation(animationId?: number) {
@@ -71,7 +79,7 @@ export class ThreeModelComponent implements AfterViewInit {
 
       case 2:
         this.sharedDataProviderService.showIndicatorsSubject$.next(false);
-        this.showMe = this.sharedDataProviderService.showMe = true;
+        this.sharedDataProviderService.showMeSubject$.next(true)
         break;
 
       case 3:
@@ -104,10 +112,10 @@ export class ThreeModelComponent implements AfterViewInit {
   }
 
   redraw(parentObject: string, onInit?: boolean): THREE.Material[] {
-    if (!this.threeModelBuilderService) {
-      this.threeModelBuilderService = new ThreeModelBuilderService();
+    if (!this.threeModelWrapperService!.threeModelBuilderService) {
+      this.threeModelWrapperService!.threeModelBuilderService = new ThreeModelBuilderService();
     }
-    return this.threeModelBuilderService.createMaterials(materialConfig, onInit, parentObject);
+    return this.threeModelWrapperService!.threeModelBuilderService.createMaterials(materialConfig, onInit, parentObject);
   }
 
   bindFirstScreen(){
@@ -132,19 +140,17 @@ export class ThreeModelComponent implements AfterViewInit {
 
   switchLightMode() {
     const currentLightConfig = this.lightMode ? lightModeLightConfig : darkModeLightConfig;
-    this.threeModelBuilderService.removeLights(currentLightConfig, this.threeModelBuilderService.getThreeModel().getScene()!);
+    this.threeModelWrapperService?.threeModelBuilderService.removeLights(currentLightConfig, this.threeModelWrapperService?.threeModelBuilderService.getThreeModel().getScene()!);
     this.lightMode = !this.lightMode;
     const lights = this.lightMode ? this.sharedDataProviderService.lightModelights : this.sharedDataProviderService.darkModelights;
-    this.threeModelBuilderService.addLights(lights, this.threeModelBuilderService.getThreeModel().getScene()!);
+    this.threeModelWrapperService?.threeModelBuilderService.addLights(lights, this.threeModelWrapperService?.threeModelBuilderService.getThreeModel().getScene()!);
     GLTFObjectGroup.getInstance().objects.traverse(object => {
       if (Object.hasOwn(object, "material")) {
-        this.threeModelBuilderService.applyMaterialOptionsConfiguration(object, materialConfig, this.lightMode)
+        this.threeModelWrapperService?.threeModelBuilderService.applyMaterialOptionsConfiguration(object, materialConfig, this.lightMode)
       }
     })
   }
 
 
-  toggleShowMe = (shouldShowMe: boolean) => {
-    this.showMe = shouldShowMe;
-  }
+
 }

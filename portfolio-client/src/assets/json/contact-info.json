@@ -1,0 +1,26 @@
+[
+  {
+    "actionType" : "_ACTION_PHONE_",
+    "actionValue": "+33 6 70 62 73 81",
+    "actionMessage": "Phone number copied to your clipboard",
+    "contactType" : "Phone Number"
+  },
+  {
+    "actionType" : "_ACTION_EMAIL_",
+    "actionValue": "unes.houdaifa@gmail.com",
+    "actionMessage": "Mail address copied to your clipboard",
+    "contactType" : "Email Address"
+  },
+  {
+    "actionType" : "_ACTION_GITHUB_",
+    "actionValue": "https://github.com/YHDF/",
+    "actionMessage": "Opening Github profile in new tab ...",
+    "contactType" : "Github Profile"
+  },
+  {
+    "actionType" : "_ACTION_LINKEDIN_",
+    "actionValue": "https://www.linkedin.com/in/youness-houdaifa-b271b7176/",
+    "actionMessage": "Opening Linkedin profile in new tab ...",
+    "contactType" : "Linkedin Profile"
+  }
+]

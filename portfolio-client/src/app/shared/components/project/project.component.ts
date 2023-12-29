@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Repository} from "../../../components/me/me";
 import {Router} from "@angular/router";
 import {LightingModeService} from "../../services/lighting-mode.service";
@@ -11,7 +11,7 @@ import {SharedDataProviderService} from "../../services/shared-data-provider.ser
   styleUrls: ['./project.component.scss'],
   encapsulation: ViewEncapsulation.Emulated
 })
-export class ProjectComponent implements AfterViewInit{
+export class ProjectComponent implements OnInit{
   isDarkMode: boolean = false;
 
   repositories: Repository[] = [];
@@ -24,7 +24,7 @@ export class ProjectComponent implements AfterViewInit{
       this.isDarkMode = mode === 'dark';
     });
   }
-  ngAfterViewInit() {
+  ngOnInit() {
     if(this.sharedDataProviderService.repositories.length === 0){
       this.sharedDataProviderService.fetchWorkAndProjects().then(() => {
         this.repositories = this.sharedDataProviderService.repositories;

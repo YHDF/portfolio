@@ -27,6 +27,7 @@
     <com-fasterxml-jackson-version>2.15.2</com-fasterxml-jackson-version>
     <javax-inject-version>1</javax-inject-version>
     <spring-context-support-version>5.2.18.RELEASE</spring-context-support-version>
+    <com-sendgrid-java-version>4.10.1</com-sendgrid-java-version>
   </properties>
 
   <dependencyManagement>
@@ -92,6 +93,13 @@
         <artifactId>javax.inject</artifactId>
         <version>${javax-inject-version}</version>
         <scope>compile</scope>
+      </dependency>
+
+      <!-- https://mvnrepository.com/artifact/com.sendgrid/sendgrid-java -->
+      <dependency>
+        <groupId>com.sendgrid</groupId>
+        <artifactId>sendgrid-java</artifactId>
+        <version>${com-sendgrid-java-version}</version>
       </dependency>
 
     </dependencies>

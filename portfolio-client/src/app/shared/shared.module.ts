@@ -14,6 +14,9 @@ import {ContactInfoComponent} from './components/contact-info/contact-info.compo
 import {OptionMenuComponent} from './components/option-menu/option-menu.component';
 import {TranslateModule} from "@ngx-translate/core";
 import {ThreeIndicatorComponent} from './components/three-indicator/three-indicator.component';
+import {ReactiveFormsModule} from "@angular/forms";
+import {ErrorMessageDirective} from './directives/error-message.directive';
+import {IconDirective} from "@coreui/icons-angular";
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import {ThreeIndicatorComponent} from './components/three-indicator/three-indica
     ContactInfoComponent,
     OptionMenuComponent,
     ThreeIndicatorComponent,
+    ErrorMessageDirective,
   ],
     exports: [
         ProjectComponent,
@@ -32,21 +36,24 @@ import {ThreeIndicatorComponent} from './components/three-indicator/three-indica
         CustomAlertComponent,
         ContactComponent,
         LightingModeDirective,
+        ErrorMessageDirective,
         ContactInfoComponent,
         OptionMenuComponent,
         ThreeIndicatorComponent
     ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    BrowserAnimationsModule,
-    CarouselModule,
-    BrowserModule,
-    HttpClientModule,
-    ButtonDirective,
-    SpinnerComponent,
-    TranslateModule,
-  ]
+    imports: [
+        CommonModule,
+        RouterModule,
+        BrowserAnimationsModule,
+        CarouselModule,
+        BrowserModule,
+        HttpClientModule,
+        ButtonDirective,
+        SpinnerComponent,
+        TranslateModule,
+        ReactiveFormsModule,
+        IconDirective,
+    ]
 })
 export class SharedModule {
 }

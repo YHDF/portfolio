@@ -3,7 +3,6 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  Input,
   OnDestroy,
   QueryList,
   ViewChildren,
@@ -28,12 +27,14 @@ export class MeComponent implements AfterViewInit, OnDestroy {
   @ViewChildren('slideL') leftElement!: QueryList<ElementRef>;
   @ViewChildren('slideR') rightElement!: QueryList<ElementRef>;
 
-  public isDarkMode: boolean = false;
+  isDarkMode: boolean = false;
+  isThreeModelHidden: boolean;
 
   constructor(private cdr: ChangeDetectorRef, private readonly meService: MeService,
               private readonly  resumeSseService: ResumeSseService,  private router: Router,
               private lightingModeService: LightingModeService,
               private readonly sharedDataProviderService : SharedDataProviderService) {
+    this.isThreeModelHidden = this.sharedDataProviderService.isThreeModelHidden;
     this.sharedDataProviderService.showHeaderSubject$.next(true)
 
     this.router.events.subscribe(event => {
@@ -47,9 +48,6 @@ export class MeComponent implements AfterViewInit, OnDestroy {
     });
 
   }
-
-  @Input()
-  toggleShowMe : (value : boolean) => void = (value) => {};
 
   ngAfterViewInit() {
     this.sharedDataProviderService.fetchWorkAndProjects();
@@ -116,7 +114,6 @@ export class MeComponent implements AfterViewInit, OnDestroy {
   }
 
   quit(){
-    this.sharedDataProviderService.showMe = false;
-    this.toggleShowMe(this.sharedDataProviderService.showMe);
+    this.sharedDataProviderService.showMeSubject$.next(false)
   }
 }
